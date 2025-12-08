@@ -5,10 +5,11 @@ import { useAuth } from "../../hooks/useAuth";
 import Lottie from "lottie-react";
 import login from "../../assets/lottie/login.json";
 import { FiMail, FiLock } from "react-icons/fi";
+import SocialLogin from "../../components/SocialLogin";
 
 export default function Login() {
   const [authError, setAuthError] = useState("");
-  const { loading, signInWithGoogle, loginUser, setLoading } = useAuth();
+  const { loading, loginUser, setLoading } = useAuth();
 
   const {
     register,
@@ -130,19 +131,7 @@ export default function Login() {
           </div>
 
           {/* Google Login */}
-          <button
-            onClick={signInWithGoogle}
-            className="w-full py-3 bg-white text-blue-800 font-semibold 
-            rounded-xl flex items-center justify-center gap-3 shadow-sm 
-            hover:shadow-lg transition"
-          >
-            <img
-              src="https://img.icons8.com/color/48/google-logo.png"
-              alt="Google"
-              className="w-6"
-            />
-            Continue with Google
-          </button>
+          <SocialLogin></SocialLogin>
           <p className="text-center  mt-4  ">
             Don't have an account? <Link to="/signUp" className="font-semibold text-blue-500 hover:underline">Sign Up</Link>
           </p>

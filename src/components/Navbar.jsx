@@ -26,7 +26,7 @@ const Navbar = () => {
             {!user && (
                 <>
                     <NavLink to="/login" className="mx-2 btn btn-primary rounded-full">Login</NavLink>
-                    <NavLink to="/register" className="mx-2 btn btn-primary rounded-full">Sign Up</NavLink>
+                    <NavLink to="/signUp" className="mx-2 btn btn-primary rounded-full">Sign Up</NavLink>
                 </>
             )}
         </div>

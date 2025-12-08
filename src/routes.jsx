@@ -10,6 +10,7 @@ import NotFound from './pages/Error/NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import { lazy, Suspense } from 'react';
 import Loading from './components/Loading';
+import Contact from './pages/Contact/Contact';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -20,9 +21,10 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> },
+      { path: '/signUp', element: <Register /> },
       { path: '/products', element: <AllProducts /> },
       { path: '/products/:id', element: <ProductDetails /> },
+      { path: '/contact', element:<Contact/>},
       { path: '/booking/:id', element: <BookingForm /> },
     ],
   },
