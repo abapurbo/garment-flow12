@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router';
-import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login';
@@ -9,11 +8,15 @@ import ProductDetails from './pages/Products/ProductDetails';
 import BookingForm from './pages/Booking/BookingForm';
 import NotFound from './pages/Error/NotFound';
 import ProtectedRoute from './ProtectedRoute';
-
+import { lazy, Suspense } from 'react';
+import Loading from './components/Loading';
+const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <Suspense fallback={<Loading />}>
+      <MainLayout></MainLayout>
+    </Suspense>,
     children: [
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },

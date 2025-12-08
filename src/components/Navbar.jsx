@@ -46,7 +46,7 @@ const Navbar = () => {
                 {/* Logo Left */}
                 <div>
                     <Link to="/" className="flex items-center gap-2">
-                        <img className="w-10" src='https://i.ibb.co.com/DPs9ZvkJ/garment-logo-design-scissors-silhouette-combined-with-building-icon-in-a-creative-concept-vector-rem.png' alt="logo" />
+                        <img className="w-10" src={logo} alt="logo" />
                         <h1 className="text-2xl text-black font-bold roboto-font -ml-2">Garment<span className='text-blue-500'>Flow</span></h1>
                     </Link>
                 </div>

@@ -8,6 +8,7 @@ import ExtraSection1 from './ExtraSection1';
 const Home = () => {
   return (
     <div>
+      <Hero></Hero>
       <OurProducts />
       <HowItWorks />
       <Feedback />

@@ -1,122 +1,154 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../hooks/useAuth";
+import Lottie from "lottie-react";
+import login from "../../assets/lottie/login.json";
+import { FiMail, FiLock } from "react-icons/fi";
 
-const Login = () => {
+export default function Login() {
+  const [authError, setAuthError] = useState("");
+  const { loading, signInWithGoogle, loginUser, setLoading } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const password = data.password;
+  const onSubmit = async (data) => {
+    setAuthError("");
+    setLoading(true);
 
-    // Password Validation
-    const hasUpper = /[A-Z]/.test(password);
-    const hasLower = /[a-z]/.test(password);
-    const isLong = password.length >= 6;
-
-    if (!hasUpper) {
-      toast.error("Password must contain an Uppercase letter");
-      return;
+    try {
+      await loginUser(data.email, data.password);
+    } catch (error) {
+      setAuthError(error.message);
+    } finally {
+      setLoading(false);
     }
-    if (!hasLower) {
-      toast.error("Password must contain a Lowercase letter");
-      return;
-    }
-    if (!isLong) {
-      toast.error("Password must be at least 6 characters");
-      return;
-    }
-
-    // Success Login
-    toast.success("Login Successful!");
-    console.log("Form Data:", {
-      ...data,
-      role: "buyer",
-      status: "pending",
-    });
-  };
-
-  // Google Login Placeholder
-  const handleGoogleLogin = () => {
-    const user = {
-      role: "buyer",
-      status: "pending",
-    };
-    toast.success("Google Login Successful!");
-    console.log("Google User ->", user);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div>
-        
-      </div>
-      <div className="card w-full max-w-sm shadow-2xl bg-base-100">
-        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-          <h2 className="card-title text-center text-2xl font-bold">Login</h2>
+    <div className="min-h-screen flex bg-blue-50 items-center justify-center px-4 pt-36 pb-20">
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-white/40 rounded-3xl backdrop-blur-2xl shadow-[0_0px_40px_rgba(0,0,0,0.15)] overflow-hidden">
 
-          {/* Email */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="email@example.com"
-              className="input input-bordered w-full"
-              {...register("email", { required: "Email is required" })}
-            />
+        {/* Left Content */}
+        <div className="hidden md:flex flex-col justify-center items-center py-10 bg-gradient-to-br from-white/70 to-blue-100/40">
+          <h1 className="text-3xl font-bold text-blue-900 drop-shadow-lg text-center">
+            Welcome to{" "}
+            <span className="text-black">
+              Garment<span className="text-blue-400">Flow</span>
+            </span>
+          </h1>
+
+          <p className="text-blue-700 mt-3 text-center text-lg">
+            Sign in to continue your journey!
+          </p>
+
+          <div className="w-[360px] mt-6">
+            <Lottie animationData={login} />
+          </div>
+        </div>
+
+        {/* Login Section */}
+        <div className="md:p-10 p-8 bg-white">
+          {/* Signup Link */}
+          {/* <p className="text-right mb-4 text-sm text-blue-700">
+            Don't have an account?{" "}
+            <Link to="/register" className="font-semibold hover:underline">
+              Sign Up
+            </Link>
+          </p> */}
+
+          <h2 className="text-center text-3xl font-bold text-blue-900 mb-8">
+            Login to Your Account
+          </h2>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+            {/* Email */}
+            <div className="relative">
+              <FiMail
+                className="absolute z-30 left-4 top-1/2 -translate-y-1/2 text-blue-700"
+                size={20}
+              />
+              <input
+                {...register("email", { required: "Email is required" })}
+                type="email"
+                placeholder="Email Address"
+                className="w-full pl-12 px-5 py-3 rounded-xl bg-white/60 
+                text-blue-900 placeholder-blue-400 border border-blue-300 
+                focus:border-blue-500 focus:ring-2 focus:ring-blue-400 
+                outline-none backdrop-blur-sm"
+              />
+            </div>
             {errors.email && (
-              <span className="text-red-500 text-sm">{errors.email.message}</span>
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
-          </div>
 
-          {/* Password */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter password"
-              className="input input-bordered w-full"
-              {...register("password", { required: "Password is required" })}
-            />
+            {/* Password */}
+            <div className="relative">
+              <FiLock
+                className="absolute z-30 left-4 top-1/2 -translate-y-1/2 text-blue-700"
+                size={20}
+              />
+              <input
+                {...register("password", { required: "Password is required" })}
+                type="password"
+                placeholder="Password"
+                className="w-full pl-12 px-5 py-3 rounded-xl bg-white/60 
+                text-blue-900 placeholder-blue-400 border border-blue-300 
+                focus:border-blue-500 focus:ring-2 focus:ring-blue-400 
+                outline-none backdrop-blur-sm"
+              />
+            </div>
             {errors.password && (
-              <span className="text-red-500 text-sm">{errors.password.message}</span>
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
-          </div>
 
-          {/* Login Button */}
-          <div className="form-control mt-4">
-            <button type="submit" className="btn btn-primary w-full">
-              Login
+            {authError && (
+              <p className="text-red-500 text-center text-sm">{authError}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-blue-400 to-blue-600 
+              text-white font-bold py-3 rounded-xl shadow-lg 
+              transform hover:scale-[1.03] transition"
+            >
+              {loading ? "Logging In..." : "Login"}
             </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 my-6">
+            <div className="h-px bg-blue-200/60 flex-grow"></div>
+            <p className="text-blue-700 text-sm">OR</p>
+            <div className="h-px bg-blue-200/60 flex-grow"></div>
           </div>
 
           {/* Google Login */}
           <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="btn btn-outline mt-3 w-full"
+            onClick={signInWithGoogle}
+            className="w-full py-3 bg-white text-blue-800 font-semibold 
+            rounded-xl flex items-center justify-center gap-3 shadow-sm 
+            hover:shadow-lg transition"
           >
+            <img
+              src="https://img.icons8.com/color/48/google-logo.png"
+              alt="Google"
+              className="w-6"
+            />
             Continue with Google
           </button>
-
-          {/* Register Link */}
-          <p className="text-center mt-3">
-            Don't have an account?{" "}
-            <Link to="/register" className="link link-primary">
-              Register
-            </Link>
+          <p className="text-center  mt-4  ">
+            Don't have an account? <Link to="/signUp" className="font-semibold text-blue-500 hover:underline">Sign Up</Link>
           </p>
-        </form>
+
+        </div>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
