@@ -2,8 +2,8 @@ import React from 'react';
 import Hero from './Hero';
 import OurProducts from './OurProducts';
 import HowItWorks from './HowItWorks';
-import Feedback from './Feedback';
 import ExtraSection1 from './ExtraSection1';
+import CustomerFeedback from './CustomerFeedback';
 
 const Home = () => {
   return (
@@ -11,7 +11,7 @@ const Home = () => {
       <Hero></Hero>
       <OurProducts />
       <HowItWorks />
-      <Feedback />
+      <CustomerFeedback />
       <ExtraSection1 />
     </div>
   );

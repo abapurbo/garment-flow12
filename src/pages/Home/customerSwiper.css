@@ -1,0 +1,7 @@
+.my-swiper{
+    height:280px;
+}
+/* Hide Swiper pagination bullets */
+.swiper-pagination {
+    display: none;
+}
