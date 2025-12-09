@@ -20,7 +20,7 @@ export default function Footer() {
         <div>
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} className="h-12" />
-            <span className="text-2xl font-bold text-blue-900">
+            <span className="text-2xl font-bold text-black">
               Garment<span className="text-blue-500">Flow</span>
             </span>
           </Link>
@@ -37,7 +37,7 @@ export default function Footer() {
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-500/10 border border-blue-300 hover:bg-blue-500 hover:text-white transition-all duration-300"
                 href="#"
               >
-                <Icon size={18} className="text-blue-900" />
+                <Icon size={18} className="text-blue-900 hover:text-white" />
               </a>
             ))}
           </div>

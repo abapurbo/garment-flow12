@@ -1,23 +1,50 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
 
-const ProductCard = ({ product }) => {
+export default function ProductCard() {
   return (
-    <div className="card bg-base-100 shadow-xl">
-      <figure>
-        <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{product.name}</h2>
-        <p className="text-gray-600">${product.price}</p>
-        <div className="card-actions justify-end">
-          <Link to={`/products/${product._id}`} className="btn btn-primary">
-            View Details
-          </Link>
+    <div className="card w-full bg-white shadow-2xl 
+      hover:scale-105 hover:shadow-[0_10px_25px_rgba(0,0,0,0.25)]
+      transition-all duration-500 ease-out 
+      rounded-xs overflow-hidden mx-auto">
+
+      {/* Product Image */}
+      <div className="relative h-48 overflow-hidden rounded-t-xl">
+        <img
+          src="https://i.ibb.co/7t7wrMkb/istockphoto-1516524215-612x612-removebg-preview.png"
+          alt="Stylish Sneakers"
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+
+      {/* Product Details */}
+      <div className="p-4">
+        <h2 className="card-title text-lg font-semibold text-gray-800 mb-1 hover:text-blue-600 transition-colors">
+          Stylish Sneakers
+        </h2>
+
+        <p className="text-[15px] text-gray-500 italic mb-2"><span className="text-black">Category:</span> Shoes</p>
+
+        {/* Short Description */}
+        <p className="text-black text-[14px] mb-3 leading-snug line-clamp-2">
+          Premium quality stylish sneakers designed for comfort and durability,
+          perfect for outdoor activities.
+        </p>
+
+        {/* Price & Stock */}
+        <div className="flex justify-between items-center mb-3">
+          <p className="text-blue-600 font-bold text-sm">
+            <span className="text-gray-800">Price:</span> $79.99
+          </p>
+          <p className="text-gray-700 text-sm">
+            <span className="font-semibold">Available:</span> 20 pcs
+          </p>
         </div>
       </div>
+
+      {/* View Details Button */}
+      <button className="w-full py-2 text-sm font-medium cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow hover:shadow-lg transition-all duration-300">
+        View Details
+      </button>
     </div>
   );
-};
-
-export default ProductCard;
+}

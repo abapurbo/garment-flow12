@@ -7,7 +7,7 @@ import ExtraSection1 from './ExtraSection1';
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-gray-50'>
       <Hero></Hero>
       <OurProducts />
       <HowItWorks />
