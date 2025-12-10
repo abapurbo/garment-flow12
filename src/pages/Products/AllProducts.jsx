@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Pagination from '../../components/Pagination';
-
+import ProductCard from '../../components/ProductCard'
+import { FiSearch } from 'react-icons/fi';
 const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortOrder, setSortOrder] = useState("");
   return (
     <div className="pt-34 pb-16 px-6 md:px-12 bg-gray-50 min-h-screen">
       {/* Section Title */}
@@ -12,32 +14,50 @@ const AllProducts = () => {
           All Products
           <span className="block w-20 h-1 bg-blue-600 mt-2 mx-auto rounded-full"></span>
         </h2>
-        <p className="text-gray-600 text-lg">
+        <p className="text-black text-lg">
           Explore our wide range of garments – from trendy fashion to classic essentials. Find the perfect fit for every style and occasion.
         </p>
       </div>
+      {/* Search Field */}
+      <div className="mb-10 flex justify-end  items-center">
 
+        <div className='relative  w-86 right-55 '>
+          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-xl" />
+          <input
+            type="text"
+            placeholder="Search Product..."
+            className="border border-gray-300 pl-12 pr-4 rounded-full py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <fieldset className="fieldset">
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="select rounded-xs border border-gray-300 py-2 w-48 
+               focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Sort by Price</option>
+              <option value="asc">Low → High</option>
+              <option value="desc">High → Low</option>
+            </select>
+          </fieldset>
+        </div>
+      </div>
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
-        {/* Example Product Card */}
-        {/* Replace this with your actual product map */}
-        <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col group">
-          <div className="h-56 w-full overflow-hidden rounded-lg mb-4">
-            <img
-              src="https://via.placeholder.com/300x300"
-              alt="Product"
-              className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-          <h3 className="font-semibold text-lg mb-1 text-gray-800 group-hover:text-blue-600 transition-colors">
-            Product Name
-          </h3>
-          <p className="text-gray-500 mb-2">Category</p>
-          <p className="font-bold text-blue-600 mb-4">$49.99</p>
-          <button className="mt-auto bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            View Details
-          </button>
-        </div>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+
       </div>
 
       {/* Pagination */}

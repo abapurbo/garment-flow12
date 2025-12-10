@@ -17,9 +17,9 @@ export default function ProductCard() {
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
         />
         {/* New Badge */}
-        <span className="absolute top-2 left-2 bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full z-30 shadow">
+        <span className={location?.pathname === '/' && 'absolute top-2 left-2 bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full z-30 shadow'}>
           {
-            location?.pathname==='/'? 'New' : ''
+            location?.pathname === '/' ? 'New' : ''
           }
         </span>
       </div>
