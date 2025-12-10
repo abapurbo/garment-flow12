@@ -11,6 +11,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { lazy, Suspense } from 'react';
 import Loading from './components/Loading';
 import Contact from './pages/Contact/Contact';
+import AboutUs from './pages/AboutUs/AboutUs';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ export const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
       { path: '/signUp', element: <Register /> },
-      { path: '/products', element: <AllProducts /> },
       { path: '/all-products', element: <AllProducts /> },
+      { path: '/aboutUs', element: <AboutUs/> },
       { path: '/products/:id', element: <ProductDetails /> },
       { path: '/contact', element:<Contact/>},
       { path: '/booking/:id', element: <BookingForm /> },

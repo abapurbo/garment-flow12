@@ -54,13 +54,13 @@ export default function BannerSwiper() {
 
 
             <SwiperSlide>
-                <div className="relative w-full h-full bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co.com/wN6pZy3z/sewing-line-layout-3.jpg')]">
+                <div className="relative w-full h-full bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co.com/nq5cVjcW/industrial-sewing-machine-stitching-purple-fabric-factory-textile-production-garment-making-visible.webp')]">
                     {/* Black Overlay */}
                     <div className="absolute inset-0 bg-black/50"></div>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-                <div className="relative w-full h-full bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co.com/xtdt1gLD/1710944496267.png')]">
+                <div className="relative w-full h-full bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co.com/MxVLZsbP/11062b-943ac8a2ed574e4f9d2481ce75d66f65-mv2.avif')]">
                     {/* Black Overlay */}
                     <div className="absolute inset-0 bg-black/50"></div>
                 </div>
