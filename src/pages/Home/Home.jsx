@@ -2,9 +2,9 @@ import React from 'react';
 import Hero from './Hero';
 import OurProducts from './OurProducts';
 import HowItWorks from './HowItWorks';
-import ExtraSection1 from './ExtraSection1';
 import CustomerFeedback from './CustomerFeedback';
 import AchievementsSection from './AchievementsSection';
+import ProductsSection from './ProductsBrandsSection';
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <HowItWorks />
       <CustomerFeedback />
       <AchievementsSection />
-      <ExtraSection1 />
+      <ProductsSection />
     </div>
   );
 };

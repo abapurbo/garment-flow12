@@ -1,0 +1,33 @@
+[
+  {
+    "name": "TrendHive",
+    "tagline": "Trusted Partner",
+    "description": "TrendHive manages packing and delivery for our formal pants collection.",
+    "logoURL": "https://i.ibb.co.com/rR0Md0dd/images-1-removebg-preview-1.png"
+  },
+  {
+    "name": "DenimCraft",
+    "tagline": "Style & Comfort",
+    "description": "DenimCraft works with our denim jackets to ensure top-notch quality.",
+    "logoURL": "https://i.ibb.co.com/3YRLjZjM/images-5.jpg"
+  },
+  {
+    "name": "FashionPulse",
+    "tagline": "Modern Designs",
+    "description": "FashionPulse contributes to our trendy skirt and dress collections.",
+    "logoURL": "https://i.ibb.co.com/B5PNg0pq/beauty-hand-drawn-clothing-store-logo-boutique-637057-230.avif"
+  },
+  
+  {
+    "name": "SwiftWear",
+    "tagline": "Fast Delivery",
+    "description": "SwiftWear ensures our products reach stores on time.",
+    "logoURL": "https://i.ibb.co.com/mVKks0P1/529476-7041758-1381471-10a82481-thumbnail-removebg-preview.png"
+  },
+  {
+    "name": "LogiPack",
+    "tagline": "Trusted Partner",
+    "description": "LogiPack collaborates on packaging and logistics for our collections.",
+    "logoURL": "https://i.ibb.co.com/FkpgFcDX/logipacksolutions-logo.jpg"
+  }
+]

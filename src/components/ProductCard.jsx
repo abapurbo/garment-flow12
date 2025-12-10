@@ -32,17 +32,17 @@ export default function ProductCard() {
 
         {/* Price & Stock */}
         <div className="flex justify-between items-center mb-3">
-          <p className="text-blue-600 font-bold text-sm">
+          <p className="text-green-800 font-bold text-sm">
             <span className="text-gray-800">Price:</span> $79.99
           </p>
-          <p className="text-gray-700 text-sm">
-            <span className="font-semibold">Available:</span> 20 pcs
+          <p className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+            <span className="font-semibold ">Available:</span> 20 pcs
           </p>
         </div>
       </div>
 
       {/* View Details Button */}
-      <button className="w-full py-2 text-sm font-medium cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow hover:shadow-lg transition-all duration-300">
+      <button className="w-full  text-sm font-medium cursor-pointer bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow hover:shadow-lg transition-all duration-300">
         View Details
       </button>
     </div>
