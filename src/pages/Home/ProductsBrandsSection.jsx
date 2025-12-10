@@ -23,7 +23,7 @@ const ProductsBrandsSection = () => {
           pauseOnHover={true}
           loop={0}
           gradient={true}
-          speed={50}
+          speed={80}
         >
           <div className="flex items-center py-4">
             {brands.map((brand, idx) => (

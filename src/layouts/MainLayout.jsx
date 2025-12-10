@@ -21,7 +21,7 @@ const MainLayout = () => {
       </div>
 
       {/* Page Content */}
-      <main className="flex-grow container mx-auto">
+      <main className="flex-grow">
         <Outlet />
       </main>
 

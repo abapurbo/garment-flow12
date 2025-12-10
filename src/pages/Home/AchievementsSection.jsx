@@ -36,7 +36,7 @@ export default function AchievementsSection() {
       {/* Section Title */}
       <SectionTitle
         title="Our Achievements"
-        subtitle="Key Metrics of Garments Order & Production Tracker"
+        subtitle="Driving Efficiency Across Garment Production & Supply Chain"
         description="We take pride in helping garment factories streamline their workflow. 
                      Here are some key metrics demonstrating our impact, highlighting the efficiency, scale, and reliability of our platform."
       />
