@@ -9,7 +9,7 @@ const BrandCard = ({ brand }) => {
         className="w-20 object-contain h-20 "
       />
       <h3 className="text-md font-semibold mb-1">{brand.name}</h3>
-      <p className="text-green-600 font-medium text-xs mb-1">{brand.tagline}</p>
+      <p className="text-blue-500 font-medium text-xs mb-1">{brand.tagline}</p>
       <p className="text-gray-600 text-xs">{brand.description}</p>
     </div>
   );

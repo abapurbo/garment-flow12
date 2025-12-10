@@ -23,7 +23,7 @@ const OurProducts = () => {
         <ProductCard />
         <ProductCard />
       </div>
-      <button className="mt-10  cursor-pointer mx-auto block border text-green-600 border-green-600 hover:bg-green-700 hover:text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+      <button className="mt-10  cursor-pointer mx-auto block border text-blue-500 border-blue-500 hover:bg-blue-700 hover:text-white font-semibold py-2 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
         <Link to="/all-products">
           All Products
         </Link>
