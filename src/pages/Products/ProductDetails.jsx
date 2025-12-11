@@ -1,115 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaStripe } from "react-icons/fa";
-import { useParams } from "react-router";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const [mainImage, setMainImage] = useState(
+    "https://i.ibb.co/0VZc6Ns/tshirt.jpg"
+  );
 
-  // 🔥 Fake Static JSON
   const product = {
-    id: "1",
-    name: "Premium Cotton T-Shirt",
-    image: "https://i.ibb.co/0VZc6Ns/tshirt.jpg",
+    name: "Short Straight Blazer",
     description:
-      "This Premium Cotton T-Shirt is crafted for those who prioritize comfort, durability, and style in their everyday wear. Made from high-quality, breathable soft cotton, this T-shirt delivers a lightweight yet premium feel that keeps you comfortable throughout the day. Whether you're going out for a casual walk, heading to work, or simply relaxing at home, this T-shirt ensures you always feel fresh and confident.",
-    category: "T-Shirt",
+      "This Premium Cotton T-Shirt is crafted for those who prioritize comfort, durability, and style in their everyday wear.",
+    category: "Blazer",
     price: 350,
     quantity: 120,
     minOrder: 5,
     paymentOptions: ["Stripe Payment"],
   };
 
-  // Fake logged-in user
   const user = {
     loggedIn: true,
-    role: "User", // User | Admin | Manager
+    role: "User",
   };
 
-  if (!product) return <p className="text-center py-20">Product Not Found</p>;
-
-  const { name, image, description, category, price, quantity, minOrder } = product;
-
-  // Order access rule
-  const canOrder = user.loggedIn && user.role !== "Admin" && user.role !== "Manager";
+  const canOrder = user.loggedIn && user.role === "User";
 
   return (
-    <div className="pt-32 px-4 md:px-12 pb-16 bg-blue-50 min-h-screen">
-      <div className="grid md:grid-cols-2 gap-10 bg-white p-8 rounded-2xl shadow-lg">
+    <div className="min-h-screen px-16 pt-16 md:pt-34 md:pb-16 ">
 
-        {/* LEFT SIDE IMAGE */}
-        <div className="relative">
-          <img
-            src={image}
-            alt={name}
-            className="rounded-2xl w-full object-cover shadow-lg"
-          />
-          <span className="absolute top-4 left-4 bg-black text-white px-4 py-1 rounded-full text-sm shadow">
-            Garments Collection
-          </span>
+      <div className="max-w-6xl mx-auto
+      bg-blue-50/70 backdrop-blur-xl border border-blue-100
+      hover:shadow-2xl rounded-xs p-10 flex gap-12">
+
+        {/* IMAGE GALLERY */}
+        <div className="space-y-2">
+          <div className="rounded-2xl w-[400px] overflow-hidden shadow-xl 
+          border border-blue-100 bg-white/40 backdrop-blur-md">
+            <img
+              src='https://i.ibb.co/7t7wrMkb/istockphoto-1516524215-612x612-removebg-preview.png'
+              alt={product.name}
+              className="object-cover hover:scale-125 duration-1000 w-full h-[300px]"
+            />
+          </div>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="space-y-5">
-
-          <h1 className="text-4xl font-bold text-gray-800">{name}</h1>
-
-          <p className="text-gray-600 leading-relaxed">{description}</p>
-
-          <div className="space-y-1">
-            <p className="font-medium text-gray-700">
-              <span className="font-bold">Category:</span> {category}
-            </p>
-
-            <p className="text-3xl font-bold text-green-600">
-              {price} BDT
-            </p>
-          </div>
-
-          {/* Quantity */}
-          <div className="bg-gray-50 p-4 rounded-xl border">
-            <p className="text-gray-700">
-              <span className="font-semibold">Available Quantity:</span>{" "}
-              {quantity}
-            </p>
-            <p className="text-gray-700">
-              <span className="font-semibold">Minimum Order:</span>{" "}
-              {minOrder}
-            </p>
-          </div>
-
-          {/* Stripe Payment Option */}
+        {/* PRODUCT INFO */}
+        <div className="flex flex-col justify-between">
           <div>
-            <h3 className="font-semibold text-lg mb-2">Payment Method:</h3>
+            <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>
 
-            <div className="flex gap-3  items-center">
-              <span className="text-4xl text-blue-400 bg-blue-100 px-4  rounded-full">
-                <FaStripe />
-              </span>
-              <span className="text-gray-800 font-medium">
-                Stripe Secure Checkout
-              </span>
+            <div className="flex gap-6 mt-4">
+              {/* LEFT */}
+              <div>
+                <p className="text-gray-700 text-lg">
+                  <span className="font-semibold">
+                    <span className="text-black font-bold">Category</span>:
+                  </span>{" "}
+                  {product.category}
+                </p>
+
+                <p className="text-2xl text-blue-600 font-bold mt-2">
+                  <span className="text-black font-bold">Price:</span> ${product.price}
+                </p>
+              </div>
+
+              {/* RIGHT */}
+              <div className="bg-blue-50/60 backdrop-blur-lg border border-blue-200 
+              rounded-xl p-4 shadow-md">
+                <div className="flex gap-2 text-lg">
+                  <p className="text-black font-bold">Available Quantity:</p>
+                  <p className="text-gray-900 font-semibold">{product.quantity}</p>
+                </div>
+
+                <div className="flex gap-2 text-lg mt-1">
+                  <p className="text-black font-bold">Minimum Order:</p>
+                  <p className="text-gray-900 font-semibold">{product.minOrder}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Options */}
+            <div className="mt-5">
+              <h3 className="text-lg font-semibold mb-2">Payment Options:</h3>
+              {product.paymentOptions.map((option, idx) => (
+                <div key={idx} className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl text-blue-500 
+                  bg-blue-100/60 backdrop-blur-md px-3 rounded-full shadow-md">
+                    <FaStripe />
+                  </span>
+                  <span className="text-gray-800 font-medium">{option}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* ORDER BUTTON */}
           <button
             disabled={!canOrder}
-            onClick={() => {
-              if (canOrder) {
-                alert("Booking Form Open"); // placeholder
-              }
-            }}
-            className={`btn btn-primary w-full text-lg rounded-xl mt-3 transition ${!canOrder ? "btn-disabled cursor-not-allowed" : ""
+            onClick={() => canOrder && alert("Booking Form Open")}
+            className={`w-full py-3 mt-4 text-lg font-semibold rounded-xl transition-all duration-300 
+              ${canOrder
+                ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
           >
             {user.loggedIn
-              ? user.role === "Admin" || user.role === "Manager"
-                ? "Order Not Allowed"
-                : "Order Now"
+              ? canOrder
+                ? "Order Now"
+                : "Order Not Allowed"
               : "Login to Order"}
           </button>
-
         </div>
+      </div>
+
+      {/* PRODUCT DETAILS SECTION */}
+      <div className="mt-10 max-w-6xl mx-auto 
+      bg-blue-50/70 backdrop-blur-xl border border-blue-200
+      p-8 rounded-xs hover:shadow-2xl">
+
+        <h1 className="text-black font-bold text-3xl mb-3">Product Details</h1>
+        <p className="text-gray-700 leading-relaxed">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quia
+          deserunt cumque architecto iste repudiandae perspiciatis quo maxime!
+        </p>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import logo from '../assets/logo/logo.png'
 import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth();
-
+    const location = useLocation()
     const activeClass = "font-extrabold underline text-blue-600";
     const normalClass = "hover:text-blue-500 duration-200 hover:underline";
 
@@ -92,7 +92,7 @@ const Navbar = () => {
 
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-50">
-            <div className="backdrop-blur-3xl bg-black/5  border border-white/20 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl">
+            <div className={`backdrop-blur-3xl ${location.pathname == '/'|| location.pathname == '/aboutUs' ? 'bg-white/5' : 'bg-blue-100'}  border border-white/20 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl`}>
 
                 <div>
                     {/* Logo */}
