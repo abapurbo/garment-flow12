@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import logo from '../assets/logo/logo.png'
+import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
-    const [user, setUser] = useState(null);
+    const { user, logoutUser } = useAuth();
 
     const activeClass = "font-extrabold underline text-blue-600";
     const normalClass = "hover:text-blue-500 duration-200 hover:underline";
@@ -57,9 +58,7 @@ const Navbar = () => {
                         Dashboard
                     </NavLink>
 
-                    <button className="mx-2 btn btn-error btn-sm text-white">
-                        Logout
-                    </button>
+
                 </>
             )}
         </div>
@@ -72,7 +71,7 @@ const Navbar = () => {
                     <NavLink
                         to="/login"
                         className={({ isActive }) =>
-                            isActive ? activeClass : "btn btn-primary rounded-full"
+                            `border-2 px-4 py-2 rounded-xs border-blue-500 text-blue-500 ${isActive ? 'bg-blue-500 text-white' : " hover:bg-blue-500 hover:text-white"}`
                         }
                     >
                         Login
@@ -81,7 +80,7 @@ const Navbar = () => {
                     <NavLink
                         to="/signUp"
                         className={({ isActive }) =>
-                            isActive ? activeClass : "btn btn-primary rounded-full"
+                            `border-2 px-4 py-2 rounded-xs border-blue-500 text-blue-500 ${isActive ? 'bg-blue-500 text-white' : " hover:bg-blue-500 hover:text-white"}`
                         }
                     >
                         Sign Up
@@ -93,18 +92,22 @@ const Navbar = () => {
 
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-50">
-            <div className="backdrop-blur-lg bg-white/10 border border-white/20 shadow-lg flex items-center justify-between px-6 py-3 rounded-2xl">
-                
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-2">
-                    <img className="w-10" src={logo} alt="logo" />
-                    <h1 className="text-2xl text-black font-bold roboto-font -ml-2">
-                        Garment<span className="text-blue-500">Flow</span>
-                    </h1>
-                </Link>
+            <div className="backdrop-blur-3xl bg-black/5  border border-white/20 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl">
+
+                <div>
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-2">
+                        <img className="w-10" src={logo} alt="logo" />
+                        <h1 className="text-2xl text-black font-bold roboto-font -ml-2">
+                            Garment<span className="text-blue-500">Flow</span>
+                        </h1>
+                    </Link>
+                </div>
 
                 {/* Nav Links */}
-                {navLinks}
+                <div>
+                    {navLinks}
+                </div>
 
                 {/* Right Avatar / Auth */}
                 <div className="flex items-center gap-4">
@@ -112,14 +115,30 @@ const Navbar = () => {
 
                     {user && (
                         <div className="dropdown dropdown-end">
-                            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full bg-primary"></div>
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Tailwind CSS Navbar component"
+                                        src={user?.photoURL ? user?.photoURL : 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'} />
+                                </div>
                             </div>
+                            <ul
+                                tabIndex="-1"
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <a className="justify-between">
+                                        Profile
+                                        <span className="badge">New</span>
+                                    </a>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li><button onClick={logoutUser} className='btn btn-outline btn-error'>Logout</button></li>
+                            </ul>
                         </div>
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
