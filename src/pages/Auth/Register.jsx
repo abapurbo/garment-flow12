@@ -47,6 +47,7 @@ const Register = () => {
               photoURL: photo,
               role: data.role
             }
+            console.log(userInfo)
             //insert user collection database
             axiosPublic.post('/user', userInfo)
               .then(res => {
@@ -73,6 +74,7 @@ const Register = () => {
 
           })
       })
+      .catch(err=>console.log(err))
 
   };
 

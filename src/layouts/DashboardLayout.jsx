@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const user = {
   name: "Zahid Hossain",
-  role: "buyer", // admin | manager | buyer
+  role: "manager", // admin | manager | buyer
 };
 
 const DashboardLayout = () => {
@@ -45,7 +45,7 @@ const DashboardLayout = () => {
 
   let roleLinks = [];
   if (user.role === "admin") roleLinks =[dashboardLink,...adminLinks]
-  if (user.role === "manager") roleLinks = [managerLinks,...managerLinks];
+  if (user.role === "manager") roleLinks = [dashboardLink,...managerLinks];
   if (user.role === "buyer") roleLinks = buyerLinks;
 
 
