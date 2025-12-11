@@ -53,7 +53,7 @@ export default function AchievementsSection() {
 
             {/* Animated Number */}
             <div className="text-3xl md:text-4xl font-bold text-gray-800">
-              <CountUp start={0} end={stat.number} duration={2} enableScrollSpy />
+              <CountUp start={0} end={stat?.number} duration={2} enableScrollSpy />
               {stat.id === 4 ? "" : "+"}
             </div>
 
