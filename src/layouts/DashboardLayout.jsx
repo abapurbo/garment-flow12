@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link, useLocation } from "react-router";
+import { Outlet, Link, useLocation, Navigate } from "react-router";
 import logo from '../assets/logo/logo.png';
 import {
   FaUsers, FaBoxOpen, FaClipboardList, FaPlus,
@@ -10,12 +10,14 @@ import { useAuth } from "../hooks/useAuth";
 
 const user = {
   name: "Zahid Hossain",
-  role: "manager", // admin | manager | buyer
+  role: "buyer",
 };
 
 const DashboardLayout = () => {
   const location = useLocation();
-
+  if (user.role === 'buyer' && location.pathname === "/dashboard") {
+    return <Navigate to='/dashboard/my-orders' replace></Navigate>
+  }
   const dashboardLink = { name: "Dashboard", path: "/dashboard", icon: <MdDashboard /> };
 
   const adminLinks = [
@@ -44,15 +46,15 @@ const DashboardLayout = () => {
   ];
 
   let roleLinks = [];
-  if (user.role === "admin") roleLinks =[dashboardLink,...adminLinks]
-  if (user.role === "manager") roleLinks = [dashboardLink,...managerLinks];
+  if (user.role === "admin") roleLinks = [dashboardLink, ...adminLinks]
+  if (user.role === "manager") roleLinks = [dashboardLink, ...managerLinks];
   if (user.role === "buyer") roleLinks = buyerLinks;
 
 
   return (
     <div className="flex h-screen bg-gray-100 font-roboto">
       {/* Sidebar */}
-      <aside className="w-72 bg-white shadow-xl flex flex-col justify-between  p-4">
+      <aside className="w-62 bg-white shadow-xl flex flex-col justify-between  p-4">
         {/* Logo */}
         <div>
           <Link to="/" className="flex items-center gap-3 px-3 py-4 rounded-xl hover:bg-gray-100 transition">
@@ -102,7 +104,7 @@ const DashboardLayout = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
-        <header className="flex justify-between items-center p-5 bg-white shadow-md ">
+        <header className="flex justify-between items-center px-4 py-2 bg-white shadow-md ">
           <h2 className="text-3xl font-bold text-gray-900 tracking-tight">
             Dashboard
           </h2>
@@ -119,7 +121,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Main */}
-        <main className="flex-grow p-6 overflow-auto">
+        <main className="flex-grow p-6 overflow-auto ">
           <Outlet />
         </main>
       </div>

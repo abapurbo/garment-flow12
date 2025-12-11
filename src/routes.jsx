@@ -13,6 +13,8 @@ import Loading from './components/Loading';
 import Contact from './pages/Contact/Contact';
 import AboutUs from './pages/AboutUs/AboutUs';
 import OrderForm from './components/OrderForm';
+import MyOrders from './pages/Dashboard/Buyer/MyOrders';
+import MyProfile from './components/MyProfile';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -34,10 +36,18 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <ProtectedRoute><DashboardLayout /></ProtectedRoute>,
+    element: <Suspense fallback={<Loading />}>
+      <ProtectedRoute><DashboardLayout /></ProtectedRoute>
+    </Suspense>,
     children: [
       {
+        path: '/dashboard/my-orders',
+        element: <MyOrders></MyOrders>
 
+      },
+      {
+        path: '/dashboard/profile',
+        element: <MyProfile></MyProfile>
       }
     ],
   },
