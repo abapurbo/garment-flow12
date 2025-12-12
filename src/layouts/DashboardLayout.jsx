@@ -7,14 +7,16 @@ import {
 } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { useAuth } from "../hooks/useAuth";
+import { useRole } from "../hooks/useRole";
 
 const user = {
   name: "Zahid Hossain",
-  role: "buyer",
+  role: "manager",
 };
 
 const DashboardLayout = () => {
   const location = useLocation();
+  const {role}=useRole()
   if (user.role === 'buyer' && location.pathname === "/dashboard") {
     return <Navigate to='/dashboard/my-orders' replace></Navigate>
   }

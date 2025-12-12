@@ -6,14 +6,14 @@ import registerLogo from '../../assets/lottie/register.json'
 import Lottie from "lottie-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../../hooks/useAuth";
-import useAxiosPublic from "../../hooks/useAxiosPublic"
 import axios from "axios";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
-  const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
   const navigate = useNavigate()
   const [show, setShow] = useState(true)
   const {
@@ -49,7 +49,7 @@ const Register = () => {
             }
             console.log(userInfo)
             //insert user collection database
-            axiosPublic.post('/user', userInfo)
+            axiosSecure.post('/user', userInfo)
               .then(res => {
                 console.log(res)
                 const profile = {
@@ -74,7 +74,7 @@ const Register = () => {
 
           })
       })
-      .catch(err=>console.log(err))
+      .catch(err => console.log(err))
 
   };
 
@@ -179,7 +179,7 @@ const Register = () => {
               <div className="relative">
                 <FiLock className="absolute z-30 left-4 top-1/2 -translate-y-1/2 text-blue-400" size={20} />
                 <input
-                  type={show ?'password':'text'}
+                  type={show ? 'password' : 'text'}
                   placeholder="Password"
                   className="w-full pl-12 px-4 py-2.5 rounded-xl bg-white/70 border border-blue-300 
                 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none backdrop-blur-sm"

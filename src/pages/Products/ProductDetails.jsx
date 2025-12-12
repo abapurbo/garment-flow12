@@ -13,7 +13,7 @@ const ProductDetails = () => {
     price: 350,
     quantity: 120,
     minOrder: 5,
-    paymentOptions: ["Stripe Payment", "Cash on Delivery"], // দুইটি option
+    paymentOptions:"Cash on Delivery"
   };
 
   const user = {
@@ -23,24 +23,18 @@ const ProductDetails = () => {
 
   const canOrder = user.loggedIn && user.role === "buyer";
 
-  const [selectedPayment, setSelectedPayment] = useState(product.paymentOptions[0]);
-
   const handleRedirectOrderForm = () => {
     if (!canOrder) return;
-    // Payment method carry করে orderForm page এ redirect
     navigate("/orderForm", { state: { paymentMethod: selectedPayment } });
   };
 
   return (
-    <div className="min-h-screen px-16 pt-16 md:pt-34 md:pb-16 ">
-      <div className="max-w-6xl mx-auto
-        bg-blue-50/70 backdrop-blur-xl border border-blue-100
-        hover:shadow-2xl rounded-xs p-10 flex gap-12">
+    <div className="min-h-screen px-16 pt-16 md:pt-34 md:pb-16">
+      <div className="max-w-6xl mx-auto bg-blue-50/70 backdrop-blur-xl border border-blue-100 hover:shadow-2xl rounded-xs p-10 flex gap-12">
 
         {/* IMAGE GALLERY */}
         <div className="space-y-2">
-          <div className="rounded-2xl w-[400px] overflow-hidden shadow-xl 
-            border border-blue-100 bg-white/40 backdrop-blur-md">
+          <div className="rounded-2xl w-[400px] overflow-hidden shadow-xl border border-blue-100 bg-white/40 backdrop-blur-md">
             <img
               src="https://i.ibb.co/7t7wrMkb/istockphoto-1516524215-612x612-removebg-preview.png"
               alt={product.name}
@@ -50,7 +44,7 @@ const ProductDetails = () => {
         </div>
 
         {/* PRODUCT INFO */}
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between w-full">
           <div>
             <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>
 
@@ -65,8 +59,7 @@ const ProductDetails = () => {
                 </p>
               </div>
 
-              <div className="bg-blue-50/60 backdrop-blur-lg border border-blue-200 
-                rounded-xl p-4 shadow-md">
+              <div className="bg-blue-50/60 backdrop-blur-lg border border-blue-200 rounded-xl p-4 shadow-md">
                 <div className="flex gap-2 text-lg">
                   <p className="text-black font-bold">Available Quantity:</p>
                   <p className="text-gray-900 font-semibold">{product.quantity}</p>
@@ -79,20 +72,19 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Payment Options Dropdown */}
+            {/* Payment Options */}
             <div className="mt-5">
-              <h3 className="text-lg font-semibold mb-2">Select Payment Method:</h3>
-              <select
-                className="select w-46 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                value={selectedPayment}
-                onChange={(e) => setSelectedPayment(e.target.value)}
-              >
-                {product.paymentOptions.map((option, idx) => (
-                  <option key={idx} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+              <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+              <div className="flex gap-4">
+
+                <span
+                  className='flex text-xs items-center bg-green-100 text-green-500 gap-2 px-4 py-2 rounded-xl font-semibold  transition-all duration-200'
+                >
+                  {product.paymentOptions === 'Stripe Payment' ? <FaStripe /> : <FaMoneyBillWave />}
+                  Cash on Delivery
+                </span>
+
+              </div>
             </div>
           </div>
 
@@ -116,13 +108,9 @@ const ProductDetails = () => {
       </div>
 
       {/* PRODUCT DETAILS SECTION */}
-      <div className="mt-10 max-w-6xl mx-auto 
-        bg-blue-50/70 backdrop-blur-xl border border-blue-200
-        p-8 rounded-xs hover:shadow-2xl">
+      <div className="mt-10 max-w-6xl mx-auto bg-blue-50/70 backdrop-blur-xl border border-blue-200 p-8 rounded-xs hover:shadow-2xl">
         <h1 className="text-black font-bold text-3xl mb-3">Product Details</h1>
-        <p className="text-gray-700 leading-relaxed">
-          {product.description}
-        </p>
+        <p className="text-gray-700 leading-relaxed">{product.description}</p>
       </div>
     </div>
   );
