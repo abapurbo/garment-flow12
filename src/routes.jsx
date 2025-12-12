@@ -15,6 +15,10 @@ import AboutUs from './pages/AboutUs/AboutUs';
 import OrderForm from './components/OrderForm';
 import MyOrders from './pages/Dashboard/Buyer/MyOrders';
 import MyProfile from './components/MyProfile';
+import Forbidden from './components/Forbidden/Forbidden';
+import BuyerPrivateRoute from './ProtectedRoutes/BuyerPrivateRoute';
+import AddProduct from './pages/Dashboard/Manager/AddProduct';
+import ManagerPrivateRoute from './ProtectedRoutes/ManagerPrivateRoute';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -40,10 +44,19 @@ export const router = createBrowserRouter([
       <ProtectedRoute><DashboardLayout /></ProtectedRoute>
     </Suspense>,
     children: [
+      // buyer only routes
       {
         path: '/dashboard/my-orders',
-        element: <MyOrders></MyOrders>
+        element: <BuyerPrivateRoute>
+          <MyOrders></MyOrders>
+        </BuyerPrivateRoute>
 
+      },
+      {
+        path: '/dashboard/add-product',
+        element: <ManagerPrivateRoute>
+          <AddProduct></AddProduct>
+        </ManagerPrivateRoute>
       },
       {
         path: '/dashboard/profile',
@@ -55,4 +68,9 @@ export const router = createBrowserRouter([
     path: '*',
     element: <NotFound />,
   },
+  {
+    path:'/forbidden',
+    element:<Forbidden></Forbidden>
+  }
+
 ]);

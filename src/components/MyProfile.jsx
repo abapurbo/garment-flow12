@@ -53,22 +53,22 @@ export default function MyProfile() {
 
                     {/* Orders Stats */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8 w-full">
-                        <div className="bg-blue-50  rounded-[4px] shadow p-5 flex flex-col items-center">
+                        <div className="bg-blue-50  rounded-[4px] border border-blue-200  shadow p-5 flex flex-col items-center">
                             <FaShoppingCart className="text-4xl text-blue-600" />
                             <h3 className="text-2xl font-bold mt-2">{user.totalOrders}</h3>
                             <p className="text-gray-600 mt-1">Total Orders</p>
                         </div>
-                        <div className="bg-blue-50  rounded-[4px] shadow p-5 flex flex-col items-center">
+                        <div className="bg-blue-50  rounded-[4px] border border-blue-200  shadow p-5 flex flex-col items-center">
                             <FaClock className="text-4xl text-yellow-500" />
                             <h3 className="text-2xl font-bold mt-2">{user.pendingOrders}</h3>
                             <p className="text-gray-600 mt-1">Pending Orders</p>
                         </div>
-                        <div className="bg-blue-50  rounded-[4px] shadow p-5 flex flex-col items-center">
+                        <div className="bg-blue-50  rounded-[4px] border border-blue-200  shadow p-5 flex flex-col items-center">
                             <FaCheckCircle className="text-4xl text-green-600" />
                             <h3 className="text-2xl font-bold mt-2">{user.completedOrders}</h3>
                             <p className="text-gray-600 mt-1">Completed Orders</p>
                         </div>
-                        <div className="bg-blue-50  rounded-[4px] shadow p-5 flex flex-col items-center">
+                        <div className="bg-blue-50  rounded-[4px] border border-blue-200  shadow p-5 flex flex-col items-center">
                             <FaTimesCircle className="text-4xl text-red-600" />
                             <h3 className="text-2xl font-bold mt-2">{user.cancelledOrders}</h3>
                             <p className="text-gray-600 mt-1">Cancelled Orders</p>

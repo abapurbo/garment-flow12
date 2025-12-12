@@ -20,7 +20,6 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
     try {
       await loginUser(data.email, data.password);
 

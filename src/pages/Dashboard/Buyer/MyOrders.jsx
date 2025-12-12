@@ -1,5 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
+import { useRole } from "../../../hooks/useRole";
 
 const MyOrders = () => {
   const orders = [
@@ -53,7 +54,7 @@ const MyOrders = () => {
   }
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-6">My Orders</h2>
+      <h2 className="text-3xl text-blue-900 font-bold mb-6">My Orders</h2>
 
       <div className="overflow-x-auto rounded-xs shadow-2xl bg-white">
         <table className="table">
@@ -107,7 +108,7 @@ const MyOrders = () => {
                 {/* ACTION BUTTONS */}
                 <td className="flex items-center gap-2">
                   {/* VIEW BUTTON */}
-                  <button className="px-3 py-1 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                  <button className="px-3 font-bold py-1 rounded-lg bg-blue-200 text-blue-500 hover:bg-blue-700 hover:text-white">
                     View
                   </button>
 
@@ -117,8 +118,8 @@ const MyOrders = () => {
                     disabled={order.status !== "Pending"}
                     className={`px-3 py-1 rounded-lg  
                       ${order.status === "Pending"
-                        ? "bg-red-600 text-white hover:bg-red-700"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        ? "bg-red-100 font-bold text-red-500 hover:bg-red-700 hover:text-white"
+                        : "bg-gray-300 text-gray-500 font-bold cursor-not-allowed"
                       }`}
                   >
                     Cancel
