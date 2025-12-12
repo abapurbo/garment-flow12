@@ -2,8 +2,11 @@ import React from "react";
 import CountUp from "react-countup";
 import { FaBoxOpen, FaUsers, FaTshirt, FaIndustry } from "react-icons/fa";
 import SectionTitle from "../../components/SectionTitle"; // Adjust path as needed
+import { useRole } from "../../hooks/useRole";
 
 export default function AchievementsSection() {
+  const {role}=useRole()
+  console.log(role)
   const stats = [
     {
       id: 1,

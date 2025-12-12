@@ -88,30 +88,13 @@ export default function Dashboard() {
     createdBy: ["manager1", "manager2"][i % 2],
   }));
 
-  // --- Simple handlers (placeholders, connect to API) ---
-  const handleSuspendUser = (id) => {
-    // Open modal -> collect reason -> call API to suspend
-    alert(`Suspend user id: ${id} (implement modal & API)`);
-  };
-
-  const handleDeleteProduct = (id) => {
-    if (!confirm("Delete product? This cannot be undone.")) return;
-    // call delete API
-    alert(`Deleted product ${id} (mock)`);
-  };
-
-  const handleSearchUsers = (e) => {
-    setUserSearch(e.target.value);
-    setUserPage(1);
-  };
-
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
+    <div className="min-h-screen p-6 bg-gray-50 md:shadow-2xl">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-800">Admin Dashboard</h1>
+            <h1 className="text-3xl font-extrabold text-blue-500">Admin Dashboard</h1>
             <p className="text-sm text-gray-500">Garments Order & Production Tracker — Overview</p>
           </div>
 

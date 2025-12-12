@@ -100,6 +100,7 @@ const DashboardLayout = () => {
                   key={link.name}
                   onClick={() => {
                     logoutUser();
+                    console.log('lsjflsfjlsfjlj')
                   }}
                   className="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all w-full text-left"
                 >
@@ -124,8 +125,8 @@ const DashboardLayout = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
-        <header className="flex justify-between items-center px-4 py-2 bg-white shadow-md">
-          <h2 className="text-3xl font-bold text-blue-500 tracking-tight">Dashboard</h2>
+        <header className="flex justify-end px-4 py-2 bg-white shadow-md">
+          {/* <h2 className="text-3xl font-bold text-blue-500 tracking-tight">Dashboard</h2> */}
 
           <div className="flex items-center gap-3 px-4 py-2">
             <div className="w-10 h-10 rounded-full">

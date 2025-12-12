@@ -15,19 +15,17 @@ const useAxiosSecure = () => {
       config.headers.Authorization = `Bearer ${user?.accessToken}`
       return config
     })
-
+    
     // interceptor response
     const resInterceptor = axiosSecure.interceptors.response.use((response) => {
       return response;
     }, (error) => {
-      console.log(error);
-
       const statusCode = error.status;
       if (statusCode === 401 || statusCode === 403) {
         console.log(statusCode)
         logoutUser()
           .then(() => {
-            // navigate('/login')
+            navigate('/login')
           })
       }
       return Promise.reject(error);
