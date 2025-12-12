@@ -15,14 +15,15 @@ const DashboardLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logoutUser, user } = useAuth();
-  const { role } = useRole();
+  // const { role } = useRole();
+  const role='admin'
 
   // Default dashboard redirect per role
-  if (location.pathname === "/dashboard") {
-    if (role === "buyer") return <Navigate to="/dashboard/my-orders" replace />;
-    if (role === "manager") return <Navigate to="/dashboard/add-product" replace />;
-    if (role === "admin") return <Navigate to="/dashboard/manage-users" replace />;
-  }
+    // if (role === "buyer") return <Navigate to="/dashboard/my-orders" replace />;
+    // if (role === "manager") return <Navigate to="/dashboard/add-product" replace />;
+    // if(role==='admin'){
+    //   // return <Navigate to='/'></Navigate>
+    // }
 
   // Sidebar links per role
   const dashboardLink = { name: "Dashboard", path: "/dashboard", icon: <MdDashboard /> };
@@ -93,7 +94,7 @@ const DashboardLayout = () => {
 
           {/* General Links */}
           <nav className="mt-4 flex flex-col gap-2">
-            {/* {generalLinks.map((link) => (
+            {generalLinks.map((link) => (
               link.action === "logout" ? (
                 <button
                   key={link.name}
@@ -115,7 +116,7 @@ const DashboardLayout = () => {
                   {link.name}
                 </Link>
               )
-            ))} */}
+            ))}
           </nav>
         </div>
       </aside>

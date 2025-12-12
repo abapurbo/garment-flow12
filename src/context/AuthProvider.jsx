@@ -27,12 +27,10 @@ export default function AuthProvider({ children }) {
 
     // create user
     const createUser = (email, password) => {
-        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
     // update user profile
     const updateUserProfile = (profile) => {
-        setLoading(true);
         return updateProfile(auth.currentUser, profile)
     }
     // signIn user
@@ -41,12 +39,10 @@ export default function AuthProvider({ children }) {
     }
     // logout user
     const logoutUser = () => {
-        setLoading(true);
         return signOut(auth)
     }
     // sign in with google
     const signInWithGoogle = () => {
-        setLoading(true);
         return signInWithPopup(auth, googleProvider)
     }
 

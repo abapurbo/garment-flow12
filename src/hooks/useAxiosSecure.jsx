@@ -24,9 +24,10 @@ const useAxiosSecure = () => {
 
       const statusCode = error.status;
       if (statusCode === 401 || statusCode === 403) {
+        console.log(statusCode)
         logoutUser()
           .then(() => {
-            navigate('/login')
+            // navigate('/login')
           })
       }
       return Promise.reject(error);

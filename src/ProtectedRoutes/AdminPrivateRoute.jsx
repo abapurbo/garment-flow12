@@ -10,26 +10,26 @@ export default function BuyerPrivateRoute({ children }) {
   const { role, roleLoading } = useRole();
   const location = useLocation();
 
-  // 1️⃣ First handle auth loading
+  // First handle auth loading
   if (isLoading) {
     return <Loading />;
   }
 
-  // 2️⃣ If no user → redirect to login
+  // If no user → redirect to login
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // 3️⃣ Now wait for role loading
+  //Now wait for role loading
   if (roleLoading) {
     return <Loading />;
   }
 
-  // 4️⃣ If role mismatch → show forbidden
+  // If role mismatch → show forbidden
   if (role !== "buyer") {
     return <Forbidden />;
   }
 
-  // 5️⃣ If everything is correct → show page
+  // If everything is correct → show page
   return children;
 }

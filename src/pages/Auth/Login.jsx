@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../hooks/useAuth";
 import Lottie from "lottie-react";
@@ -11,6 +11,8 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const { loading, loginUser } = useAuth();
+  const location=useLocation();
+  console.log(location)
   const navigate = useNavigate();
   const [show, setShow] = useState(true)
   const {

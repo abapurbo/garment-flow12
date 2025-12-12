@@ -23,6 +23,7 @@ import ManageProducts from './pages/Dashboard/Manager/ManageProducts';
 import PendingOrders from './pages/Dashboard/Manager/PendingOrders';
 import ApprovedOrders from './pages/Dashboard/Manager/ApprovedOrders';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
+import Dashboard from './pages/Dashboard/Dashboard';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -43,49 +44,24 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Suspense fallback={<Loading />}>
-      <ProtectedRoute><DashboardLayout /></ProtectedRoute>
-    </Suspense>,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProtectedRoute>
+          <DashboardLayout />
+        </ProtectedRoute>
+      </Suspense>
+    ),
     children: [
-      // buyer only routes
-      {
-        path: '/dashboard/my-orders',
-        element: <BuyerPrivateRoute>
-          <MyOrders></MyOrders>
-        </BuyerPrivateRoute>
-
-      },
-      // manager only routes
-      {
-        path: '/dashboard/add-product',
-        element: <ManagerPrivateRoute>
-          <AddProduct></AddProduct>
-        </ManagerPrivateRoute>
-      }, {
-        path: '/dashboard/manage-products',
-        element: <ManagerPrivateRoute>
-          <ManageProducts></ManageProducts>
-        </ManagerPrivateRoute>
-      }
-      , {
-        path: '/dashboard/pending-orders',
-        element: <ManagerPrivateRoute>
-          <PendingOrders></PendingOrders>
-        </ManagerPrivateRoute>
-      }
-      , {
-        path: '/dashboard/approved-orders',
-        element: <ManagerPrivateRoute>
-        <ApprovedOrders></ApprovedOrders>
-        </ManagerPrivateRoute>
-      }
-      ,
-      {
-        path: '/dashboard/profile',
-        element: <MyProfile></MyProfile>
-      }
-    ],
-  },
+      { path: '', element: <Dashboard /> },
+      { path: 'my-orders', element: <BuyerPrivateRoute><MyOrders /></BuyerPrivateRoute> },
+      { path: 'add-product', element: <ManagerPrivateRoute><AddProduct /></ManagerPrivateRoute> },
+      { path: 'manage-products', element: <ManagerPrivateRoute><ManageProducts /></ManagerPrivateRoute> },
+      { path: 'pending-orders', element: <ManagerPrivateRoute><PendingOrders /></ManagerPrivateRoute> },
+      { path: 'approved-orders', element: <ManagerPrivateRoute><ApprovedOrders /></ManagerPrivateRoute> },
+      { path: 'profile', element: <MyProfile /> }
+    ]
+  }
+  ,
   {
     path: '*',
     element: <NotFound />,
