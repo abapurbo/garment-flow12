@@ -30,7 +30,7 @@ const AddProduct = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg mt-10">
-      <h2 className="text-2xl font-bold mb-6">Add Product</h2>
+      <h2 className="text-3xl text-blue-500 text-center  font-bold mb-6">Add Product</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
 
         {/* Product Name */}

@@ -124,7 +124,7 @@ const DashboardLayout = () => {
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
         <header className="flex justify-between items-center px-4 py-2 bg-white shadow-md">
-          <h2 className="text-3xl font-bold text-blue-900 tracking-tight">Dashboard</h2>
+          <h2 className="text-3xl font-bold text-blue-500 tracking-tight">Dashboard</h2>
 
           <div className="flex items-center gap-3 px-4 py-2">
             <div className="w-10 h-10 rounded-full">

@@ -19,6 +19,7 @@ import Forbidden from './components/Forbidden/Forbidden';
 import BuyerPrivateRoute from './ProtectedRoutes/BuyerPrivateRoute';
 import AddProduct from './pages/Dashboard/Manager/AddProduct';
 import ManagerPrivateRoute from './ProtectedRoutes/ManagerPrivateRoute';
+import ManageProducts from './pages/Dashboard/Manager/ManageProducts';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -57,7 +58,13 @@ export const router = createBrowserRouter([
         element: <ManagerPrivateRoute>
           <AddProduct></AddProduct>
         </ManagerPrivateRoute>
-      },
+      }, {
+        path: '/dashboard/manage-products',
+        element: <ManagerPrivateRoute>
+          <ManageProducts></ManageProducts>
+        </ManagerPrivateRoute>
+      }
+      ,
       {
         path: '/dashboard/profile',
         element: <MyProfile></MyProfile>
@@ -69,8 +76,8 @@ export const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
-    path:'/forbidden',
-    element:<Forbidden></Forbidden>
+    path: '/forbidden',
+    element: <Forbidden></Forbidden>
   }
 
 ]);
