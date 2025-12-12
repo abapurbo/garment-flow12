@@ -20,6 +20,8 @@ import BuyerPrivateRoute from './ProtectedRoutes/BuyerPrivateRoute';
 import AddProduct from './pages/Dashboard/Manager/AddProduct';
 import ManagerPrivateRoute from './ProtectedRoutes/ManagerPrivateRoute';
 import ManageProducts from './pages/Dashboard/Manager/ManageProducts';
+import PendingOrders from './pages/Dashboard/Manager/PendingOrders';
+import ApprovedOrders from './pages/Dashboard/Manager/ApprovedOrders';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 export const router = createBrowserRouter([
   {
@@ -53,6 +55,7 @@ export const router = createBrowserRouter([
         </BuyerPrivateRoute>
 
       },
+      // manager only routes
       {
         path: '/dashboard/add-product',
         element: <ManagerPrivateRoute>
@@ -62,6 +65,18 @@ export const router = createBrowserRouter([
         path: '/dashboard/manage-products',
         element: <ManagerPrivateRoute>
           <ManageProducts></ManageProducts>
+        </ManagerPrivateRoute>
+      }
+      , {
+        path: '/dashboard/pending-orders',
+        element: <ManagerPrivateRoute>
+          <PendingOrders></PendingOrders>
+        </ManagerPrivateRoute>
+      }
+      , {
+        path: '/dashboard/approved-orders',
+        element: <ManagerPrivateRoute>
+        <ApprovedOrders></ApprovedOrders>
         </ManagerPrivateRoute>
       }
       ,
