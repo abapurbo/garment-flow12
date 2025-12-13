@@ -6,24 +6,12 @@ import Loading from "../components/Loading";
 import Forbidden from "../components/Forbidden/Forbidden";
 
 export default function BuyerPrivateRoute({ children }) {
-  const { user, isLoading } = useAuth();
+  const { isLoading, user } = useAuth();
   const { role, roleLoading } = useRole();
-  const location = useLocation();
   // First handle auth loading
-  if (isLoading) {
+  if (isLoading || roleLoading || !user) {
     return <Loading />;
   }
-
-  // If no user → redirect to login
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  // //Now wait for role loading
-  if (roleLoading) {
-    return <Loading />;
-  }
-
   // If role mismatch → show forbidden
   if (role !== "admin") {
     return <Forbidden />;

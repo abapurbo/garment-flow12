@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useAuth } from "../../../hooks/useAuth";
 const AddProduct = () => {
   const axiosSecure = useAxiosSecure()
+  const { user } = useAuth()
+  console.log(user)
   const [previewImages, setPreviewImages] = useState('')
-  const { register, handleSubmit,reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     const image = data.image[0]
@@ -19,7 +22,9 @@ const AddProduct = () => {
     axios.post(IMG_API_URL, formData)
       .then(res => {
         let imageURL = res.data.data.url
-        const newData = { ...data, image: imageURL }
+        const displayName=user?.displayName 
+        const newData = { ...data, image: imageURL,displayName}
+        console.log(newData)
         //insert user collection database
         axiosSecure.post('/add-product', newData)
           .then(res => {
@@ -35,7 +40,7 @@ const AddProduct = () => {
               setPreviewImages('')
             }
           })
-          .catch(err=>console.log(err))
+          .catch(err => console.log(err))
 
 
 
@@ -149,7 +154,7 @@ const AddProduct = () => {
             onChange={handleImageChange}
             className="w-full file-input file-input-bordered"
           />
-          {errors.images && <p className="text-red-500 text-sm">{errors.images.message}</p>}
+          {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
 
           {/* Preview */}
           <div className="flex gap-2 mt-2 flex-wrap">

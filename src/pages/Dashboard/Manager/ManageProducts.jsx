@@ -1,37 +1,54 @@
 import React, { useRef, useState } from "react";
 import { UpdateProductForm } from "./UpdateProductFrom";
 import Swal from "sweetalert2";
-const dummyProducts = [
-  {
-    id: 1,
-    name: "Blue Shirt",
-    price: 25,
-    stock: 50,
-    paymentOption: "Cash on Delivery",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: 2,
-    name: "Leather Jacket",
-    price: 120,
-    stock: 10,
-    paymentOption: "PayFirst",
-    image: "https://via.placeholder.com/50",
-  },
-  {
-    id: 3,
-    name: "Jeans Pant",
-    price: 40,
-    stock: 30,
-    paymentOption: "Cash on Delivery",
-    image: "https://via.placeholder.com/50",
-  },
-];
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+// const dummyProducts = [
+//   {
+//     id: 1,
+//     name: "Blue Shirt",
+//     price: 25,
+//     stock: 50,
+//     paymentOption: "Cash on Delivery",
+//     image: "https://via.placeholder.com/50",
+//   },
+//   {
+//     id: 2,
+//     name: "Leather Jacket",
+//     price: 120,
+//     stock: 10,
+//     paymentOption: "Stripe",
+//     image: "https://via.placeholder.com/50",
+//   },
+//   {
+//     id: 3,
+//     name: "Jeans Pant",
+//     price: 40,
+//     stock: 30,
+//     paymentOption: "Cash on Delivery",
+//     image: "https://via.placeholder.com/50",
+//   },
+// ];
+
 
 const ManageProducts = () => {
   const [search, setSearch] = useState("");
+  const { user } = useAuth()
   const updateRef = useRef()
-  const filteredProducts = dummyProducts.filter((product) =>
+  const axiosSecure=useAxiosSecure()
+
+  // manage all products
+  const { data:manageProducts, isLoading } = useQuery({
+    queryKey: ['manage products', user?.email],
+    queryFn: async()=>{
+      const res= await axiosSecure.get(`/manage-products?email=${user.email}`)
+      return res.data
+    }
+  })
+
+  const filteredProducts = manageProducts.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
   //  update product modale handle
@@ -40,67 +57,49 @@ const ManageProducts = () => {
     console.log("Update product id:", id);
   };
 
-// const handleDelete = (id) => {
-//   Swal.fire({
-//     title: "Are you sure you want to delete this product?",
-//     text: "This action cannot be undone!",
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonText: "Yes, delete it!",
-//     cancelButtonText: "Cancel"
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       Swal.fire(
-//         "Deleted!",
-//         "The product has been removed successfully.",
-//         "success"
-//       );
-//     }
-//   });
-// };
 
-const handleDelete = (id) => {
-  Swal.fire({
-    title: "Are you sure you want to delete this product?",
-    text: "This action cannot be undone!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "Cancel",
-    reverseButtons: false, // Cancel button on left, confirm on right
-    showClass: {
-      popup: 'animate__animated animate__fadeInDown'
-    },
-    hideClass: {
-      popup: 'animate__animated animate__fadeOutUp'
-    }
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Perform delete logic here
-      Swal.fire({
-        title: "Deleted!",
-        text: "The product has been removed successfully.",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-        position: "top-center",
-        toast: true
-      });
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire({
-        title: "Cancelled",
-        text: "Your product is safe.",
-        icon: "info",
-        timer: 1500,
-        showConfirmButton: false,
-        position: "top-center",
-        toast: true
-      });
-    }
-  });
-};
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this product?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: false, // Cancel button on left, confirm on right
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Perform delete logic here
+        Swal.fire({
+          title: "Deleted!",
+          text: "The product has been removed successfully.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+          position: "top-center",
+          toast: true
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          title: "Cancelled",
+          text: "Your product is safe.",
+          icon: "info",
+          timer: 1500,
+          showConfirmButton: false,
+          position: "top-center",
+          toast: true
+        });
+      }
+    });
+  };
 
 
 
@@ -132,7 +131,6 @@ const handleDelete = (id) => {
               <th>Name</th>
               <th>Price</th>
               <th>Payment Option</th>
-              <th>Stock</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -157,19 +155,20 @@ const handleDelete = (id) => {
                 <td>{product.name}</td>
                 <td>${product.price}</td>
                 <td><span className="bg-green-100 text-green-600 font-semibold px-3 rounded-full py-1">{product.paymentOption}</span></td>
-                <td>{product.stock}</td>
                 <td className="flex gap-2">
                   <button
                     onClick={() => handleUpdate(product.id)}
-                    className="btn btn-sm btn-primary"
+                    data-tip='Update Product'
+                    className="btn btn-sm text-xl tooltip px-3 py-1 bg-blue-100 text-blue-600"
                   >
-                    Update
+                    <FaEdit />
                   </button>
                   <button
                     onClick={() => handleDelete(product.id)}
-                    className="btn btn-sm btn-error"
+                    data-tip="Delete Product"
+                    className="btn btn-sm text-xl tooltip px-3 py-1 text-red-500 bg-red-100"
                   >
-                    Delete
+                    <FaTrash />
                   </button>
                 </td>
               </tr>

@@ -6,23 +6,16 @@ import { useAuth } from "../hooks/useAuth";
 import Forbidden from "../components/Forbidden/Forbidden";
 
 export default function ManagerPrivateRoute({ children }) {
-    const { user, isLoading } = useAuth();
+    const { isLoading ,user} = useAuth();
     const { role, roleLoading } = useRole();
-    const location = useLocation();
-    console.log(role)
     // Loading state
-    if (isLoading || roleLoading) {
+    if (isLoading ||!user || roleLoading) {
         return <Loading />;
-    }
-
-    // If not logged in → redirect to login
-    if (!user) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
     // If logged in but not buyer → show Forbidden page
     if (role !== "manager") {
-        return <Navigate to='/forbidden'></Navigate>;
+        return <Forbidden></Forbidden>
     }
 
     // If user is buyer → allow access
