@@ -104,10 +104,6 @@ export const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFound />,
-  },
-  {
-    path: '/forbidden',
-    element: <Forbidden></Forbidden>
   }
 
 ]);

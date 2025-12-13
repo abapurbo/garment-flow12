@@ -1,26 +1,47 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import axios from "axios";
+import Swal from "sweetalert2";
 const AddProduct = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      name: "",
-      description: "",
-      category: "",
-      price: "",
-      availableQty: "",
-      minOrderQty: "",
-      demoLink: "",
-      paymentOption: "",
-      showOnHome: false,
-    }
-  });
-
-  const [previewImages, setPreviewImages] = useState('');
+  const axiosSecure = useAxiosSecure()
+  const [previewImages, setPreviewImages] = useState('')
+  const { register, handleSubmit,reset, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    alert("Product submitted (static version)");
+    const image = data.image[0]
+
+    const formData = new FormData();
+    formData.append('image', image);
+    console.log('form', formData)
+    const IMG_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imag_api_key}`
+    // create image url
+    axios.post(IMG_API_URL, formData)
+      .then(res => {
+        let imageURL = res.data.data.url
+        const newData = { ...data, image: imageURL }
+        //insert user collection database
+        axiosSecure.post('/add-product', newData)
+          .then(res => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Product added successfully!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              reset()
+              setPreviewImages('')
+            }
+          })
+          .catch(err=>console.log(err))
+
+
+
+      })
+
+      .catch(err => console.log(err))
   };
 
   const handleImageChange = (e) => {
@@ -110,16 +131,21 @@ const AddProduct = () => {
           >
             <option value="">Select Payment Option</option>
             <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="Stripe">Online Payment (Stripe)</option>
           </select>
-          {errors.paymentOption && <p className="text-red-500 text-sm">{errors.paymentOption.message}</p>}
+
+          {errors.paymentOption && (
+            <p className="text-red-500 text-sm">{errors.paymentOption.message}</p>
+          )}
         </div>
+
 
         {/* Images Upload (col-span-2) */}
         <div className="col-span-2">
           <input
             type="file"
             multiple
-            {...register("images", { required: "At least one image is required" })}
+            {...register("image", { required: "At least one image is required" })}
             onChange={handleImageChange}
             className="w-full file-input file-input-bordered"
           />
@@ -135,7 +161,7 @@ const AddProduct = () => {
         {/* Demo Video Link (col-span-2) */}
         <div className="col-span-2">
           <input
-            type="text"
+            type="url"
             placeholder="Demo Video Link (optional)"
             {...register("demoLink")}
             className="w-full input input-bordered"

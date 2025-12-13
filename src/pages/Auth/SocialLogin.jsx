@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 export default function SocialLogin() {
     const { signInWithGoogle } = useAuth();
-    const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
     const handleSocialLogin = () => {
         signInWithGoogle()
@@ -22,7 +21,6 @@ export default function SocialLogin() {
                     .then(res => {
                         console.log('user data has been stored', res.data);
                         toast.success("Logged in successfully!");
-                        navigate(location.state || '/');
                     })
 
             })

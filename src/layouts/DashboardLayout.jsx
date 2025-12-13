@@ -10,53 +10,22 @@ import {
 import { MdDashboard } from "react-icons/md";
 import { useAuth } from "../hooks/useAuth";
 import { useRole } from "../hooks/useRole";
+import Loading from "../components/Loading";
 
 const DashboardLayout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { logoutUser, user } = useAuth();
-  // const { role } = useRole();
-  const role='admin'
-
-  // Default dashboard redirect per role
-    // if (role === "buyer") return <Navigate to="/dashboard/my-orders" replace />;
-    // if (role === "manager") return <Navigate to="/dashboard/add-product" replace />;
-    // if(role==='admin'){
-    //   // return <Navigate to='/'></Navigate>
-    // }
-
+  const { logoutUser, user, isLoading: authLoading } = useAuth();
+  const { role, roleLoading } = useRole();
+  console.log(role)
   // Sidebar links per role
-  const dashboardLink = { name: "Dashboard", path: "/dashboard", icon: <MdDashboard /> };
-
-  const adminLinks = [
-    { name: "Manage Users", path: "/dashboard/manage-users", icon: <FaUsers /> },
-    { name: "All Products", path: "/dashboard/all-products", icon: <FaBoxOpen /> },
-    { name: "All Orders", path: "/dashboard/all-orders", icon: <FaShoppingCart /> },
-  ];
-
-  const managerLinks = [
-    { name: "Add Product", path: "/dashboard/add-product", icon: <FaPlus /> },
-    { name: "Manage Products", path: "/dashboard/manage-products", icon: <FaBoxOpen /> },
-    { name: "Pending Orders", path: "/dashboard/pending-orders", icon: <FaClipboardList /> },
-    { name: "Approve Orders", path: "/dashboard/approved-orders", icon: <FaClipboardList /> },
-    { name: "My Profile", path: "/dashboard/profile", icon: <FaUser /> },
-  ];
-
-  const buyerLinks = [
-    { name: "My Orders", path: "/dashboard/my-orders", icon: <FaShoppingCart /> },
-    { name: "Track Order", path: "/dashboard/track-order", icon: <FaMapMarkedAlt /> },
-    { name: "My Profile", path: "/dashboard/profile", icon: <FaUser /> },
-  ];
-
   const generalLinks = [
     { name: "Settings", path: "/dashboard/settings", icon: <FaCog /> },
     { name: "Logout", action: "logout", icon: <FaSignOutAlt /> },
   ];
 
-  let roleLinks = [];
-  if (role === "admin") roleLinks = [dashboardLink, ...adminLinks];
-  if (role === "manager") roleLinks = managerLinks;
-  if (role === "buyer") roleLinks = buyerLinks;
+  if (roleLoading && authLoading) {
+    return <Loading></Loading>
+  }
 
   return (
     <div className="flex h-screen bg-gray-100 font-roboto">
@@ -72,22 +41,157 @@ const DashboardLayout = () => {
           </Link>
 
           {/* Role-based Navigation */}
-          <nav className="mt-8 flex flex-col gap-2">
-            {roleLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`flex items-center gap-4 px-4 py-3 rounded-xl text-base font-medium transition-all duration-200
-                  ${location.pathname === link.path
-                    ? "bg-blue-600 text-white shadow-lg scale-[1.02]"
-                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                  }`}
-              >
-                <span className="text-xl">{link.icon}</span>
-                {link.name}
-              </Link>
-            ))}
-          </nav>
+          <div className="mt-8 flex flex-col gap-2">
+
+            {/* ===== BUYER ===== */}
+            {role === "buyer" && (
+              <>
+                <Link
+                  to="/dashboard/my-orders"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/my-orders"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaShoppingCart className="text-xl" />
+                  My Orders
+                </Link>
+
+                <Link
+                  to="/dashboard/track-order"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/track-order"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaMapMarkedAlt className="text-xl" />
+                  Track Order
+                </Link>
+              </>
+            )}
+
+            {/* ===== MANAGER ===== */}
+            {role === "manager" && (
+              <>
+                <Link
+                  to="/dashboard/add-product"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/add-product"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaPlus className="text-xl" />
+                  Add Product
+                </Link>
+
+                <Link
+                  to="/dashboard/manage-products"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/manage-products"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaBoxOpen className="text-xl" />
+                  Manage Products
+                </Link>
+
+                <Link
+                  to="/dashboard/pending-orders"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/pending-orders"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaClipboardList className="text-xl" />
+                  Pending Orders
+                </Link>
+
+                <Link
+                  to="/dashboard/approved-orders"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/approved-orders"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaClipboardList className="text-xl" />
+                  Approved Orders
+                </Link>
+              </>
+            )}
+
+            {/* ===== ADMIN ===== */}
+            {role === "admin" && (
+              <>
+
+                <Link
+                  to="/dashboard"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <MdDashboard className="text-xl" />
+                  Dashboard
+                </Link>
+                <Link
+                  to="/dashboard/manage-users"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/manage-users"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaUsers className="text-xl" />
+                  Manage Users
+                </Link>
+
+                <Link
+                  to="/dashboard/all-products"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/all-products"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaBoxOpen className="text-xl" />
+                  All Products
+                </Link>
+
+                <Link
+                  to="/dashboard/all-orders"
+                  className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+          ${location.pathname === "/dashboard/all-orders"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                >
+                  <FaShoppingCart className="text-xl" />
+                  All Orders
+                </Link>
+              </>
+            )}
+
+            {/* ===== COMMON ===== */}
+            <Link
+              to="/dashboard/profile"
+              className={`flex items-center gap-4 px-4 py-3 rounded-xl transition
+      ${location.pathname === "/dashboard/profile"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                }`}
+            >
+              <FaUser className="text-xl" />
+              My Profile
+            </Link>
+          </div>
+
 
           {/* Divider */}
           <div className="mt-6 border-t border-gray-200"></div>
@@ -100,7 +204,6 @@ const DashboardLayout = () => {
                   key={link.name}
                   onClick={() => {
                     logoutUser();
-                    console.log('lsjflsfjlsfjlj')
                   }}
                   className="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all w-full text-left"
                 >

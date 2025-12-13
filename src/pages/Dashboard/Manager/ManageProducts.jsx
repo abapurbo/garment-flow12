@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useRef, useState } from "react";
 const dummyProducts = [
   {
     id: 1,
@@ -29,18 +28,23 @@ const dummyProducts = [
 
 const ManageProducts = () => {
   const [search, setSearch] = useState("");
-
+  const updateRef = useRef()
   const filteredProducts = dummyProducts.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
-
+  //  update product modale handle
   const handleUpdate = (id) => {
+    updateRef.current.showModal()
     console.log("Update product id:", id);
   };
 
   const handleDelete = (id) => {
     console.log("Delete product id:", id);
   };
+
+
+
+
 
   return (
     <div className="p-6">
@@ -112,6 +116,18 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
+      {/* update products modal */}
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      <dialog id="my_modal_3" ref={updateRef} className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click on ✕ button to close</p>
+        </div>
+      </dialog>
     </div>
   );
 };

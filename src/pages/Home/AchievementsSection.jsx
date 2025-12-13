@@ -5,8 +5,6 @@ import SectionTitle from "../../components/SectionTitle"; // Adjust path as need
 import { useRole } from "../../hooks/useRole";
 
 export default function AchievementsSection() {
-  const {role}=useRole()
-  console.log(role)
   const stats = [
     {
       id: 1,
