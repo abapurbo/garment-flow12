@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { UpdateProductForm } from "./UpdateProductFrom";
+import Swal from "sweetalert2";
 const dummyProducts = [
   {
     id: 1,
@@ -38,9 +40,68 @@ const ManageProducts = () => {
     console.log("Update product id:", id);
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete product id:", id);
-  };
+// const handleDelete = (id) => {
+//   Swal.fire({
+//     title: "Are you sure you want to delete this product?",
+//     text: "This action cannot be undone!",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: "Yes, delete it!",
+//     cancelButtonText: "Cancel"
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       Swal.fire(
+//         "Deleted!",
+//         "The product has been removed successfully.",
+//         "success"
+//       );
+//     }
+//   });
+// };
+
+const handleDelete = (id) => {
+  Swal.fire({
+    title: "Are you sure you want to delete this product?",
+    text: "This action cannot be undone!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel",
+    reverseButtons: false, // Cancel button on left, confirm on right
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+      popup: 'animate__animated animate__fadeOutUp'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Perform delete logic here
+      Swal.fire({
+        title: "Deleted!",
+        text: "The product has been removed successfully.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+        position: "top-center",
+        toast: true
+      });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire({
+        title: "Cancelled",
+        text: "Your product is safe.",
+        icon: "info",
+        timer: 1500,
+        showConfirmButton: false,
+        position: "top-center",
+        toast: true
+      });
+    }
+  });
+};
+
 
 
 
@@ -119,13 +180,19 @@ const ManageProducts = () => {
       {/* update products modal */}
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <dialog id="my_modal_3" ref={updateRef} className="modal">
-        <div className="modal-box">
+        <div className="modal-box max-w-3xl relative">
+
+          {/* Close button */}
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
           </form>
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click on ✕ button to close</p>
+
+          <h3 className="font-bold text-blue-500 text-center text-xl mb-4">Update Product</h3>
+
+          {/* React Hook Form starts */}
+          <UpdateProductForm />
         </div>
       </dialog>
     </div>
