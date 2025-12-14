@@ -2,12 +2,12 @@ import React from 'react';
 import SectionTitle from '../../components/SectionTitle';
 import ProductCard from '../../components/ProductCard';
 import { Link } from 'react-router';
-import useFetchPrdoucts from '../../hooks/useFetchPrdoucts';
 import Loading from '../../components/Loading';
+import useFetchProducts from '../../hooks/useFetchPrdoucts';
 
 const OurProducts = () => {
-  const { allProducts = [], isLoading } = useFetchPrdoucts();
-
+  const { allProducts, isLoading } = useFetchProducts();
+  console.log(allProducts)
   return (
     <div
       className="

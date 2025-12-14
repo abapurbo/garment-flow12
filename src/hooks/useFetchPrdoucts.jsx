@@ -1,23 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import useAxiosSecure from "./useAxiosSecure";
 import { useLocation } from "react-router";
-import { useAuth } from "./useAuth";
+import useAxiosPublic from "./useAxiosPublic";
 
-export default function useFetchPrdoucts() {
-    const location = useLocation()
-    const { user, isLoading: authLoading } = useAuth()
-    const showOnPage = location.pathname === '/'
-    console.log(showOnPage)
-    const axiosSecure = useAxiosSecure()
+export default function useFetchProducts() {
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
+    const axiosPublic = useAxiosPublic();
+
     const { data: allProducts = [], isLoading } = useQuery({
-        queryKey: ['all-products', user?.email],
-        enabled: !!user?.email && !authLoading,
+        queryKey: ['home-products', isHomePage],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/all-product?showOnHome=${showOnPage}`)
+            const res = await axiosPublic.get(`/home-products?showOnHome=${isHomePage}`);
+            console.log(res.data)
             return res.data
         }
-
-    })
-    return { allProducts, isLoading }
+    });
+    return { allProducts, isLoading };
 }
