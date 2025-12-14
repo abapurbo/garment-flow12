@@ -8,8 +8,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         className={`px-4 py-2 rounded-lg border transition 
           ${currentPage === 1
-            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-            : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
+            ? "bg-gray-200 dark:bg-gray-700 text-gray-500 cursor-not-allowed"
+            : "bg-white dark:bg-gray-800 text-purple-600 border-purple-600 hover:bg-purple-600 hover:text-white"
           }`}
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
@@ -23,8 +23,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           key={page}
           className={`px-4 py-2 rounded-lg border transition 
             ${currentPage === page
-              ? "bg-blue-600 text-white border-blue-600"
-              : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
+              ? "bg-purple-600 text-white border-purple-600"
+              : "bg-white dark:bg-gray-800 text-purple-600 border-purple-600 hover:bg-purple-600 hover:text-white"
             }`}
           onClick={() => onPageChange(page)}
         >
@@ -36,8 +36,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         className={`px-4 py-2 rounded-lg border transition 
           ${currentPage === totalPages
-            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-            : "bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white"
+            ? "bg-gray-200 dark:bg-gray-700 text-gray-500 cursor-not-allowed"
+            : "bg-white dark:bg-gray-800 text-purple-600 border-purple-600 hover:bg-purple-600 hover:text-white"
           }`}
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}

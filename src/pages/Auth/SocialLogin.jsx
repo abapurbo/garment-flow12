@@ -2,10 +2,11 @@ import React from "react";
 import { useAuth } from '../../hooks/useAuth';
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+
 export default function SocialLogin() {
     const { signInWithGoogle } = useAuth();
-    const axiosSecure = useAxiosSecure()
+    const axiosSecure = useAxiosSecure();
+
     const handleSocialLogin = () => {
         signInWithGoogle()
             .then(result => {
@@ -22,26 +23,29 @@ export default function SocialLogin() {
                         console.log('user data has been stored', res.data);
                         toast.success("Logged in successfully!");
                     })
-
             })
             .catch(error => {
                 console.log(error)
             })
     }
 
-    return <div>
-        <button
-            onClick={handleSocialLogin}
-            className="w-full py-3 bg-white text-blue-800 font-semibold 
-            rounded-xl flex items-center justify-center gap-3 shadow-sm 
-            hover:shadow-lg transition"
-        >
-            <img
-                src="https://img.icons8.com/color/48/google-logo.png"
-                alt="Google"
-                className="w-6"
-            />
-            Continue with Google
-        </button>
-    </div>;
+    return (
+        <div>
+            <button
+                onClick={handleSocialLogin}
+                className="w-full py-3 
+                    bg-blue-50 dark:bg-purple-600 
+                    text-blue-800 dark:text-white 
+                    font-semibold rounded-xl flex items-center justify-center gap-3 
+                    shadow-sm hover:shadow-lg transition"
+            >
+                <img
+                    src="https://img.icons8.com/color/48/google-logo.png"
+                    alt="Google"
+                    className="w-6"
+                />
+                Continue with Google
+            </button>
+        </div>
+    );
 }

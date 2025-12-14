@@ -21,7 +21,7 @@ const MainLayout = () => {
       </div>
 
       {/* Page Content */}
-      <main className="flex-grow">
+      <main className="flex-grow dark:bg-gray-900">
         <Outlet />
       </main>
 

@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 
 .urbanist-font {
@@ -21,3 +24,5 @@
   font-variation-settings:
     "wdth" 100;
 }
+
+

@@ -1,71 +1,24 @@
-import React, { useState } from 'react';
+import React from "react";
 import { Link, NavLink, useLocation } from 'react-router';
 import logo from '../assets/logo/logo.png'
 import { useAuth } from '../hooks/useAuth';
-import { IoSunnyOutline } from "react-icons/io5";
-import { LuMoon } from "react-icons/lu";
+import ThemeChangeIcon from './ThemeChanageIcon';
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth();
-    const location = useLocation()
-    const activeClass = "font-extrabold underline text-blue-600";
-    const normalClass = "hover:text-blue-500 duration-200 hover:underline";
+    const location = useLocation();
+    const activeClass = "font-extrabold underline text-blue-600 dark:text-purple-400";
+    const normalClass = " dark:hover:text-purple-600 duration-200 hover:underline";
 
     const navLinks = (
-        <div className="urbanist-font text-[17px] text-blue-500 hidden lg:block font-bold space-x-4">
-            <NavLink
-                to="/"
-                className={({ isActive }) =>
-                    isActive ? activeClass : normalClass
-                }
-            >
-                Home
-            </NavLink>
-
-            <NavLink
-                to="/all-products"
-                className={({ isActive }) =>
-                    isActive ? activeClass : normalClass
-                }
-            >
-                All Products
-            </NavLink>
-
-            <NavLink
-                to="/aboutUs"
-                className={({ isActive }) =>
-                    isActive ? activeClass : normalClass
-                }
-            >
-                About Us
-            </NavLink>
-
-            <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                    isActive ? activeClass : normalClass
-                }
-            >
-                Contact
-            </NavLink>
-
-            {user?.email && (
-                <>
-                    <NavLink
-                        to="/dashboard"
-                        className={({ isActive }) =>
-                            isActive ? activeClass : normalClass
-                        }
-                    >
-                        Dashboard
-                    </NavLink>
-
-
-                </>
-            )}
+        <div className="urbanist-font text-[17px] hidden lg:block font-bold space-x-4 text-blue-600 dark:text-gray-100">
+            <NavLink to="/" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
+            <NavLink to="/all-products" className={({ isActive }) => isActive ? activeClass : normalClass}>All Products</NavLink>
+            <NavLink to="/aboutUs" className={({ isActive }) => isActive ? activeClass : normalClass}>About Us</NavLink>
+            <NavLink to="/contact" className={({ isActive }) => isActive ? activeClass : normalClass}>Contact</NavLink>
+            {user?.email && <NavLink to="/dashboard" className={({ isActive }) => isActive ? activeClass : normalClass}>Dashboard</NavLink>}
         </div>
     );
-
     const AuthNavLinks = (
         <div className="urbanist-font text-[16px] hidden lg:block font-bold space-x-2">
             {!user && (
@@ -73,7 +26,12 @@ const Navbar = () => {
                     <NavLink
                         to="/login"
                         className={({ isActive }) =>
-                            `border-2 px-4 py-2 rounded-xs border-blue-500 text-blue-500 ${isActive ? 'bg-blue-500 text-white' : " hover:bg-blue-500 hover:text-white"}`
+                            `border-2 px-4 py-2 rounded-xs 
+                         border-blue-600 dark:border-purple-600 
+                         text-blue-600 dark:text-purple-600
+                         ${isActive
+                                ? 'bg-blue-600 dark:bg-purple-600 text-white dark:text-white'
+                                : "hover:bg-blue-600 dark:hover:bg-purple-700 hover:text-white"}`
                         }
                     >
                         Login
@@ -82,7 +40,12 @@ const Navbar = () => {
                     <NavLink
                         to="/signUp"
                         className={({ isActive }) =>
-                            `border-2 px-4 py-2 rounded-xs border-blue-500 text-blue-500 ${isActive ? 'bg-blue-500 text-white' : " hover:bg-blue-500 hover:text-white"}`
+                            `border-2 px-4 py-2 rounded-xs 
+                         border-blue-600 dark:border-purple-600 
+                         text-blue-600 dark:text-purple-600
+                         ${isActive
+                                ? 'bg-blue-600 dark:bg-purple-600 text-white dark:text-white'
+                                : "hover:bg-blue-600 dark:hover:bg-purple-700 hover:text-white"}`
                         }
                     >
                         Sign Up
@@ -94,76 +57,49 @@ const Navbar = () => {
 
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-50">
-            <div className={`backdrop-blur-3xl ${location.pathname == '/' || location.pathname == '/aboutUs' ? 'bg-white/5' : 'bg-blue-50'}  border border-white/20 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl`}>
+            <div className={`backdrop-blur-3xl ${location.pathname === '/' || location.pathname === '/aboutUs' ? 'bg-white/5 dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'} border border-white/20 dark:border-gray-700 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl`}>
 
-                <div>
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center gap-2">
-                        <img className="w-10" src={logo} alt="logo" />
-                        <h1 className="text-2xl text-black font-bold roboto-font -ml-2">
-                            Garment<span className="text-blue-500">Flow</span>
-                        </h1>
-                    </Link>
-                </div>
+                {/* Logo */}
+                <Link to="/" className="flex items-center gap-2">
+                    <img className="w-10" src={logo} alt="logo" />
+                    <h1 className="text-2xl font-bold -ml-2 text-black dark:text-gray-100">
+                        Garment<span className="text-blue-500 dark:text-purple-600">Flow</span>
+                    </h1>
+                </Link>
 
-                {/* Nav Links */}
-                <div>
-                    {navLinks}
-                </div>
+                {/* Navigation Links */}
+                {navLinks}
 
-                {/* Right Avatar / Auth */}
+                {/* Right Section */}
                 <div className="flex items-center gap-4">
-                    <div>
-                        <label className="swap swap-rotate">
-                            {/* this hidden checkbox controls the state */}
-                            <input type="checkbox" className="theme-controller" value="synthwave" />
-
-                            {/* sun icon */}
-                            <span
-                                className="swap-off text-3xl text-blue-500 fill-current">
-                                <IoSunnyOutline />
-                            </span>
-
-                            {/* moon icon */}
-                            <span
-                                className="swap-on text-3xl text-blue-500 fill-current">
-                                <LuMoon />
-                            </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        {AuthNavLinks}
-                    </div>
-
-                    <div>
-                        {user && (
-                            <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-10 rounded-full">
-                                        <img
-                                            alt="Tailwind CSS Navbar component"
-                                            src={user?.photoURL ? user?.photoURL : 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'} />
-                                    </div>
+                    <ThemeChangeIcon />
+                    {AuthNavLinks}
+                    {user && (
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="User Avatar"
+                                        src={user?.photoURL || 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'}
+                                    />
                                 </div>
-                                <ul
-                                    tabIndex="-1"
-                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                    <li>
-                                        <a className="justify-between">
-                                            Profile
-                                            <span className="badge">New</span>
-                                        </a>
-                                    </li>
-                                    <li><a>Settings</a></li>
-                                    <li><button onClick={logoutUser} className='btn btn-outline btn-error'>Logout</button></li>
-                                </ul>
                             </div>
-                        )}
-                    </div>
+                            <ul
+                                tabIndex="-1"
+                                className="menu menu-sm dropdown-content bg-gray-100 dark:bg-gray-800 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <a className="justify-between">Profile<span className="badge">New</span></a>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li>
+                                    <button onClick={logoutUser} className='btn btn-outline btn-error w-full'>Logout</button>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

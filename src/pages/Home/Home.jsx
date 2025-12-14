@@ -8,7 +8,7 @@ import ProductsSection from './ProductsBrandsSection';
 
 const Home = () => {
   return (
-    <div className='bg-gray-50'>
+    <div>
       <Hero></Hero>
       <OurProducts />
       <HowItWorks />

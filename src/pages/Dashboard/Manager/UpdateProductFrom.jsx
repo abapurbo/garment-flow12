@@ -1,13 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-export const UpdateProductForm = ({ handleImageChange, previewImages }) => {
+export const UpdateProductForm = ({ updateFrom }) => {
+  const [previewImages, setPreviewImages] = useState([]);
+
   const {
     register,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      price: "",
+      minOrderQty: "",
+      availableQty: "",
+      category: "",
+      description: "",
+      paymentOption: "",
+      demoLink: "",
+      showOnHome: false,
+    },
+  });
 
+  /* =========================
+     Reset form when data comes
+  ========================== */
+  useEffect(() => {
+    if (updateFrom) {
+      reset({
+        name: updateFrom.name,
+        price: updateFrom.price,
+        minOrderQty: updateFrom.minOrderQty,
+        availableQty: updateFrom.availableQty,
+        category: updateFrom.category,
+        description: updateFrom.description,
+        paymentOption: updateFrom.paymentOption,
+        image:updateFrom.image,
+        demoLink: updateFrom.demoLink || "",
+        showOnHome: updateFrom.showOnHome || false,
+      });
+
+      // existing image preview
+      if (updateFrom.image) {
+        setPreviewImages(updateFrom.image);
+      }
+    }
+  }, [updateFrom, reset]);
+
+  /* =========================
+     Handle new image preview
+  ========================== */
+  const handleImagePreview = (e) => {
+    const files =e.target.files[0];
+    console.log(files)
+    const previews = URL.createObjectURL(files)
+    setPreviewImages(previews);
+  };
+
+  /* =========================
+     Submit
+  ========================== */
   const onSubmit = (data) => {
     const updatedProduct = {
       ...data,
@@ -16,6 +70,7 @@ export const UpdateProductForm = ({ handleImageChange, previewImages }) => {
       minOrderQty: Number(data.minOrderQty),
       showOnHome: data.showOnHome || false,
     };
+
     console.log("Updated Product:", updatedProduct);
   };
 
@@ -24,166 +79,114 @@ export const UpdateProductForm = ({ handleImageChange, previewImages }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-h-[80vh] overflow-auto"
     >
-      {/* Product Name */}
-      <div>
-        <input
-          type="text"
-          placeholder="Product Name / Title"
-          {...register("name", { required: "Product name is required" })}
-          className="w-full input input-bordered"
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm">{errors.name.message}</p>
-        )}
-      </div>
+      {/* Name */}
+      <input
+        {...register("name", { required: "Product name is required" })}
+        placeholder="Product Name"
+        className="input input-bordered"
+      />
+      {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
       {/* Category */}
-      <div>
-        <select
-          {...register("category", { required: "Category is required" })}
-          className="w-full select select-bordered"
-        >
-          <option value="">Select Category</option>
-          <option value="Shirt">Shirt</option>
-          <option value="Pant">Pant</option>
-          <option value="Jacket">Jacket</option>
-          <option value="Accessories">Accessories</option>
-        </select>
-        {errors.category && (
-          <p className="text-red-500 text-sm">{errors.category.message}</p>
-        )}
-      </div>
+      <select
+        {...register("category", { required: "Category is required" })}
+        className="select select-bordered"
+      >
+        <option value="">Select Category</option>
+        <option value="Shirt">Shirt</option>
+        <option value="Pant">Pant</option>
+        <option value="Jacket">Jacket</option>
+        <option value="Accessories">Accessories</option>
+      </select>
 
       {/* Description */}
-      <div className="col-span-2">
+    <div className="col-span-2">
         <textarea
-          placeholder="Product Description"
-          {...register("description", {
-            required: "Description is required",
-          })}
-          className="w-full textarea textarea-bordered"
-          rows={3}
-        ></textarea>
-        {errors.description && (
-          <p className="text-red-500 text-sm">{errors.description.message}</p>
-        )}
-      </div>
+        {...register("description", { required: "Description is required" })}
+        placeholder="Description"
+        rows={3}
+        className="textarea textarea-bordered w-full"
+      />
+    </div>
 
       {/* Price */}
-      <div>
-        <input
-          type="number"
-          placeholder="Price"
-          {...register("price", {
-            required: "Price is required",
-            min: { value: 1, message: "Price must be > 0" },
-          })}
-          className="w-full input input-bordered"
-        />
-        {errors.price && (
-          <p className="text-red-500 text-sm">{errors.price.message}</p>
-        )}
-      </div>
+      <input
+        type="number"
+        {...register("price", { required: "Price required" })}
+        placeholder="Price"
+        className="input input-bordered"
+      />
 
-      {/* Available Quantity */}
-      <div>
-        <input
-          type="number"
-          placeholder="Available Quantity"
-          {...register("availableQty", {
-            required: "Available quantity is required",
-            min: { value: 0, message: "Quantity cannot be negative" },
-          })}
-          className="w-full input input-bordered"
-        />
-        {errors.availableQty && (
-          <p className="text-red-500 text-sm">{errors.availableQty.message}</p>
-        )}
-      </div>
+      {/* Available Qty */}
+      <input
+        type="number"
+        {...register("availableQty", { required: true })}
+        placeholder="Available Quantity"
+        className="input input-bordered"
+      />
 
-      {/* Minimum Order Quantity */}
-      <div>
-        <input
-          type="number"
-          placeholder="Minimum Order Quantity (MOQ)"
-          {...register("minOrderQty", {
-            required: "MOQ is required",
-            min: { value: 1, message: "MOQ must be > 0" },
-          })}
-          className="w-full input input-bordered"
-        />
-        {errors.minOrderQty && (
-          <p className="text-red-500 text-sm">{errors.minOrderQty.message}</p>
-        )}
-      </div>
+      {/* MOQ */}
+      <input
+        type="number"
+        {...register("minOrderQty", { required: true })}
+        placeholder="Minimum Order Quantity"
+        className="input input-bordered"
+      />
 
-      {/* Payment Options */}
-      <div>
-        <select
-          {...register("paymentOption", {
-            required: "Payment option is required",
-          })}
-          className="w-full select select-bordered"
-        >
-          <option value="">Select Payment Option</option>
-          <option value="Cash on Delivery">Cash on Delivery</option>
-          <option value="Stripe">Online Payment (Stripe)</option>
-        </select>
-        {errors.paymentOption && (
-          <p className="text-red-500 text-sm">{errors.paymentOption.message}</p>
-        )}
-      </div>
+      {/* Payment */}
+      <select
+        {...register("paymentOption", { required: true })}
+        className="select select-bordered"
+      >
+        <option value="">Select Payment</option>
+        <option value="Cash on Delivery">Cash on Delivery</option>
+        <option value="Stripe">Stripe</option>
+      </select>
 
-      {/* Images Upload */}
+      {/* Images */}
       <div className="col-span-2">
         <input
           type="file"
-          multiple
-          {...register("image", { required: "At least one image is required" })}
-          onChange={handleImageChange}
-          className="w-full file-input file-input-bordered"
+          defaultValue={updateFrom.image}
+          {...register("image")}
+          onChange={handleImagePreview}
+          className="file-input file-input-bordered w-full"
         />
-        {errors.image && (
-          <p className="text-red-500 text-sm">{errors.image.message}</p>
-        )}
 
-        {/* Preview */}
+        {/* Preview Images */}
         {previewImages && (
-          <div className="flex gap-2 mt-2 flex-wrap">
-            {previewImages.map((img, idx) => (
+          <div className="flex gap-3 mt-3 flex-wrap">
+            
               <img
-                key={idx}
-                src={img}
-                alt={`preview-${idx}`}
-                className="w-20 h-20 object-cover rounded"
+                src={previewImages}
+                alt="preview"
+                className="w-20 h-20 rounded object-cover border"
               />
-            ))}
+          
           </div>
         )}
       </div>
 
-      {/* Demo Video Link */}
-      <div className="col-span-2">
+      {/* Demo Link */}
+      <div className=" col-span-2">
         <input
           type="url"
-          placeholder="Demo Video Link (optional)"
           {...register("demoLink")}
-          className="w-full input input-bordered"
+          placeholder="Demo video link"
+          className="input input-bordered w-full"
         />
       </div>
 
-      {/* Show on Home Page */}
+      {/* Show On Home */}
       <div className="col-span-2 flex items-center gap-2">
         <input type="checkbox" {...register("showOnHome")} className="checkbox" />
         <span>Show on Home Page</span>
       </div>
 
       {/* Submit */}
-      <div className="col-span-2">
-        <button type="submit" className="btn btn-primary w-full mt-2">
-          Update Product
-        </button>
-      </div>
+      <button type="submit" className="btn btn-primary col-span-2">
+        Update Product
+      </button>
     </form>
   );
 };

@@ -5,7 +5,16 @@ import { Link } from 'react-router';
 
 const OurProducts = () => {
   return (
-    <div className="py-12 px-16">
+    <div
+      className="
+        py-12 px-16
+        bg-white
+        dark:bg-gradient-to-b
+        dark:from-[#151826]
+        dark:via-[#141728]
+        dark:to-[#0F1220]
+      "
+    >
       {/* Latest Products Section Title */}
       <SectionTitle
         title="Our Products"
@@ -14,7 +23,6 @@ const OurProducts = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        {/* Products will be displayed here */}
         <ProductCard />
         <ProductCard />
         <ProductCard />
@@ -23,12 +31,20 @@ const OurProducts = () => {
         <ProductCard />
         <ProductCard />
       </div>
-      <button className="mt-10  cursor-pointer mx-auto block border text-blue-500 border-blue-500 hover:bg-blue-700 hover:text-white font-semibold py-2 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-        <Link to="/all-products">
-          All Products
-        </Link>
-      </button>
 
+      <button
+        className="
+          mt-10 mx-auto block cursor-pointer
+          border border-blue-500 text-blue-500
+          hover:bg-blue-700 hover:text-white
+          dark:border-[#2B6FFF] dark:text-[#6FA3FF]
+          dark:hover:bg-[#2B6FFF] dark:hover:text-white
+          font-semibold py-2 px-8 rounded-full
+          shadow-lg hover:shadow-xl transition-all duration-300
+        "
+      >
+        <Link to="/all-products">All Products</Link>
+      </button>
     </div>
   );
 };

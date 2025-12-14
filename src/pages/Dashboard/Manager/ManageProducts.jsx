@@ -11,7 +11,7 @@ const ManageProducts = () => {
   const { user } = useAuth();
   const updateRef = useRef();
   const axiosSecure = useAxiosSecure();
-
+  const [updateFrom,setUpdateFrom]=useState({})
   const [searchText, setSearchText] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -36,7 +36,7 @@ const ManageProducts = () => {
   useEffect(() => {
     const delay = setTimeout(() => {
       if (searchText.trim() === "") {
-        refetch(); 
+        refetch();
       } else {
         axiosSecure
           .get(`/search-products?searchText=${searchText}`)
@@ -52,10 +52,9 @@ const ManageProducts = () => {
   /* =========================
      Update Modal
   ========================== */
-  const handleUpdate = (id) => {
-    console.log("Update product id:", id);
+  const handleUpdate = () => {
     updateRef.current.showModal();
-  };
+  }
 
   /* =========================
      Delete Product
@@ -87,8 +86,8 @@ const ManageProducts = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold text-blue-900 mb-6">
+    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <h2 className="text-3xl font-bold text-blue-900 dark:text-purple-400 mb-6">
         Manage Products
       </h2>
 
@@ -96,15 +95,19 @@ const ManageProducts = () => {
       <input
         type="text"
         placeholder="Search by product name..."
-        className="input input-bordered w-full md:w-1/2 mb-4 focus:outline-0 focus:outline-white focus-within:ring-1 focus-within:ring-blue-400"
+        className="input input-bordered w-full md:w-1/2 mb-4
+          focus:outline-0 focus:ring-1 
+          focus:ring-blue-400 dark:focus:ring-purple-500
+          border border-gray-300 dark:border-gray-700 
+          bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg shadow bg-white">
+      <div className="overflow-x-auto rounded-lg shadow bg-white dark:bg-gray-800">
         <table className="table w-full">
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -118,14 +121,14 @@ const ManageProducts = () => {
           <tbody>
             {filteredProducts.length === 0 && (
               <tr>
-                <td colSpan="6" className="text-center text-2xl font-bold text-blue-500  py-20">
+                <td colSpan="6" className="text-center text-2xl font-bold text-blue-500 dark:text-purple-400 py-20">
                   No products found
                 </td>
               </tr>
             )}
 
             {filteredProducts.map((product, index) => (
-              <tr key={product._id}>
+              <tr key={product._id} className="text-gray-900 dark:text-gray-100">
                 <td>{index + 1}</td>
                 <td>
                   <img
@@ -137,20 +140,23 @@ const ManageProducts = () => {
                 <td>{product.name}</td>
                 <td>${product.price}</td>
                 <td>
-                  <span className="bg-green-100 px-3 py-1 rounded-full text-green-600">
+                  <span className="bg-green-100 dark:bg-green-700 px-3 py-1 rounded-full text-green-600 dark:text-green-300">
                     {product.paymentOption}
                   </span>
                 </td>
                 <td className="flex gap-2">
                   <button
-                    onClick={() => handleUpdate(product._id)}
-                    className="btn btn-sm bg-blue-100 text-blue-600"
+                    onClick={() =>{
+                      handleUpdate();
+                      setUpdateFrom(product)
+                    }}
+                    className="btn btn-sm bg-blue-100 text-blue-600 dark:bg-purple-100 dark:text-purple-600"
                   >
                     <FaEdit />
                   </button>
                   <button
                     onClick={() => handleDelete(product._id)}
-                    className="btn btn-sm bg-red-100 text-red-600"
+                    className="btn btn-sm bg-red-100 text-red-600 dark:bg-red-200 dark:text-red-700"
                   >
                     <FaTrash />
                   </button>
@@ -163,13 +169,13 @@ const ManageProducts = () => {
 
       {/* Update Modal */}
       <dialog ref={updateRef} className="modal">
-        <div className="modal-box max-w-3xl">
+        <div className="modal-box max-w-3xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <form method="dialog">
             <button className="btn btn-sm btn-circle absolute right-2 top-2">
               ✕
             </button>
           </form>
-          <UpdateProductForm />
+          <UpdateProductForm updateFrom={updateFrom} />
         </div>
       </dialog>
     </div>

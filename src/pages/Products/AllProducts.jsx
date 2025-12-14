@@ -1,63 +1,60 @@
 import React, { useState } from 'react';
 import Pagination from '../../components/Pagination';
-import ProductCard from '../../components/ProductCard'
+import ProductCard from '../../components/ProductCard';
 import { FiSearch } from 'react-icons/fi';
+
 const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('')
-  const [sortOrder, setSortOrder] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
+
   return (
-    <div className="pt-34 pb-16 px-16 md:px-16 bg-gray-50 min-h-screen">
+    <div className="pt-34 pb-16 px-4 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      
       {/* Section Title */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-3 relative inline-block">
+        <h2 className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3 relative inline-block">
           All Products
-          <span className="block w-20 h-1 bg-blue-600 mt-2 mx-auto rounded-full"></span>
+          <span className="block w-20 h-1 bg-blue-600 dark:bg-blue-400 mt-2 mx-auto rounded-full"></span>
         </h2>
-        <p className="text-black text-lg">
+        <p className="text-gray-800 dark:text-gray-300 text-lg">
           Explore our wide range of garments – from trendy fashion to classic essentials. Find the perfect fit for every style and occasion.
         </p>
       </div>
-      {/* Search Field */}
-      <div className="mb-10 flex justify-end  items-center">
 
-        <div className='relative  w-86 right-55 '>
-          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-xl" />
+      {/* Search & Sort */}
+      <div className="mb-10 flex flex-col md:flex-row justify-end items-center gap-4">
+        {/* Search Input */}
+        <div className="relative w-full md:w-80">
+          <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300 text-xl" />
           <input
             type="text"
             placeholder="Search Product..."
-            className="border border-gray-300 pl-12 pr-4 rounded-full py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full border border-gray-300 dark:border-gray-700 rounded-full py-2 pl-10 pr-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div>
-          <fieldset className="fieldset">
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="select rounded-xs border border-gray-300 py-2 w-48 
-               focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Sort by Price</option>
-              <option value="asc">Low → High</option>
-              <option value="desc">High → Low</option>
-            </select>
-          </fieldset>
+        {/* Sort Dropdown */}
+        <div className="w-full md:w-48">
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="w-full select border border-gray-300 dark:border-gray-700 rounded-md py-2 px-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Sort by Price</option>
+            <option value="asc">Low → High</option>
+            <option value="desc">High → Low</option>
+          </select>
         </div>
       </div>
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-10  gap-8 mt-10">
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
 
+      {/* Products Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
+        {[...Array(8)].map((_, idx) => (
+          <ProductCard key={idx} />
+        ))}
       </div>
 
       {/* Pagination */}
