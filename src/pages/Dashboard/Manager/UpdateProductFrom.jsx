@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useAuth } from "../../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
-export const UpdateProductForm = ({ updateFrom }) => {
+export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => {
   const [previewImages, setPreviewImages] = useState([]);
-
+  const axiosSecure = useAxiosSecure()
+  const { user } = useAuth()
   const {
     register,
     handleSubmit,
@@ -37,7 +42,7 @@ export const UpdateProductForm = ({ updateFrom }) => {
         category: updateFrom.category,
         description: updateFrom.description,
         paymentOption: updateFrom.paymentOption,
-        image:updateFrom.image,
+        image: updateFrom.image,
         demoLink: updateFrom.demoLink || "",
         showOnHome: updateFrom.showOnHome || false,
       });
@@ -53,7 +58,7 @@ export const UpdateProductForm = ({ updateFrom }) => {
      Handle new image preview
   ========================== */
   const handleImagePreview = (e) => {
-    const files =e.target.files[0];
+    const files = e.target.files[0];
     console.log(files)
     const previews = URL.createObjectURL(files)
     setPreviewImages(previews);
@@ -70,123 +75,160 @@ export const UpdateProductForm = ({ updateFrom }) => {
       minOrderQty: Number(data.minOrderQty),
       showOnHome: data.showOnHome || false,
     };
+    //update product info
+    axiosSecure.patch(`/update-product/${updateFrom._id}?email=${user?.email}`, updatedProduct)
+      .then(res => {
+        console.log(res.data)
+        if (res.data.modifiedCount > 0) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product updated successfully!",
+            showConfirmButton: false,
+            timer: 1500
+          });
 
-    console.log("Updated Product:", updatedProduct);
+          refetch();
+          handleCloseModal(); // Move it here
+        }
+        else {
+          Swal.fire({
+            position: "top-center",
+            icon: "error",
+            title: "Your product was not updated!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch()
+          handleCloseModal()
+        }
+      })
+      .catch(err => {
+
+        console.log(err)
+      });
+
+
+
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-h-[80vh] overflow-auto"
-    >
-      {/* Name */}
-      <input
-        {...register("name", { required: "Product name is required" })}
-        placeholder="Product Name"
-        className="input input-bordered"
-      />
-      {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-
-      {/* Category */}
-      <select
-        {...register("category", { required: "Category is required" })}
-        className="select select-bordered"
+    <div>
+      <h1 className="dark:text-purple-600 text-2xl text-center  font-bold text-blue-500">Update Product</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-h-[80vh] overflow-auto"
       >
-        <option value="">Select Category</option>
-        <option value="Shirt">Shirt</option>
-        <option value="Pant">Pant</option>
-        <option value="Jacket">Jacket</option>
-        <option value="Accessories">Accessories</option>
-      </select>
-
-      {/* Description */}
-    <div className="col-span-2">
-        <textarea
-        {...register("description", { required: "Description is required" })}
-        placeholder="Description"
-        rows={3}
-        className="textarea textarea-bordered w-full"
-      />
-    </div>
-
-      {/* Price */}
-      <input
-        type="number"
-        {...register("price", { required: "Price required" })}
-        placeholder="Price"
-        className="input input-bordered"
-      />
-
-      {/* Available Qty */}
-      <input
-        type="number"
-        {...register("availableQty", { required: true })}
-        placeholder="Available Quantity"
-        className="input input-bordered"
-      />
-
-      {/* MOQ */}
-      <input
-        type="number"
-        {...register("minOrderQty", { required: true })}
-        placeholder="Minimum Order Quantity"
-        className="input input-bordered"
-      />
-
-      {/* Payment */}
-      <select
-        {...register("paymentOption", { required: true })}
-        className="select select-bordered"
-      >
-        <option value="">Select Payment</option>
-        <option value="Cash on Delivery">Cash on Delivery</option>
-        <option value="Stripe">Stripe</option>
-      </select>
-
-      {/* Images */}
-      <div className="col-span-2">
+        {/* Name */}
         <input
-          type="file"
-          defaultValue={updateFrom.image}
-          {...register("image")}
-          onChange={handleImagePreview}
-          className="file-input file-input-bordered w-full"
+          {...register("name", { required: "Product name is required" })}
+          placeholder="Product Name"
+          className="input input-bordered"
+        />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
+        {/* Category */}
+        <select
+          {...register("category", { required: "Category is required" })}
+          className="select select-bordered"
+        >
+          <option value="">Select Category</option>
+          <option value="Shirt">Shirt</option>
+          <option value="Pant">Pant</option>
+          <option value="Jacket">Jacket</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+
+        {/* Description */}
+        <div className="col-span-2">
+          <textarea
+            {...register("description", { required: "Description is required" })}
+            placeholder="Description"
+            rows={3}
+            className="textarea textarea-bordered w-full"
+          />
+        </div>
+
+        {/* Price */}
+        <input
+          type="number"
+          {...register("price", { required: "Price required" })}
+          placeholder="Price"
+          className="input input-bordered"
         />
 
-        {/* Preview Images */}
-        {previewImages && (
-          <div className="flex gap-3 mt-3 flex-wrap">
-            
+        {/* Available Qty */}
+        <input
+          type="number"
+          {...register("availableQty", { required: true })}
+          placeholder="Available Quantity"
+          className="input input-bordered"
+        />
+
+        {/* MOQ */}
+        <input
+          type="number"
+          {...register("minOrderQty", { required: true })}
+          placeholder="Minimum Order Quantity"
+          className="input input-bordered"
+        />
+
+        {/* Payment */}
+        <select
+          {...register("paymentOption", { required: true })}
+          className="select select-bordered"
+        >
+          <option value="">Select Payment</option>
+          <option value="Cash on Delivery">Cash on Delivery</option>
+          <option value="Stripe">Stripe</option>
+        </select>
+
+        {/* Images */}
+        <div className="col-span-2">
+          <input
+            type="file"
+            defaultValue={updateFrom.image}
+            {...register("image")}
+            onChange={handleImagePreview}
+            className="file-input file-input-bordered w-full"
+          />
+
+          {/* Preview Images */}
+          {previewImages && (
+            <div className="flex gap-3 mt-3 flex-wrap">
+
               <img
                 src={previewImages}
                 alt="preview"
                 className="w-20 h-20 rounded object-cover border"
               />
-          
-          </div>
-        )}
-      </div>
 
-      {/* Demo Link */}
-      <div className=" col-span-2">
-        <input
-          type="url"
-          {...register("demoLink")}
-          placeholder="Demo video link"
-          className="input input-bordered w-full"
-        />
-      </div>
+            </div>
+          )}
+        </div>
 
-      {/* Show On Home */}
-      <div className="col-span-2 flex items-center gap-2">
-        <input type="checkbox" {...register("showOnHome")} className="checkbox" />
-        <span>Show on Home Page</span>
-      </div>
+        {/* Demo Link */}
+        <div className=" col-span-2">
+          <input
+            type="url"
+            {...register("demoLink")}
+            placeholder="Demo video link"
+            className="input input-bordered w-full"
+          />
+        </div>
 
-      {/* Submit */}
-      <button type="submit" className="btn btn-primary col-span-2">
-        Update Product
-      </button>
-    </form>
+        {/* Show On Home */}
+        <div className="col-span-2 flex items-center gap-2">
+          <input type="checkbox" {...register("showOnHome")} className="checkbox" />
+          <span>Show on Home Page</span>
+        </div>
+
+        {/* Submit */}
+        <button type="submit" className="btn btn-primary dark:bg-purple-700 col-span-2">
+          Update Product
+        </button>
+      </form>
+      <Toaster></Toaster>
+    </div>
   );
 };

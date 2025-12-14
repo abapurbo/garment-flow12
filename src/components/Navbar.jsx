@@ -56,7 +56,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-50">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 container mx-auto px-10 z-50">
             <div className={`backdrop-blur-3xl ${location.pathname === '/' || location.pathname === '/aboutUs' ? 'bg-white/5 dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'} border border-white/20 dark:border-gray-700 shadow-2xl flex items-center justify-between px-6 py-3 rounded-2xl`}>
 
                 {/* Logo */}

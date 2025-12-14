@@ -4,9 +4,9 @@ import { useAuth } from './hooks/useAuth';
 import Loading from './components/Loading';
 
 const ProtectedRoute = ({ children}) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
+  const { user, isLoading } = useAuth();
+ 
+  if (isLoading) {
     return <Loading></Loading>;
   }
 
@@ -17,3 +17,7 @@ const ProtectedRoute = ({ children}) => {
 };
 
 export default ProtectedRoute;
+
+
+
+

@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import Pagination from '../../components/Pagination';
 import ProductCard from '../../components/ProductCard';
 import { FiSearch } from 'react-icons/fi';
-
+import useFetchPrdoucts from '../../hooks/useFetchPrdoucts';
+import Loading from '../../components/Loading';
 const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('');
+  const { allProducts, isLoading } = useFetchPrdoucts()
 
   return (
-    <div className="pt-34 pb-16 px-4 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      
+    <div className="pt-34 pb-16 px-4 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen container mx-auto">
+
       {/* Section Title */}
       <div className="text-center max-w-2xl mx-auto mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3 relative inline-block">
@@ -51,10 +53,20 @@ const AllProducts = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
-        {[...Array(8)].map((_, idx) => (
-          <ProductCard key={idx} />
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-10 mt-10  px-10">
+        {isLoading ? (
+          <div className="col-span-3">
+            <Loading />
+          </div>
+        ) : allProducts.length === 0 ? (
+          <div className="col-span-3 text-center">
+            <h1 className="text-2xl font-semibold py-20 text-blue-500 dark:text-purple-600 ">No Products Found</h1>
+          </div>
+        ) : (
+          allProducts.map((card) => (
+            <ProductCard key={card._id} card={card} />
+          ))
+        )}
       </div>
 
       {/* Pagination */}

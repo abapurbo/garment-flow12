@@ -11,14 +11,14 @@ const ManageProducts = () => {
   const { user } = useAuth();
   const updateRef = useRef();
   const axiosSecure = useAxiosSecure();
-  const [updateFrom,setUpdateFrom]=useState({})
+  const [updateFrom, setUpdateFrom] = useState({})
   const [searchText, setSearchText] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   /* =========================
      Initial Load Products
   ========================== */
-  const { isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["manage-products", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -52,10 +52,12 @@ const ManageProducts = () => {
   /* =========================
      Update Modal
   ========================== */
-  const handleUpdate = () => {
+  const openModal = () => {
     updateRef.current.showModal();
   }
-
+  const closeModal = () => {
+    updateRef.current.close()
+  }
   /* =========================
      Delete Product
   ========================== */
@@ -119,15 +121,12 @@ const ManageProducts = () => {
           </thead>
 
           <tbody>
-            {filteredProducts.length === 0 && (
-              <tr>
-                <td colSpan="6" className="text-center text-2xl font-bold text-blue-500 dark:text-purple-400 py-20">
-                  No products found
-                </td>
-              </tr>
-            )}
 
-            {filteredProducts.map((product, index) => (
+            {filteredProducts.length == 0 ? <tr>
+              <td colSpan="6" className="text-center text-2xl font-bold text-blue-500 dark:text-purple-400 py-20">
+                No products found
+              </td>
+            </tr> : filteredProducts.map((product, index) => (
               <tr key={product._id} className="text-gray-900 dark:text-gray-100">
                 <td>{index + 1}</td>
                 <td>
@@ -140,14 +139,14 @@ const ManageProducts = () => {
                 <td>{product.name}</td>
                 <td>${product.price}</td>
                 <td>
-                  <span className="bg-green-100 dark:bg-green-700 px-3 py-1 rounded-full text-green-600 dark:text-green-300">
+                  <span className="bg-green-100 dark:bg-green-700 px-3 py-1 rounded-full text-green-600 dark:text-white">
                     {product.paymentOption}
                   </span>
                 </td>
                 <td className="flex gap-2">
                   <button
-                    onClick={() =>{
-                      handleUpdate();
+                    onClick={() => {
+                      openModal();
                       setUpdateFrom(product)
                     }}
                     className="btn btn-sm bg-blue-100 text-blue-600 dark:bg-purple-100 dark:text-purple-600"
@@ -175,7 +174,7 @@ const ManageProducts = () => {
               ✕
             </button>
           </form>
-          <UpdateProductForm updateFrom={updateFrom} />
+          <UpdateProductForm updateFrom={updateFrom} handleCloseModal={closeModal} refetch={refetch} />
         </div>
       </dialog>
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router";
 
-export default function ProductCard() {
+export default function ProductCard({ card }) {
+  const { name, price, image, description, category ,availableQty} = card || {}
   const location = useLocation();
 
   return (
@@ -19,11 +20,11 @@ export default function ProductCard() {
       "
     >
       {/* Product Image */}
-      <div className="relative h-48 overflow-hidden rounded-t-xl">
+      <div className="relative min-h-48 max-h-58 overflow-hidden rounded-t-xl">
         <img
-          src="https://i.ibb.co/7t7wrMkb/istockphoto-1516524215-612x612-removebg-preview.png"
-          alt="Stylish Sneakers"
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          src={image}
+          alt={name}
+          className="w-full  h-full object-contain transition-transform duration-500 hover:scale-120"
         />
 
         {/* New Badge */}
@@ -51,7 +52,7 @@ export default function ProductCard() {
             transition-colors
           "
         >
-          Stylish Sneakers
+          {name}
         </h2>
 
         <p
@@ -64,20 +65,19 @@ export default function ProductCard() {
           <span className="font-semibold text-gray-700 dark:text-[#C9CDD8]">
             Category:
           </span>{" "}
-          Shoes
+          {category}
         </p>
 
         {/* Short Description */}
         <p className="text-black dark:text-[#B5BBC9] text-[14px] mb-3 leading-snug line-clamp-2">
-          Premium quality stylish sneakers designed for comfort and durability,
-          perfect for outdoor activities.
+         {description}
         </p>
 
         {/* Price & Stock */}
         <div className="flex justify-between items-center mb-3">
           <p className="text-blue-800 dark:text-[#6FA3FF] font-bold text-sm">
             <span className="text-gray-800 dark:text-[#C9CDD8]">Price:</span>{" "}
-            $79.99
+            ${price}
           </p>
 
           <p
@@ -87,7 +87,7 @@ export default function ProductCard() {
               px-3 py-1 rounded-full text-sm
             "
           >
-            <span className="font-semibold">Available:</span> 20 pcs
+            <span className="font-semibold">Available:</span> {availableQty} pcs
           </p>
         </div>
       </div>

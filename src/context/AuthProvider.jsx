@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { createContext, useEffect, useState } from "react";
 import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
@@ -7,44 +6,35 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
-    updateProfile
+    updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 
-// google provider
-const googleProvider = new GoogleAuthProvider()
+export const AuthContext = createContext();
+
+const googleProvider = new GoogleAuthProvider();
+
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [isLoading, setLoading] = useState(true);
-   console.log(user)
+
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
         });
-        return () => unSubscribe();
+        return () => unsubscribe();
     }, []);
 
-    // create user
-    const createUser = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
-    // update user profile
-    const updateUserProfile = (profile) => {
-        return updateProfile(auth.currentUser, profile)
-    }
-    // signIn user
-    const loginUser = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);
-    }
-    // logout user
-    const logoutUser = () => {
-        return signOut(auth)
-    }
-    // sign in with google
-    const signInWithGoogle = () => {
-        return signInWithPopup(auth, googleProvider)
-    }
+    const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+
+    const loginUser = (email, password) => signInWithEmailAndPassword(auth, email, password);
+
+    const logoutUser = () => signOut(auth);
+
+    const updateUserProfile = (profile) => updateProfile(auth.currentUser, profile);
+
+    const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 
     const authInfo = {
         user,
@@ -54,10 +44,7 @@ export default function AuthProvider({ children }) {
         logoutUser,
         updateUserProfile,
         signInWithGoogle,
-    }
-    return (
-        <AuthContext.Provider value={authInfo}>
-            {children}
-        </AuthContext.Provider>
-    );
+    };
+
+    return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 }
