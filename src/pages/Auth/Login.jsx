@@ -13,6 +13,8 @@ export default function Login() {
   const { loading, loginUser } = useAuth();
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
+  const location = useLocation();
+  console.log(location)
   const {
     register,
     handleSubmit,
@@ -23,7 +25,7 @@ export default function Login() {
     try {
       await loginUser(data.email, data.password);
       toast.success("Logged in successfully!");
-      navigate("/"); 
+      await navigate(location.state || "/");
     } catch (err) {
       toast.error(err?.message || "Login failed!");
     }
@@ -88,7 +90,7 @@ export default function Login() {
               <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-700 dark:text-purple-300" size={20} />
               <input
                 {...register("password", { required: "Password is required" })}
-                type={show ? "password" :"text"}
+                type={show ? "password" : "text"}
                 placeholder="Password"
                 className="w-full pl-12 px-5 py-3 rounded-xl
                            bg-white/60 dark:bg-gray-700

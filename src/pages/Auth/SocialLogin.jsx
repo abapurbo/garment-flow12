@@ -2,11 +2,14 @@ import React from "react";
 import { useAuth } from '../../hooks/useAuth';
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router";
 
 export default function SocialLogin() {
     const { signInWithGoogle } = useAuth();
     const axiosSecure = useAxiosSecure();
-
+    const location = useLocation();
+    const navigate = useNavigate()
+    console.log(location)
     const handleSocialLogin = () => {
         signInWithGoogle()
             .then(result => {
@@ -23,6 +26,7 @@ export default function SocialLogin() {
                         console.log('user data has been stored', res.data);
                         toast.success("Logged in successfully!");
                     })
+                navigate(location?.state || '/')
             })
             .catch(error => {
                 console.log(error)

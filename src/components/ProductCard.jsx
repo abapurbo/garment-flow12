@@ -1,8 +1,8 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function ProductCard({ card }) {
-  const { name, price, image, description, category ,availableQty} = card || {}
+  const {_id, name, price, image, description, category, availableQty } = card || {}
   const location = useLocation();
 
   return (
@@ -70,7 +70,7 @@ export default function ProductCard({ card }) {
 
         {/* Short Description */}
         <p className="text-black dark:text-[#B5BBC9] text-[14px] mb-3 leading-snug line-clamp-2">
-         {description}
+          {description}
         </p>
 
         {/* Price & Stock */}
@@ -93,17 +93,19 @@ export default function ProductCard({ card }) {
       </div>
 
       {/* View Details Button */}
-      <button
-        className="
+      <Link to={`/details/${_id}`}>
+        <button
+          className="
           w-full text-sm font-medium py-2 cursor-pointer
           bg-blue-500 text-white
           hover:bg-blue-700
           dark:bg-[#2B6FFF] dark:hover:bg-[#1F55E0]
           shadow hover:shadow-lg transition-all duration-300
         "
-      >
-        View Details
-      </button>
+        >
+          View Details
+        </button>
+      </Link>
     </div>
   );
 }

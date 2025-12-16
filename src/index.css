@@ -1,22 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
-}
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .urbanist-font {
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
+
 .body {
   font-family: "Urbanist", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
+
 .roboto-font {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
@@ -24,5 +27,3 @@
   font-variation-settings:
     "wdth" 100;
 }
-
-

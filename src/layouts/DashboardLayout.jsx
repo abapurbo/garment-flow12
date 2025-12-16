@@ -125,6 +125,13 @@ const DashboardLayout = () => {
               >
                 <FaClipboardList /> Pending Orders
               </Link>
+              <Link
+                to="/dashboard/approved-orders"
+                onClick={() => setIsSidebarOpen(false)}
+                className={linkClasses("/dashboard/approved-orders")}
+              >
+                <FaClipboardList /> Approved Orders
+              </Link>
             </>
           )}
 

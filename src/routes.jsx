@@ -28,6 +28,7 @@ import AllOrdersAdmin from './pages/Dashboard/Admin/AllOrdersAdmin';
 import ManageUsers from '../src/pages/Dashboard/Admin/ManageUsers'
 import AllProductsAdmin from '../src/pages/Dashboard/Admin/AllProductsAdmin'
 import AdminPrivateRoute from '../src/ProtectedRoutes/AdminPrivateRoute'
+import Successfull from './components/payment/Successfull';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -40,10 +41,11 @@ export const router = createBrowserRouter([
       { path: '/signUp', element: <Register /> },
       { path: '/all-products', element: <AllProducts /> },
       { path: '/aboutUs', element: <AboutUs /> },
-      { path: '/details', element: <ProductDetails /> },
-      { path: '/orderForm', element: <OrderForm /> },
+      { path: '/details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
+      { path: '/orderForm/:id', element: <ProtectedRoute><OrderForm /></ProtectedRoute>},
       { path: '/contact', element: <Contact /> },
-      { path: '/booking/:id', element: <BookingForm /> },
+      { path: '/payment-success', element: <ProtectedRoute><Successfull></Successfull></ProtectedRoute> },
+
     ],
   },
   {
@@ -71,7 +73,7 @@ export const router = createBrowserRouter([
       ,
       {
         path: 'all-products',
-        element:<AdminPrivateRoute><AllProductsAdmin></AllProductsAdmin></AdminPrivateRoute>
+        element: <AdminPrivateRoute><AllProductsAdmin></AllProductsAdmin></AdminPrivateRoute>
       }
       ,
       {

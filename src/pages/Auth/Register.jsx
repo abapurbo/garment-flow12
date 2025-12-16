@@ -51,11 +51,12 @@ const Register = () => {
                   photoURL: photo
                 };
                 updateUserProfile(profile);
-                navigate('/');
                 reset({ name: '', email: '', role: '', photo: null, password: '' });
               })
               .catch(err => console.log(err));
           });
+        navigate('/');
+
       })
       .catch(err => console.log(err));
   };
@@ -188,7 +189,7 @@ const Register = () => {
             >
               Sign Up
             </button>
-           
+
             {/* LOGIN LINK */}
             <p className="text-center text-gray-600 dark:text-gray-300 mt-2">
               Already have an account?{" "}
