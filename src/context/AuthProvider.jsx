@@ -32,7 +32,11 @@ export default function AuthProvider({ children }) {
 
     const logoutUser = () => signOut(auth);
 
-    const updateUserProfile = (profile) => updateProfile(auth.currentUser, profile);
+    const updateUserProfile = async (profile) => {
+        await updateProfile(auth.currentUser, profile)
+        await auth.currentUser.reload();
+        setUser({ ...auth.currentUser })
+    };
 
     const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 

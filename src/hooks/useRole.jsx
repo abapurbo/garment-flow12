@@ -8,7 +8,7 @@ export const useRole = () => {
 
   const { data: role = "buyer", isLoading: roleLoading } = useQuery({
     queryKey: ["user-role", user?.email],
-    enabled: !!user?.email && !authLoading, // only fetch after user exists
+    enabled: !!user?.email && !authLoading,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user.email}/role`);
       return res.data?.role;

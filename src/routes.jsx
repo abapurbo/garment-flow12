@@ -23,7 +23,7 @@ import ManageProducts from './pages/Dashboard/Manager/ManageProducts';
 import PendingOrders from './pages/Dashboard/Manager/PendingOrders';
 import ApprovedOrders from './pages/Dashboard/Manager/ApprovedOrders';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
-import Dashboard from './pages/Dashboard/Dashboard';
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'))
 import AllOrdersAdmin from './pages/Dashboard/Admin/AllOrdersAdmin';
 import ManageUsers from '../src/pages/Dashboard/Admin/ManageUsers'
 import AllProductsAdmin from '../src/pages/Dashboard/Admin/AllProductsAdmin'
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       { path: '/all-products', element: <AllProducts /> },
       { path: '/aboutUs', element: <AboutUs /> },
       { path: '/details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
-      { path: '/orderForm/:id', element: <ProtectedRoute><OrderForm /></ProtectedRoute>},
+      { path: '/orderForm/:id', element: <ProtectedRoute><OrderForm /></ProtectedRoute> },
       { path: '/contact', element: <Contact /> },
       { path: '/payment-success', element: <ProtectedRoute><Successfull></Successfull></ProtectedRoute> },
 
@@ -103,6 +103,10 @@ export const router = createBrowserRouter([
     ]
   }
   ,
+  {
+    path: '/forbidden',
+    element:<Forbidden></Forbidden>
+  },
   {
     path: '*',
     element: <NotFound />,

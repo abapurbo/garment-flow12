@@ -56,7 +56,8 @@ export default function CustomerFeedback() {
         dark:to-[#0F1220]
       "
     >
-      {/* Section Title */}
+      <div className="container mx-auto">
+        {/* Section Title */}
       <SectionTitle
         title="What Our Clients Say"
         subtitle="Customer Feedback on Garments Order & Production Tracker System"
@@ -95,6 +96,7 @@ export default function CustomerFeedback() {
           </SwiperSlide>
         ))}
       </Swiper>
+      </div>
     </section>
   );
 }

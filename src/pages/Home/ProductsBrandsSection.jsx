@@ -27,7 +27,7 @@ const ProductsBrandsSection = () => {
       />
 
       {/* Brands Marquee */}
-      <div>
+      <div className="container mx-auto">
         <Marquee
           pauseOnHover={true}
           loop={0}

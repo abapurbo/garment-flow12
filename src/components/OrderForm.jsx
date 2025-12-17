@@ -39,7 +39,7 @@ export default function OrderForm() {
   const quantity = Number(watch("quantity")) || 0;
   const orderPrice = quantity * (product.price || 0);
 
-  const isOutOfStock = availableQty === 0;
+  const isOutOfStock = availableQty < minQty;
 
   // ----------------------------
   // Submit
@@ -94,6 +94,7 @@ export default function OrderForm() {
           cancelButtonText: "Cancel",
         }).then(async (result) => {
           if (result.isConfirmed) {
+            console.log('ljsflsflj')
             const stripeRes = await axiosSecure.post(
               "/payment-checkout-session",
               paymentInfo

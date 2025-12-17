@@ -44,7 +44,7 @@ const DashboardLayout = () => {
      ${
        location.pathname === path
          ? "bg-blue-600 text-white dark:bg-purple-600"
-         : "text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
+         : "text-gray-700 hover:bg-blue-600   hover:text-white dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
      }`;
 
   return (
@@ -59,7 +59,7 @@ const DashboardLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static z-40 h-full w-64 bg-white dark:bg-gray-800 shadow-xl p-4
+        className={`fixed lg:static z-40 h-full w-64 bg-blue-50 dark:bg-gray-800 shadow-xl p-4
         transform transition-transform duration-300
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0`}
@@ -82,7 +82,7 @@ const DashboardLayout = () => {
         </Link>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-2 ">
           {role === "buyer" && (
             <>
               <Link
@@ -178,7 +178,7 @@ const DashboardLayout = () => {
 
           <button
             onClick={logoutUser}
-            className="mt-6 flex items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-700 dark:text-red-400"
+            className="mt-6 flex items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:text-white hover:bg-red-600 dark:hover:bg-red-700 dark:text-red-400"
           >
             <FaSignOutAlt /> Logout
           </button>
@@ -213,7 +213,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-4 overflow-auto bg-gray-100 dark:bg-gray-900">
+        <main className="flex-1 px-8 py-6 overflow-auto bg-gray-100 dark:bg-gray-900">
           <Outlet />
         </main>
       </div>

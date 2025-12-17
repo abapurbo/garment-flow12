@@ -11,7 +11,7 @@ import { Pagination } from 'swiper/modules';
 
 export default function BannerSwiper() {
     return (
-        <div className='container mx-auto'>
+        <div >
             <Swiper
                 spaceBetween={30}
                 pagination={{
