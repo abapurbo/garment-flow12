@@ -9,7 +9,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [details, setDetails] = useState({})
-  const { role } = useRole()
+  const { role, status } = useRole()
   const { user } = useAuth()
   const { name, category, price, paymentOption, image, minOrderQty, availableQty, description } = details || {}
   const axiosSecure = useAxiosSecure()
@@ -26,10 +26,10 @@ const ProductDetails = () => {
   //   name: "Apurbo Sarker",
   // };
 
-  const canOrder = user?.email && role === "buyer";
+  const canOrder = user?.email && role === "buyer" && status === 'active';
 
-  const  handleOrder=()=>{
-      navigate(`/orderForm/${id}`)
+  const handleOrder = () => {
+    navigate(`/orderForm/${id}`)
   }
 
 
@@ -106,7 +106,7 @@ const ProductDetails = () => {
           </div>
 
           {/* ORDER BUTTON */}
-          <button
+          {/* <button
             disabled={!canOrder}
             onClick={() => handleOrder()}
             className={`w-full py-3 mt-6 text-lg font-semibold rounded-xl transition-all
@@ -116,7 +116,34 @@ const ProductDetails = () => {
               }`}
           >
             {user?.email ? canOrder ? "Order Now" : "Order Not Allowed" : "Login to Order"}
+          </button> */}
+
+
+          {/* ORDER BUTTON */}
+          <button
+            disabled={!canOrder}
+            onClick={() => handleOrder()}
+            className={`w-full py-3 mt-6 text-lg font-semibold rounded-xl transition-all
+    ${canOrder
+                ? "bg-blue-600 hover:bg-blue-700 dark:bg-purple-600 dark:hover:bg-purple-700 text-white"
+                : "bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed"
+              }`}
+          >
+            {user?.email
+              ? canOrder
+                ? "Order Now"
+                : "Order Not Allowed"
+              : "Login to Order"}
           </button>
+
+          {/* SHOW REASON IF ORDER NOT ALLOWED */}
+          {user?.email && !canOrder && (
+            <p className="mt-2 text-sm text-red-500">
+              {status === 'pending' && "You cannot place orders because your account is pending verification."}
+              {status === 'blocked' && "You cannot place orders because your account is blocked. Contact support."}
+            </p>
+          )}
+
         </div>
       </div>
 

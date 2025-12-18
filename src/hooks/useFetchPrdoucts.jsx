@@ -11,7 +11,6 @@ export default function useFetchProducts() {
         queryKey: ['home-products', isHomePage],
         queryFn: async () => {
             const res = await axiosPublic.get(`/home-products?showOnHome=${isHomePage}`);
-            console.log(res.data)
             return res.data
         }
     });

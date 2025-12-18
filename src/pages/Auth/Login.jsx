@@ -8,13 +8,12 @@ import { FiMail, FiLock } from "react-icons/fi";
 import SocialLogin from "../Auth/SocialLogin";
 import toast from "react-hot-toast";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-
 export default function Login() {
-  const { loading, loginUser } = useAuth();
+  const { loading, loginUser,signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const location = useLocation();
-  console.log(location)
+  
   const {
     register,
     handleSubmit,
@@ -30,6 +29,8 @@ export default function Login() {
       toast.error(err?.message || "Login failed!");
     }
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-36 pb-20

@@ -7,7 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 export default function MyProfile() {
     const { user, logoutUser, updateUserProfile } = useAuth()
-    const { role } = useRole()
+    const { role, status } = useRole()
     const axiosSecure = useAxiosSecure()
     const [order, setOrder] = useState({})
     const updateModal = useRef()
@@ -93,6 +93,27 @@ export default function MyProfile() {
                     <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{user.displayName}</h2>
                     <p className="text-gray-600 dark:text-gray-300 text-lg">{user.email}</p>
 
+                    <div
+                        className={`flex items-center gap-3 px-3 py-1 rounded-2xl shadow-md w-fit
+    ${status === "active" && "bg-gradient-to-r from-green-100 to-green-200 text-green-900 dark:from-green-900 dark:to-green-800 dark:text-green-100"}
+    ${status === "pending" && "bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-900 dark:from-yellow-900 dark:to-yellow-800 dark:text-yellow-100"}
+    ${status === "blocked" && "bg-gradient-to-r from-red-100 to-red-200 text-red-900 dark:from-red-900 dark:to-red-800 dark:text-red-100"}
+  `}
+                    >
+                        {/* STATUS DOT */}
+                        <span
+                            className={`w-3 h-3 rounded-full animate-pulse
+      ${status === "active" && "bg-green-500"}
+      ${status === "pending" && "bg-yellow-500"}
+      ${status === "blocked" && "bg-red-500"}
+    `}
+                        />
+
+                        {/* TEXT */}
+                        <p className="text-md font-semibold capitalize tracking-wide">
+                            Account Status: {status}
+                        </p>
+                    </div>
 
 
                     {/* Buttons */}

@@ -29,10 +29,11 @@ import ManageUsers from '../src/pages/Dashboard/Admin/ManageUsers'
 import AllProductsAdmin from '../src/pages/Dashboard/Admin/AllProductsAdmin'
 import AdminPrivateRoute from '../src/ProtectedRoutes/AdminPrivateRoute'
 import Successfull from './components/payment/Successfull';
+import TrackOrder from './pages/Dashboard/Buyer/TrackOrder';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Suspense fallback={<Loading />}>
+    element: <Suspense fallback={<div className='bg-white dark:bg-gray-800 h-screen'><Loading /></div>}>
       <MainLayout></MainLayout>
     </Suspense>,
     children: [
@@ -51,7 +52,9 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<div className='bg-white dark:bg-gray-800 h-screen'>
+        <Loading />
+      </div>}>
         <ProtectedRoute>
           <DashboardLayout />
         </ProtectedRoute>
@@ -81,6 +84,10 @@ export const router = createBrowserRouter([
         element: <BuyerPrivateRoute><MyOrders /></BuyerPrivateRoute>
       },
       {
+        path: 'track-order',
+        element: <BuyerPrivateRoute><TrackOrder></TrackOrder></BuyerPrivateRoute>
+      },
+      {
         path: 'add-product',
         element: <ManagerPrivateRoute><AddProduct /></ManagerPrivateRoute>
       },
@@ -105,7 +112,7 @@ export const router = createBrowserRouter([
   ,
   {
     path: '/forbidden',
-    element:<Forbidden></Forbidden>
+    element: <Forbidden></Forbidden>
   },
   {
     path: '*',

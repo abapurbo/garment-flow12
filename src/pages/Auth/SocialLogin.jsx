@@ -8,12 +8,13 @@ export default function SocialLogin() {
     const { signInWithGoogle } = useAuth();
     const axiosSecure = useAxiosSecure();
     const location = useLocation();
-    const navigate = useNavigate()
     console.log(location)
+    const navigate = useNavigate()
     const handleSocialLogin = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+                navigate(location?.state|| '/')    
                 // create user in the database
                 const userInfo = {
                     email: result.user.email,
@@ -26,7 +27,7 @@ export default function SocialLogin() {
                         console.log('user data has been stored', res.data);
                         toast.success("Logged in successfully!");
                     })
-                navigate(location?.state || '/')
+
             })
             .catch(error => {
                 console.log(error)

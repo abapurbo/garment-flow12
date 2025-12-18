@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuth } from "./useAuth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-
+import Cookies from "js-cookie";
 const axiosSecure = axios.create({
   baseURL: "http://localhost:4000",
 });
@@ -14,8 +14,10 @@ const useAxiosSecure = () => {
   useEffect(() => {
     // Request interceptor
     const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      if (user?.accessToken) {
-        config.headers.Authorization = `Bearer ${user.accessToken}`;
+      // Read token from cookie
+      const token = Cookies.get("accessToken");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     });
@@ -29,6 +31,7 @@ const useAxiosSecure = () => {
           try {
             await logoutUser();
             navigate("/login", { replace: true });
+            console.log("User logged out due to unauthorized access");
           } catch (err) {
             console.error("Logout failed:", err);
           }

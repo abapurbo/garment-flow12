@@ -25,7 +25,6 @@ const DashboardLayout = () => {
   const { user, isLoading: authLoading, logoutUser } = useAuth();
   const { role, roleLoading } = useRole();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   // 🔹 Show loading until auth + role ready
   if (authLoading || roleLoading) return <Loading />;
 
@@ -36,16 +35,15 @@ const DashboardLayout = () => {
   if (location.pathname === "/dashboard") {
     if (role === "buyer") return <Navigate to="/dashboard/my-orders" replace />;
     if (role === "manager") return <Navigate to="/dashboard/add-product" replace />;
-    if (role === "admin") return <Navigate to="/dashboard" replace />;
+    if (role === "admin ") return <Navigate to="/dashboard" replace />;
   }
 
   const linkClasses = (path) =>
     `flex items-center gap-4 px-4 py-3 rounded-xl transition
-     ${
-       location.pathname === path
-         ? "bg-blue-600 text-white dark:bg-purple-600"
-         : "text-gray-700 hover:bg-blue-600   hover:text-white dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
-     }`;
+     ${location.pathname === path
+      ? "bg-blue-600 text-white dark:bg-purple-600"
+      : "text-gray-700 hover:bg-blue-600   hover:text-white dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
+    }`;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
@@ -167,28 +165,30 @@ const DashboardLayout = () => {
               </Link>
             </>
           )}
+          <hr />
+          <div className="space-y-3 mt-4">
+            <Link
+              to="/dashboard/profile"
+              onClick={() => setIsSidebarOpen(false)}
+              className={linkClasses("/dashboard/profile")}
+            >
+              <FaUser /> My Profile
+            </Link>
 
-          <Link
-            to="/dashboard/profile"
-            onClick={() => setIsSidebarOpen(false)}
-            className={linkClasses("/dashboard/profile")}
-          >
-            <FaUser /> My Profile
-          </Link>
-
-          <button
-            onClick={logoutUser}
-            className="mt-6 flex items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:text-white hover:bg-red-600 dark:hover:bg-red-700 dark:text-red-400"
-          >
-            <FaSignOutAlt /> Logout
-          </button>
+            <button
+              onClick={logoutUser}
+              className=" flex w-full items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:text-white hover:bg-red-600 dark:hover:bg-red-700 dark:text-red-400"
+            >
+              <FaSignOutAlt /> Logout
+            </button>
+          </div>
         </nav>
       </aside>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
-        <header className="flex justify-between md:justify-end items-center px-4 py-2 bg-white dark:bg-gray-800 shadow-md">
+        <header className="flex justify-between md:justify-end items-center px-4 py-2 bg-blue-50 dark:bg-gray-800 shadow-md">
           <button
             onClick={() => setIsSidebarOpen(true)}
             className="lg:hidden text-2xl text-gray-700 dark:text-white"

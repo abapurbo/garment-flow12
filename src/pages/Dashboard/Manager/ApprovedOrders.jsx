@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { useRole } from "../../../hooks/useRole";
+import { useAuth } from "../../../hooks/useAuth";
 
 // Dummy approved orders data
 const dummyOrders = [
@@ -9,9 +11,16 @@ const dummyOrders = [
 ];
 
 const ApprovedOrders = () => {
-  const [orders, setOrders] = useState(dummyOrders);
+  const [orders] = useState(dummyOrders);
+  const { role, status } = useRole();
+  const { user } = useAuth();
+
+  // check if user can perform actions
+  const canPerformActions = user?.email && role === "manager" && status === "active";
 
   const handleAddTracking = (id) => {
+    if (!canPerformActions) return;
+
     Swal.fire({
       title: `Add Tracking for ${id}`,
       html: `
@@ -38,6 +47,8 @@ const ApprovedOrders = () => {
   };
 
   const handleViewTracking = (id) => {
+    if (!canPerformActions) return;
+
     Swal.fire(
       `Tracking for ${id}`,
       `Show timeline of product movement here.`,
@@ -50,6 +61,21 @@ const ApprovedOrders = () => {
       <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-400 mb-6">
         Approved Orders
       </h2>
+
+      {/* STATUS ALERT */}
+      {!canPerformActions && (
+        <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 text-center">
+          {status === "pending" && (
+            <>⚠️ Your account is <span className="font-semibold">pending approval</span>. You cannot perform any order actions until admin approval.</>
+          )}
+          {status === "suspended" && (
+            <>🚫 Your account has been <span className="font-semibold">suspended</span>. Please check the suspend reason in your profile.</>
+          )}
+          {role !== "manager" && status === "active" && (
+            <>❌ Only managers can perform order actions.</>
+          )}
+        </div>
+      )}
 
       <div className="overflow-x-auto rounded-lg shadow-2xl bg-white dark:bg-gray-800">
         <table className="table w-full">
@@ -83,13 +109,15 @@ const ApprovedOrders = () => {
                 <td className="flex gap-2">
                   <button
                     onClick={() => handleAddTracking(order.id)}
-                    className="btn btn-sm rounded-2xl bg-blue-100 text-blue-600 dark:bg-purple-700 dark:text-white hover:dark:bg-purple-600 hover:bg-blue-200"
+                    disabled={!canPerformActions}
+                    className={`btn btn-sm rounded-2xl bg-blue-100 text-blue-600 dark:bg-purple-700 dark:text-white hover:dark:bg-purple-600 hover:bg-blue-200 ${!canPerformActions ? "cursor-not-allowed opacity-50" : ""}`}
                   >
                     Add Tracking
                   </button>
                   <button
                     onClick={() => handleViewTracking(order.id)}
-                    className="btn btn-sm rounded-2xl bg-green-100 text-green-600 dark:bg-purple-600 dark:text-white hover:dark:bg-purple-500 hover:bg-green-200"
+                    disabled={!canPerformActions}
+                    className={`btn btn-sm rounded-2xl bg-green-100 text-green-600 dark:bg-purple-600 dark:text-white hover:dark:bg-purple-500 hover:bg-green-200 ${!canPerformActions ? "cursor-not-allowed opacity-50" : ""}`}
                   >
                     View Tracking
                   </button>

@@ -25,8 +25,6 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const profileImg = data.photo[0];
-    toast.success("Your account created Successfully!");
-    console.log("User Registered:", data);
 
     createUser(data?.email, data?.password)
       .then(res => {
@@ -56,6 +54,7 @@ const Register = () => {
               .catch(err => console.log(err));
           });
         navigate('/');
+        toast.success("Your account created Successfully!");
 
       })
       .catch(err => console.log(err));
