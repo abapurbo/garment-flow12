@@ -1,42 +1,83 @@
-import React from "react";
-import { FaEdit, } from "react-icons/fa";
+import React, { useRef, useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
-
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { UpdateProductAdmin } from "./UpdateProductAdmin";
+import Swal from "sweetalert2";
 const AllProductsAdmin = () => {
+  const axiosSecure = useAxiosSecure()
+  const updateRef = useRef();
+  const [updateFrom, setUpdateFrom] = useState({});
   // Dummy Product Data (replace with backend API)
-  const products = [
-    {
-      _id: 1,
-      name: "Short Straight Blazer",
-      price: 1200,
-      category: "Blazer",
-      createdBy: "Manager Rahim",
-      image: "https://via.placeholder.com/60",
-      showOnHome: true,
-    },
-    {
-      _id: 2,
-      name: "Premium T-Shirt",
-      price: 650,
-      category: "T-Shirt",
-      createdBy: "Manager Karim",
-      image: "https://via.placeholder.com/60",
-      showOnHome: false,
-    },
-  ];
+
+
+  const { data: products = [], refetch } = useQuery({
+    queryKey: ['/all-products/admin'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/all-products/admin')
+      return res.data;
+    }
+  })
+ console.log("All show Data:", products.showOnHome);
+  // useEffect(()=>{
+
+  // },[])
+  // handle modal
+  const openModal = (product) => {
+    updateRef.current.showModal();
+    setUpdateFrom(product);
+
+  }
+  const closeModal = () => {
+    updateRef.current.close()
+  }
+
+  // handle delete product
+  const handleDeleteProduct = (productId) => {
+    Swal.fire({
+      title: "Confirm Delete",
+      text: "This product will be permanently removed.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Delete Product",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/product/admin/${productId}`)
+          .then(res => {
+            console.log(res.data)
+            if (res.data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted Successfully",
+                text: "The product has been removed.",
+                icon: "success",
+              });
+            }
+
+          });
+      }
+    });
+  };
+
 
   return (
-    <div className="p-5">
-      <h2 className="text-3xl text-blue-500  font-bold mb-6">All Products</h2>
+    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <h2 className="text-3xl font-bold text-blue-600 dark:text-purple-500 mb-6">
+        All Products
+      </h2>
 
-      <div className="overflow-x-auto rounded-xs border border-base-content/10 bg-base-100 shadow">
-        <table className="table table-zebra w-full">
-          <thead className="bg-base-200 text-base font-semibold">
+      <div className="overflow-x-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
+        <table className="table w-full text-gray-900 dark:text-gray-100">
+          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold">
             <tr>
               <th>#</th>
               <th>Image</th>
               <th>Product Name</th>
-              <th>Price </th>
+              <th>Price</th>
               <th>Category</th>
               <th>Created By</th>
               <th>Show on Home</th>
@@ -46,7 +87,10 @@ const AllProductsAdmin = () => {
 
           <tbody>
             {products.map((product, index) => (
-              <tr key={product._id} className="hover">
+              <tr
+                key={product._id}
+                className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+              >
                 <td>{index + 1}</td>
 
                 {/* Image */}
@@ -54,21 +98,23 @@ const AllProductsAdmin = () => {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-14 h-14 rounded-md border"
+                    className="w-14 h-14 rounded-md border border-gray-300 dark:border-gray-600 object-cover"
                   />
                 </td>
 
                 {/* Product Name */}
-                <td className="font-semibold">{product.name}</td>
+                <td className="font-medium">{product.name}</td>
 
                 {/* Price */}
-                <td className="text-primary font-bold">${product.price}</td>
+                <td className="text-green-600 dark:text-green-400 font-semibold">
+                  ${product.price}
+                </td>
 
                 {/* Category */}
                 <td>{product.category}</td>
 
                 {/* Created By */}
-                <td>{product.createdBy}</td>
+                <td>{new Date(product.createdAt).toLocaleDateString('en-GB')}</td>
 
                 {/* Show on Home Toggle */}
                 <td>
@@ -78,20 +124,16 @@ const AllProductsAdmin = () => {
                     defaultChecked={product.showOnHome}
                   />
                 </td>
-
+               
                 {/* Action Buttons */}
                 <td className="flex gap-3 justify-center">
                   {/* Update */}
-                  <button
-                    className="btn bg-green-50 text-xl text-green-500"
-                  >
-                    <FaEdit /> 
+                  <button onClick={() => openModal(product)} className="btn text-[16px] bg-green-50 text-green-600 hover:bg-green-100 hover:text-green-700 transition">
+                    <FaEdit />
                   </button>
 
                   {/* Delete */}
-                  <button
-                    className="text-red-700 font-extrabold  text-xl btn bg-red-100"
-                  >
+                  <button onClick={() => handleDeleteProduct(product._id)} className="btn text-[16px] bg-red-100 text-red-600 hover:bg-red-200 hover:text-red-700 transition">
                     <IoTrashOutline />
                   </button>
                 </td>
@@ -100,6 +142,17 @@ const AllProductsAdmin = () => {
           </tbody>
         </table>
       </div>
+      {/* Update Modal */}
+      <dialog ref={updateRef} className="modal">
+        <div className="modal-box max-w-3xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <UpdateProductAdmin updateFrom={updateFrom} handleCloseModal={closeModal} refetch={refetch} />
+        </div>
+      </dialog>
     </div>
   );
 };

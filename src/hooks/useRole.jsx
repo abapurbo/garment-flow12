@@ -11,9 +11,10 @@ export const useRole = () => {
     enabled: !!user?.email && !authLoading,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${user.email}/role`);
-      return res.data
+      return res.data;
     },
   });
 
-  return { role: userRole?.role ,status:userRole?.status, roleLoading };
+  return { role: userRole?.role, status: userRole?.status, roleLoading };
 };
+

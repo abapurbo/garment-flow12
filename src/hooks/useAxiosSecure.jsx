@@ -8,7 +8,7 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user, logoutUser } = useAuth();
+  const { user, logoutUser} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +27,11 @@ const useAxiosSecure = () => {
       (response) => response,
       async (error) => {
         const statusCode = error.response?.status;
-        if (statusCode === 401 || statusCode === 403) {
+        // if(statusCode===404){
+        //   navigate("/not-found",{replace:true});
+        //   return Promise.reject(error);
+        // }
+        if (statusCode === 401 || statusCode === 403 ) {
           try {
             await logoutUser();
             navigate("/login", { replace: true });

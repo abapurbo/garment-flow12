@@ -95,7 +95,7 @@ export default function MyProfile() {
 
                     <div
                         className={`flex items-center gap-3 px-3 py-1 rounded-2xl shadow-md w-fit
-    ${status === "active" && "bg-gradient-to-r from-green-100 to-green-200 text-green-900 dark:from-green-900 dark:to-green-800 dark:text-green-100"}
+    ${status === "approved" && "bg-gradient-to-r from-green-100 to-green-200 text-green-900 dark:from-green-900 dark:to-green-800 dark:text-green-100"}
     ${status === "pending" && "bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-900 dark:from-yellow-900 dark:to-yellow-800 dark:text-yellow-100"}
     ${status === "blocked" && "bg-gradient-to-r from-red-100 to-red-200 text-red-900 dark:from-red-900 dark:to-red-800 dark:text-red-100"}
   `}
@@ -103,7 +103,7 @@ export default function MyProfile() {
                         {/* STATUS DOT */}
                         <span
                             className={`w-3 h-3 rounded-full animate-pulse
-      ${status === "active" && "bg-green-500"}
+      ${status === "approved" && "bg-green-500"}
       ${status === "pending" && "bg-yellow-500"}
       ${status === "blocked" && "bg-red-500"}
     `}

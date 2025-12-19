@@ -7,7 +7,6 @@ import useFetchProducts from '../../hooks/useFetchPrdoucts';
 
 const OurProducts = () => {
   const { allProducts, isLoading } = useFetchProducts();
-  console.log(allProducts)
   return (
     <div
       className="

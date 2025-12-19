@@ -5,8 +5,6 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import AllProducts from './pages/Products/AllProducts';
 import ProductDetails from './pages/Products/ProductDetails';
-import BookingForm from './pages/Booking/BookingForm';
-import NotFound from './pages/Error/NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import { lazy, Suspense } from 'react';
 import Loading from './components/Loading';
@@ -24,6 +22,7 @@ import PendingOrders from './pages/Dashboard/Manager/PendingOrders';
 import ApprovedOrders from './pages/Dashboard/Manager/ApprovedOrders';
 const MainLayout = lazy(() => import("./layouts/MainLayout"))
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'))
+const NotFound = lazy(() => import('./pages/Error/NotFound'))
 import AllOrdersAdmin from './pages/Dashboard/Admin/AllOrdersAdmin';
 import ManageUsers from '../src/pages/Dashboard/Admin/ManageUsers'
 import AllProductsAdmin from '../src/pages/Dashboard/Admin/AllProductsAdmin'
@@ -36,6 +35,7 @@ export const router = createBrowserRouter([
     element: <Suspense fallback={<div className='bg-white dark:bg-gray-800 h-screen'><Loading /></div>}>
       <MainLayout></MainLayout>
     </Suspense>,
+    errorElement:<Suspense fallback={<div className='bg-white dark:bg-gray-800 h-screen'><Loading /></div>}><NotFound></NotFound></Suspense>,
     children: [
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
@@ -60,63 +60,60 @@ export const router = createBrowserRouter([
         </ProtectedRoute>
       </Suspense>
     ),
-    children: [
-      {
-        path: '',
-        element: <AdminPrivateRoute><Dashboard /></AdminPrivateRoute>
-      },
-      {
-        path: 'all-orders',
-        element: <AdminPrivateRoute><AllOrdersAdmin></AllOrdersAdmin></AdminPrivateRoute>
-      },
-      {
-        path: 'manage-users',
-        element: <AdminPrivateRoute><ManageUsers></ManageUsers></AdminPrivateRoute>
-      }
-      ,
-      {
-        path: 'all-products',
-        element: <AdminPrivateRoute><AllProductsAdmin></AllProductsAdmin></AdminPrivateRoute>
-      }
-      ,
-      {
-        path: 'my-orders',
-        element: <BuyerPrivateRoute><MyOrders /></BuyerPrivateRoute>
-      },
-      {
-        path: 'track-order',
-        element: <BuyerPrivateRoute><TrackOrder></TrackOrder></BuyerPrivateRoute>
-      },
-      {
-        path: 'add-product',
-        element: <ManagerPrivateRoute><AddProduct /></ManagerPrivateRoute>
-      },
-      {
-        path: 'manage-products',
-        element: <ManagerPrivateRoute><ManageProducts /></ManagerPrivateRoute>
-      },
-      {
-        path: 'pending-orders',
-        element: <ManagerPrivateRoute><PendingOrders /></ManagerPrivateRoute>
-      },
-      {
-        path: 'approved-orders',
-        element: <ManagerPrivateRoute><ApprovedOrders /></ManagerPrivateRoute>
-      },
-      {
-        path: 'profile',
-        element: <MyProfile />
-      }
-    ]
+    errorElement:<Suspense fallback={<div className='bg-white dark:bg-gray-800 h-screen'><Loading /></div>}><NotFound></NotFound></Suspense>,
+      children: [
+        {
+          path: '',
+          element: <AdminPrivateRoute><Dashboard /></AdminPrivateRoute>
+        },
+        {
+          path: 'all-orders',
+          element: <AdminPrivateRoute><AllOrdersAdmin></AllOrdersAdmin></AdminPrivateRoute>
+        },
+        {
+          path: 'manage-users',
+          element: <AdminPrivateRoute><ManageUsers></ManageUsers></AdminPrivateRoute>
+        }
+        ,
+        {
+          path: 'all-products',
+          element: <AdminPrivateRoute><AllProductsAdmin></AllProductsAdmin></AdminPrivateRoute>
+        }
+        ,
+        {
+          path: 'my-orders',
+          element: <BuyerPrivateRoute><MyOrders /></BuyerPrivateRoute>
+        },
+        {
+          path: 'track-order',
+          element: <BuyerPrivateRoute><TrackOrder></TrackOrder></BuyerPrivateRoute>
+        },
+        {
+          path: 'add-product',
+          element: <ManagerPrivateRoute><AddProduct /></ManagerPrivateRoute>
+        },
+        {
+          path: 'manage-products',
+          element: <ManagerPrivateRoute><ManageProducts /></ManagerPrivateRoute>
+        },
+        {
+          path: 'pending-orders',
+          element: <ManagerPrivateRoute><PendingOrders /></ManagerPrivateRoute>
+        },
+        {
+          path: 'approved-orders',
+          element: <ManagerPrivateRoute><ApprovedOrders /></ManagerPrivateRoute>
+        },
+        {
+          path: 'profile',
+          element: <MyProfile />
+        }
+      ]
   }
   ,
   {
     path: '/forbidden',
     element: <Forbidden></Forbidden>
   },
-  {
-    path: '*',
-    element: <NotFound />,
-  }
 
 ]);

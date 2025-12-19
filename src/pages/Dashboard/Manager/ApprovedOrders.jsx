@@ -16,7 +16,7 @@ const ApprovedOrders = () => {
   const { user } = useAuth();
 
   // check if user can perform actions
-  const canPerformActions = user?.email && role === "manager" && status === "active";
+  const canPerformActions = user?.email && role === "manager" && status === "approved";
 
   const handleAddTracking = (id) => {
     if (!canPerformActions) return;

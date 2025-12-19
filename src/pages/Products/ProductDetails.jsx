@@ -20,13 +20,9 @@ const ProductDetails = () => {
       })
   }, [id])
 
-  // const user = {
-  //   loggedIn: true,
-  //   role: "buyer",
-  //   name: "Apurbo Sarker",
-  // };
 
-  const canOrder = user?.email && role === "buyer" && status === 'active';
+
+  const canOrder = user?.email && role === "buyer" && status === 'approved';
 
   const handleOrder = () => {
     navigate(`/orderForm/${id}`)
@@ -120,27 +116,15 @@ const ProductDetails = () => {
 
 
           {/* ORDER BUTTON */}
-          <button
-            disabled={!canOrder}
-            onClick={() => handleOrder()}
-            className={`w-full py-3 mt-6 text-lg font-semibold rounded-xl transition-all
-    ${canOrder
-                ? "bg-blue-600 hover:bg-blue-700 dark:bg-purple-600 dark:hover:bg-purple-700 text-white"
-                : "bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed"
-              }`}
-          >
-            {user?.email
-              ? canOrder
-                ? "Order Now"
-                : "Order Not Allowed"
-              : "Login to Order"}
-          </button>
+         <button disabled={!canOrder} onClick={() => handleOrder()} className={`w-full py-3 mt-6 text-lg font-semibold rounded-xl transition-all ${canOrder ? "bg-blue-600 hover:bg-blue-700 dark:bg-purple-600 dark:hover:bg-purple-700 text-white" : "bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed"}`} > {user?.email ? canOrder ? "Order Now" : "Order Not Allowed" : "Login to Order"} </button>
 
           {/* SHOW REASON IF ORDER NOT ALLOWED */}
-          {user?.email && !canOrder && (
+          {user?.email && (!canOrder || role !== "buyer") && (
             <p className="mt-2 text-sm text-red-500">
-              {status === 'pending' && "You cannot place orders because your account is pending verification."}
-              {status === 'blocked' && "You cannot place orders because your account is blocked. Contact support."}
+              {status === "pending" && "You cannot place orders because your account is pending verification."}
+              {status === "blocked" && "You cannot place orders because your account is blocked. Contact support."}
+              {role === "manager" && "Managers cannot place orders."}
+              {role === "admin" && "Admins cannot place orders."}
             </p>
           )}
 

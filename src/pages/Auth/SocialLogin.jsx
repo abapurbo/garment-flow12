@@ -8,20 +8,18 @@ export default function SocialLogin() {
     const { signInWithGoogle } = useAuth();
     const axiosSecure = useAxiosSecure();
     const location = useLocation();
-    console.log(location)
     const navigate = useNavigate()
     const handleSocialLogin = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result.user);
+                console.log(result);
                 navigate(location?.state|| '/')    
                 // create user in the database
                 const userInfo = {
-                    email: result.user.email,
-                    displayName: result.user.displayName,
-                    photoURL: result.user.photoURL
+                    email: result.email,
+                    displayName: result.displayName,
+                    photoURL: result.photoURL
                 }
-
                 axiosSecure.post('/user', userInfo)
                     .then(res => {
                         console.log('user data has been stored', res.data);

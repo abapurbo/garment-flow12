@@ -24,7 +24,7 @@ export default function AuthProvider({ children }) {
     const saveTokenInCookie = async (user) => {
         if (!user) return;
         const token = await getIdToken(user);
-        Cookies.set("accessToken", token, { expires: 1, path: "/", secure: true });
+        Cookies.set("accessToken", token, { expires: 1, path: "/", secure: false });
     };
 
     useEffect(() => {

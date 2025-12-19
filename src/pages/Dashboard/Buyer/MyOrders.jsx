@@ -120,12 +120,10 @@ const MyOrders = () => {
                   <td>
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium
-                        ${
-                          order.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
-                            : order.status === "Processing"
-                            ? "bg-blue-100 text-blue-700 dark:bg-purple-900 dark:text-purple-300"
-                            : "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                        ${order.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
+                          : order.status === "Approved"
+                            ? "bg-blue-100 text-blue-700 dark:bg-purple-900 dark:text-purple-300":"bg-red-100 text-red-700 dark:bg-red-300 dark:text-red-600"
                         }`}
                     >
                       {order.status}
@@ -136,10 +134,9 @@ const MyOrders = () => {
                   <td>
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium
-                        ${
-                          order.paymentStatus === "paid"
-                            ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                            : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
+                        ${order.paymentStatus === "paid"
+                          ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                          : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
                         }`}
                     >
                       {order.paymentMethod}
@@ -156,10 +153,9 @@ const MyOrders = () => {
                       }}
                       disabled={isBuyerPending}
                       className={`px-3 py-1 font-bold rounded-lg
-                        ${
-                          isBuyerPending
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600"
-                            : "bg-blue-200 text-blue-600 hover:bg-blue-700 hover:text-white dark:bg-purple-700 dark:text-purple-100"
+                        ${isBuyerPending
+                          ? "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600"
+                          : "bg-blue-200 text-blue-600 hover:bg-blue-700 hover:text-white dark:bg-purple-700 dark:text-purple-100"
                         }`}
                     >
                       View
@@ -170,10 +166,9 @@ const MyOrders = () => {
                       onClick={() => handleOrderCancel(order._id)}
                       disabled={order.status !== "Pending" || isBuyerPending}
                       className={`px-3 py-1 rounded-lg font-bold
-                        ${
-                          order.status === "Pending" && !isBuyerPending
-                            ? "bg-red-100 text-red-500 hover:bg-red-700 hover:text-white dark:bg-red-900 dark:text-red-300"
-                            : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:text-gray-400"
+                        ${order.status === "Pending" && !isBuyerPending
+                          ? "bg-red-100 text-red-500 hover:bg-red-700 hover:text-white dark:bg-red-900 dark:text-red-300"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:text-gray-400"
                         }`}
                     >
                       Cancel

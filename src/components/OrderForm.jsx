@@ -58,10 +58,11 @@ export default function OrderForm() {
     }
 
     const orderData = {
+      userName: data.firstName + ' ' + data.lastName,
       email: user.email,
       productId: id,
       quantity: qty,
-      orderPrice,
+      amount: orderPrice,
       paymentMethod: product.paymentOption,
       contactNumber: data.contactNumber,
       deliveryAddress: data.deliveryAddress,
@@ -78,7 +79,11 @@ export default function OrderForm() {
           productId: product._id,
           buyerEmail: user.email,
           productName: product.name,
+          userName: data.firstName + ' ' + data.lastName,
           quantity: qty,
+          deliveryAddress: data.deliveryAddress,
+          notes: data.notes,
+          contactNumber: data.contactNumber
         };
 
         Swal.fire({

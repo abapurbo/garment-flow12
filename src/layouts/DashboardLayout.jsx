@@ -165,7 +165,7 @@ const DashboardLayout = () => {
               </Link>
             </>
           )}
-          <hr />
+          <hr className="mt-4"/>
           <div className="space-y-3 mt-4">
             <Link
               to="/dashboard/profile"
@@ -218,7 +218,7 @@ const DashboardLayout = () => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default DashboardLayout;

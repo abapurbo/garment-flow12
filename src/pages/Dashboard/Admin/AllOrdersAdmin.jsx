@@ -1,51 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import ProductViewDetails from "./ProductViewDetails";
+import { useRole } from "../../../hooks/useRole";
 
 const AllOrdersAdmin = () => {
-  const [orders, setOrders] = useState([
-    { id: "ORD001", user: "Cy Ganderton", product: "Blazer", quantity: 3, status: "Pending" },
-    { id: "ORD002", user: "Hart Hagerty", product: "T-Shirt", quantity: 5, status: "Approved" },
-    { id: "ORD003", user: "Brice Swyre", product: "Jeans", quantity: 2, status: "Rejected" },
-  ]);
-
+  const axiosSecure = useAxiosSecure();
   const [filterStatus, setFilterStatus] = useState("");
-  const filteredOrders = filterStatus ? orders.filter(o => o.status === filterStatus) : orders;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectOrder, setSelectOrder] = useState({});
+  const viewModalRef = useRef()
+  const {roleloading}=useRole()
+  // Fetch all orders for admin
+  const { data: orders = [], isLoading } = useQuery({
+    queryKey: ["allOrdersAdmin"],
+    enabled: !roleloading,
+    queryFn: async () => {
+      const res = await axiosSecure.get("/all-orders/admin");
+      return res.data;
+    },
+  });
 
-  const handleViewOrder = (order) => {
-    Swal.fire({
-      title: `Order Details: ${order.id}`,
-      html: `
-        <p><strong>User:</strong> ${order.user}</p>
-        <p><strong>Product:</strong> ${order.product}</p>
-        <p><strong>Quantity:</strong> ${order.quantity}</p>
-        <p><strong>Status:</strong> ${order.status}</p>
-        <p>Tracking info: Lorem ipsum dolor sit amet.</p>
-      `,
-      icon: "info",
-    });
-  };
+  // Search + Status Filter logic
+  const filteredOrders = orders.filter((order) => {
+    const matchesStatus = filterStatus
+      ? order.status === filterStatus
+      : true;
+
+    const matchesSearch = searchTerm
+      ? order.trackingId?.toLowerCase().includes(searchTerm) ||
+      order.buyerEmail?.toLowerCase().includes(searchTerm) ||
+      order.productName?.toLowerCase().includes(searchTerm)
+      : true;
+
+    return matchesStatus && matchesSearch;
+  });
+
+  // View order details
+  const openModal = () => {
+    viewModalRef.current.showModal();
+  }
+  const closeModal = () => {
+    viewModalRef.current.close()
+  }
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 shadow-2xl font-roboto">
-      <h2 className="text-3xl font-bold text-blue-500 mb-4">All Orders</h2>
+    <div className="min-h-screen p-6 bg-gray-100 dark:bg-gray-900">
+      <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-600 mb-6">
+        All Orders
+      </h2>
 
-      {/* Filter */}
-      <div className="flex gap-4 mb-4">
+      {/* Search & Filter */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
         <input
           type="text"
-          placeholder="Search by User or Product..."
-          className="input input-bordered w-1/3"
-          onChange={(e) => {
-            const value = e.target.value.toLowerCase();
-            setFilterStatus(""); // Reset filter when searching
-            setOrders(orders.filter(order => 
-              order.user.toLowerCase().includes(value) || 
-              order.product.toLowerCase().includes(value)
-            ));
-          }}
+          placeholder="Search by Order ID / User Email / Product"
+          className="input input-bordered w-full sm:w-1/2"
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
         />
+
         <select
-          className="select select-bordered w-1/4"
+          className="select select-bordered w-full sm:w-1/4"
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
         >
@@ -56,10 +79,10 @@ const AllOrdersAdmin = () => {
         </select>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto bg-white rounded-xl hover:shadow-xl">
+      {/* Orders Table */}
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg">
         <table className="table w-full">
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-200 dark:bg-gray-700">
             <tr>
               <th>Order ID</th>
               <th>User</th>
@@ -69,25 +92,32 @@ const AllOrdersAdmin = () => {
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {filteredOrders.map((order) => (
-              <tr key={order.id}>
-                <td className="font-medium">{order.id}</td>
-                <td>{order.user}</td>
-                <td>{order.product}</td>
+              <tr key={order._id}>
+                <td className="font-semibold">{order.trackingId}</td>
+                <td>{order.buyerEmail}</td>
+                <td>{order.productName}</td>
                 <td>{order.quantity}</td>
                 <td>
-                  <span className={`px-2 py-1 rounded-full text-white font-semibold ${
-                    order.status === "Pending" ? "bg-yellow-500" :
-                    order.status === "Approved" ? "bg-green-500" :
-                    "bg-red-500"
-                  }`}>
+                  <span
+                    className={`px-3 py-1 rounded-full text-white text-sm ${order.status === "Pending"
+                      ? "bg-yellow-500"
+                      : order.status === "Approved"
+                        ? "bg-green-500"
+                        : "bg-red-500"
+                      }`}
+                  >
                     {order.status}
                   </span>
                 </td>
                 <td>
                   <button
-                    onClick={() => handleViewOrder(order)}
+                    onClick={() => {
+                      setSelectOrder(order)
+                      openModal()
+                    }}
                     className="btn btn-sm btn-info"
                   >
                     View
@@ -95,9 +125,10 @@ const AllOrdersAdmin = () => {
                 </td>
               </tr>
             ))}
+
             {filteredOrders.length === 0 && (
               <tr>
-                <td colSpan="6" className="text-center py-4 text-gray-500">
+                <td colSpan="6" className="text-center  dark:text-purple-600 text-2xl font-bold  text-blue-500 py-10">
                   No orders found.
                 </td>
               </tr>
@@ -105,9 +136,22 @@ const AllOrdersAdmin = () => {
           </tbody>
         </table>
       </div>
+      <dialog ref={viewModalRef} className="modal ">
+        <div className="modal-box min-w-4xl">
+          <ProductViewDetails
+            productId={selectOrder._id}
+            trackingId={selectOrder.trackingId}
+          />
+          <button
+            onClick={closeModal}
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-1"
+          >
+            ✕
+          </button>
+        </div>
+      </dialog>
     </div>
   );
 };
 
 export default AllOrdersAdmin;
-  
