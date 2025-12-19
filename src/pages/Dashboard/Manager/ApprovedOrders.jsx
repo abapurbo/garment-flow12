@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useRole } from "../../../hooks/useRole";
 import { useAuth } from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 // Dummy approved orders data
 const dummyOrders = [
@@ -12,9 +14,19 @@ const dummyOrders = [
 
 const ApprovedOrders = () => {
   const [orders] = useState(dummyOrders);
-  const { role, status } = useRole();
+  const { role, status, roleLoading } = useRole();
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['approved-orders-manager'],
+    enabled: !roleLoading,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/approved-orders/manager`);
+      return res.data
+    }
+  });
+  console.log(data)
   // check if user can perform actions
   const canPerformActions = user?.email && role === "manager" && status === "approved";
 

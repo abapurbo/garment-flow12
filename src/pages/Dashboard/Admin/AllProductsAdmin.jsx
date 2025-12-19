@@ -19,7 +19,6 @@ const AllProductsAdmin = () => {
       return res.data;
     }
   })
- console.log("All show Data:", products.showOnHome);
   // useEffect(()=>{
 
   // },[])
@@ -121,10 +120,13 @@ const AllProductsAdmin = () => {
                   <input
                     type="checkbox"
                     className="toggle toggle-primary"
-                    defaultChecked={product.showOnHome}
+                    checked={product.showOnHome}
                   />
+                  {
+                    console.log("Show on Home Value:", product.showOnHome)
+                  }
                 </td>
-               
+
                 {/* Action Buttons */}
                 <td className="flex gap-3 justify-center">
                   {/* Update */}

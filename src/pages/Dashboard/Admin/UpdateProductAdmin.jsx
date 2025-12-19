@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) => {
-    // console.log("Update Product Data:", updateFrom);
+    console.log("Update Product Data:", updateFrom.showOnHome);
     const [previewImages, setPreviewImages] = useState([]);
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
@@ -43,9 +43,8 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
                 category: updateFrom.category,
                 description: updateFrom.description,
                 paymentOption: updateFrom.paymentOption,
-                // image: updateFrom.image,
                 demoLink: updateFrom.demoLink || "",
-                showOnHome: updateFrom.showOnHome || false,
+                showOnHome: updateFrom.showOnHome ?? false,
             });
 
             // existing image preview
@@ -55,7 +54,7 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
         }
     }, [updateFrom, reset]);
 
- 
+
     const handleImagePreview = (e) => {
         const files = e.target.files[0];
         console.log(files)
@@ -165,7 +164,6 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
         }
 
         //MUST use await
-        console.log("Updating product with data:", updatedProduct);
         const res = await axiosSecure.patch(
             `/update-product/admin/${updateFrom._id}?email=${user?.email}`,
             updatedProduct
@@ -298,7 +296,11 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
 
                 {/* Show On Home */}
                 <div className="col-span-2 flex items-center gap-2">
-                    <input type="checkbox" {...register("showOnHome")} className="checkbox" />
+                    <input
+                        type="checkbox"
+                        {...register("showOnHome")}
+                        className="checkbox"
+                    />
                     <span>Show on Home Page</span>
                 </div>
 

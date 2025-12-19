@@ -164,7 +164,7 @@ const AddProduct = () => {
           {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
 
           {/* Preview */}
-          <div className="flex gap-2 mt-2 flex-wrap">
+          <div className="flex gap-2 border w-fit  rounded-xl mt-2 flex-wrap">
             {previewImages && <img src={previewImages} alt="preview" className="w-20 h-20 object-cover rounded" />}
           </div>
         </div>

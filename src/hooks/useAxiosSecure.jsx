@@ -8,7 +8,7 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user, logoutUser} = useAuth();
+  const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const useAxiosSecure = () => {
       // Read token from cookie
       const token = Cookies.get("accessToken");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.authorization = `Bearer ${token}`;
       }
       return config;
     });
@@ -27,11 +27,8 @@ const useAxiosSecure = () => {
       (response) => response,
       async (error) => {
         const statusCode = error.response?.status;
-        // if(statusCode===404){
-        //   navigate("/not-found",{replace:true});
-        //   return Promise.reject(error);
-        // }
-        if (statusCode === 401 || statusCode === 403 ) {
+
+        if (statusCode === 401 || statusCode === 403) {
           try {
             await logoutUser();
             navigate("/login", { replace: true });

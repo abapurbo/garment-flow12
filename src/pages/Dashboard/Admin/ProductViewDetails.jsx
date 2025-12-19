@@ -62,24 +62,19 @@ export default function ProductViewDetails({ productId, trackingId }) {
             </h2>
 
             {/* Order Info */}
-            <div className="grid md:grid-cols-2 gap-4 mb-10 ">
-                <div className="space-y-2 text-gray-700 dark:text-gray-300">
+            <div className="flex justify-between gap-4 mb-10">
+                <div className="space-y-2 text-gray-700 dark:text-gray-300 b">
+
                     <p>
-                        <span className="font-semibold">Transaction ID:</span> {transactionId}
-                    </p>
-                    <p>
-                        <span className="font-semibold">Order ID:</span> {orderTrackingId}
-                    </p>
-                    <p>
-                        
+
                         <span className="font-semibold">User Email:</span> {userName}
                     </p>
                     <p>
-                        
+
                         <span className="font-semibold">User Email:</span> {buyerEmail}
                     </p>
                     <p>
-                        
+
                         <span className="font-semibold">User Email:</span> {contactNumber}
                     </p>
                     <p>
@@ -89,13 +84,19 @@ export default function ProductViewDetails({ productId, trackingId }) {
                         <span className="font-semibold">Quantity:</span> {quantity}
                     </p>
                     <p>
-                        <span className="font-semibold">Total Price:</span> ${amount} 
+                        <span className="font-semibold">Total Price:</span> ${amount}
                     </p>
                     <p><span className="font-semibold">Notes:</span> {notes}</p>
                     <p><span className="font-semibold">Delivery Address:</span> {deliveryAddress}</p>
                 </div>
 
-                <div className="space-y-2 text-gray-700 dark:text-gray-300">
+                <div className="space-y-2 text-gray-700 dark:text-gray-300 ">
+                    <p>
+                        <span className="font-semibold">Transaction ID:</span> {transactionId}
+                    </p>
+                    <p>
+                        <span className="font-semibold">Order ID:</span> {orderTrackingId}
+                    </p>
                     <p>
                         <span className="font-semibold">Payment Status:</span> {paymentStatus}
                     </p>

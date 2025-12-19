@@ -15,9 +15,6 @@ const ManageProducts = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  /* =========================
-     Initial Load Products
-  ========================== */
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["manage-products", user?.email],
     enabled: !!user?.email,
@@ -30,9 +27,6 @@ const ManageProducts = () => {
     },
   });
 
-  /* =========================
-     Search Products
-  ========================== */
   useEffect(() => {
     const delay = setTimeout(() => {
       if (searchText.trim() === "") {

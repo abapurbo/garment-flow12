@@ -137,7 +137,7 @@ const AllOrdersAdmin = () => {
         </table>
       </div>
       <dialog ref={viewModalRef} className="modal ">
-        <div className="modal-box min-w-4xl">
+        <div className="modal-box min-w-3xl">
           <ProductViewDetails
             productId={selectOrder._id}
             trackingId={selectOrder.trackingId}

@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useAuth } from "../../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => {
   const [previewImages, setPreviewImages] = useState([]);
@@ -42,9 +43,9 @@ export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => 
         category: updateFrom.category,
         description: updateFrom.description,
         paymentOption: updateFrom.paymentOption,
-        image: updateFrom.image,
+        // image: updateFrom.image,
         demoLink: updateFrom.demoLink || "",
-        showOnHome: updateFrom.showOnHome || false,
+        showOnHome: updateFrom.showOnHome ?? false,
       });
 
       // existing image preview
@@ -67,14 +68,34 @@ export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => 
   /* =========================
      Submit
   ========================== */
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const updatedProduct = {
       ...data,
       price: Number(data.price),
       availableQty: Number(data.availableQty),
       minOrderQty: Number(data.minOrderQty),
       showOnHome: data.showOnHome || false,
-    };
+    }
+
+    if (data.image && data.image.length > 0) {
+      console.log("New image selected, uploading...");
+      const profileImg = data.image[0];
+      const formData = new FormData();
+      formData.append("image", profileImg);
+
+      const IMG_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imag_api_key}`;
+
+      const imgRes = await axios.post(IMG_API_URL, formData);
+
+      if (imgRes.data.success) {
+        updatedProduct.image = imgRes.data.data.display_url;
+      }
+    } else {
+      // console.log("No new image selected, keeping existing image.");
+      updatedProduct.image = updateFrom.image;
+      console.log("Existing image URL:", updatedProduct.image);
+    }
+
     //update product info
     axiosSecure.patch(`/update-product/${updateFrom._id}?email=${user?.email}`, updatedProduct)
       .then(res => {
