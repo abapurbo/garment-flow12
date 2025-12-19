@@ -100,7 +100,7 @@ const MyOrders = () => {
               <tr>
                 <td
                   colSpan={7}
-                  className="text-center py-12 text-gray-500 dark:text-purple-600 text-2xl font-bold"
+                  className="text-center py-12 text-blue-500 dark:text-purple-600 text-2xl font-bold"
                 >
                   No Orders Found
                 </td>
