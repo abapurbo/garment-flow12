@@ -3,7 +3,6 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/Loading";
 
 export default function ProductViewDetails({ productId, trackingId }) {
-    console.log(productId, trackingId);
     const axiosSecure = useAxiosSecure();
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);

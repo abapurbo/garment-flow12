@@ -25,7 +25,7 @@ export default function AuthProvider({ children }) {
     Cookies.set("accessToken", token, {
       expires: 1,
       path: "/",
-      sameSite: "lax",
+      sameSite: "none",
       secure: true, // true in production (https)
     });
   };

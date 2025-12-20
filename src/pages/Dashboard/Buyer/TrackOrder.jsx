@@ -14,8 +14,7 @@ const TrackOrderTimeline = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const axiosSecure = useAxiosSecure();
-  console.log(trackingData)
-  // 🔍 fetch tracking
+  // fetch tracking
   useEffect(() => {
     if (!orderId || orderId.trim().length < 4) {
       setTrackingData([]);

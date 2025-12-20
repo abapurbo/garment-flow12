@@ -47,7 +47,6 @@ const AllProductsAdmin = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/product/admin/${productId}`)
           .then(res => {
-            console.log(res.data)
             if (res.data.deletedCount > 0) {
               refetch();
               Swal.fire({
@@ -122,9 +121,7 @@ const AllProductsAdmin = () => {
                     className="toggle toggle-primary"
                     checked={product.showOnHome}
                   />
-                  {
-                    console.log("Show on Home Value:", product.showOnHome)
-                  }
+                  
                 </td>
 
                 {/* Action Buttons */}

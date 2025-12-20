@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function TrackingView({ trackingId, closeModal }) {
-    console.log(trackingId)
     const axiosSecure = useAxiosSecure()
     const [tracking, setTracking] = useState([])
-    console.log(tracking)
     // Sample tracking data
     // const tracking = [
     //     {

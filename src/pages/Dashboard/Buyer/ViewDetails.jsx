@@ -18,7 +18,6 @@ export default function ViewDetails({ productId, trackingId }) {
       })
       .catch(() => setLoading(false));
   }, [productId, trackingId, axiosSecure]);
-  console.log(order)
   if (loading) return <Loading />;
 
   if (!order) {

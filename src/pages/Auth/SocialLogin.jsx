@@ -12,7 +12,6 @@ export default function SocialLogin() {
     const handleSocialLogin = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result);
                 navigate(location?.state|| '/')    
                 // create user in the database
                 const userInfo = {
@@ -22,7 +21,6 @@ export default function SocialLogin() {
                 }
                 axiosSecure.post('/user', userInfo)
                     .then(res => {
-                        console.log('user data has been stored', res.data);
                         toast.success("Logged in successfully!");
                     })
 

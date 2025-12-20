@@ -103,7 +103,6 @@ const ApprovedOrders = () => {
 
     axiosSecure.post('/trackings/order-update', trackingInfo)
       .then(res => {
-        console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
             icon: "success",

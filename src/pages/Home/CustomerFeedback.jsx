@@ -48,7 +48,7 @@ export default function CustomerFeedback() {
   return (
     <section
       className="
-        px-16 py-16
+        md:px-16 px-6 py-16
         bg-gray-50
         dark:bg-gradient-to-b
         dark:from-[#151826]
@@ -58,44 +58,50 @@ export default function CustomerFeedback() {
     >
       <div className="container mx-auto">
         {/* Section Title */}
-      <SectionTitle
-        title="What Our Clients Say"
-        subtitle="Customer Feedback on Garments Order & Production Tracker System"
-        description="Our clients trust us to streamline their garment production workflow. 
+        <SectionTitle
+          title="What Our Clients Say"
+          subtitle="Customer Feedback on Garments Order & Production Tracker System"
+          description="Our clients trust us to streamline their garment production workflow. 
         Here's what they have to say about the platform's ease of use, 
         reliability, and efficiency in managing orders and production."
-      />
+        />
 
-      {/* Swiper Carousel */}
-      <Swiper
-        loop={true}
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={3}
-        coverflowEffect={{
-          rotate: 20,
-          stretch: "10%",
-          depth: 200,
-          modifier: 1,
-          scale: 0.8,
-          slideShadows: false
-        }}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false
-        }}
-        pagination={true}
-        modules={[Autoplay, Pagination, EffectCoverflow]}
-        className="my-swiper dark:text-[#E6E8F0]"
-      >
-        {feedbacks.map((card, index) => (
-          <SwiperSlide key={index}>
-            {/* Card will inherit dark styles */}
-            <CustomerCard feedback={card} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        {/* Swiper Carousel */}
+        <Swiper
+          loop={true}
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={1}
+          breakpoints={{
+            768: {
+              slidesPerView: 3, 
+            },
+          }}
+
+          coverflowEffect={{
+            rotate: 20,
+            stretch: "10%",
+            depth: 200,
+            modifier: 1,
+            scale: 0.8,
+            slideShadows: false
+          }}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false
+          }}
+          pagination={true}
+          modules={[Autoplay, Pagination, EffectCoverflow]}
+          className="my-swiper dark:text-[#E6E8F0]"
+        >
+          {feedbacks.map((card, index) => (
+            <SwiperSlide key={index}>
+              {/* Card will inherit dark styles */}
+              <CustomerCard feedback={card} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );

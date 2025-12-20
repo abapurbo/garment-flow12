@@ -15,7 +15,6 @@ export default function OrderForm() {
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  console.log(product);
   // ----------------------------
   // Fetch product
   // ----------------------------
@@ -99,7 +98,6 @@ export default function OrderForm() {
           cancelButtonText: "Cancel",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            console.log('ljsflsflj')
             const stripeRes = await axiosSecure.post(
               "/payment-checkout-session",
               paymentInfo
@@ -152,7 +150,6 @@ export default function OrderForm() {
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Order failed");
-      console.log(err);
     }
   };
 

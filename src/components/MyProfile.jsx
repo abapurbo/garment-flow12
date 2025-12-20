@@ -11,12 +11,9 @@ export default function MyProfile() {
     const { user, logoutUser, updateUserProfile } = useAuth();
     const [dashboardData, setDashboardData] = useState({});
     const { role, status, suspendReason, suspendedAt } = useRole()
-    console.log(
-        suspendReason
-        , suspendedAt)
+    
     const axiosSecure = useAxiosSecure()
     const updateModal = useRef()
-    console.log(dashboardData)
     useEffect(() => {
         if (!user?.email) return;
 

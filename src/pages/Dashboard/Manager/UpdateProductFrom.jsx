@@ -60,7 +60,6 @@ export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => 
   ========================== */
   const handleImagePreview = (e) => {
     const files = e.target.files[0];
-    console.log(files)
     const previews = URL.createObjectURL(files)
     setPreviewImages(previews);
   };
@@ -78,7 +77,6 @@ export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => 
     }
 
     if (data.image && data.image.length > 0) {
-      console.log("New image selected, uploading...");
       const profileImg = data.image[0];
       const formData = new FormData();
       formData.append("image", profileImg);
@@ -91,15 +89,12 @@ export const UpdateProductForm = ({ updateFrom, handleCloseModal, refetch }) => 
         updatedProduct.image = imgRes.data.data.display_url;
       }
     } else {
-      // console.log("No new image selected, keeping existing image.");
       updatedProduct.image = updateFrom.image;
-      console.log("Existing image URL:", updatedProduct.image);
     }
 
     //update product info
     axiosSecure.patch(`/update-product/${updateFrom._id}?email=${user?.email}`, updatedProduct)
       .then(res => {
-        console.log(res.data)
         if (res.data.modifiedCount > 0) {
           Swal.fire({
             position: "top-center",

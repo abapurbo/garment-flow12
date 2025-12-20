@@ -8,17 +8,8 @@ import { Toaster } from 'react-hot-toast';
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-
-      {/* Banner + Navbar Wrapper */}
-      <div className="relative">
-
-        {/* Navbar on top of Banner */}
-        <div className="absolute top-0 left-0 w-full z-50">
           <Navbar />
-        </div>
-
-        {/* Hero Section Banner */}
-      </div>
+        
 
       {/* Page Content */}
       <main className="flex-grow dark:bg-gray-900">

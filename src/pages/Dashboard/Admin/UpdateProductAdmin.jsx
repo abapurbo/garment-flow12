@@ -7,11 +7,9 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) => {
-    console.log("Update Product Data:", updateFrom.showOnHome);
     const [previewImages, setPreviewImages] = useState([]);
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
-    // console.log("Update from admin:", updateFrom._id);
     const {
         register,
         handleSubmit,
@@ -57,7 +55,6 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
 
     const handleImagePreview = (e) => {
         const files = e.target.files[0];
-        console.log(files)
         const previews = URL.createObjectURL(files)
         setPreviewImages(previews);
     };
@@ -130,7 +127,6 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
     //     }
     // };
     const onSubmit = async (data) => {
-        console.log(data)
         const updatedProduct = {
             name: data.name,
             price: Number(data.price),
@@ -142,10 +138,8 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
             demoLink: data.demoLink,
             showOnHome: data.showOnHome || false,
         };
-        // console.log("Prepared updated product data:", updatedProduct);
         // // image handling
         if (data.image && data.image.length > 0) {
-            console.log("New image selected, uploading...");
             const profileImg = data.image[0];
             const formData = new FormData();
             formData.append("image", profileImg);
@@ -160,7 +154,6 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
         } else {
             // console.log("No new image selected, keeping existing image.");
             updatedProduct.image = updateFrom.image;
-            console.log("Existing image URL:", updatedProduct.image);
         }
 
         //MUST use await
@@ -168,7 +161,6 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
             `/update-product/admin/${updateFrom._id}?email=${user?.email}`,
             updatedProduct
         );
-        console.log("Update response:", res.data);
         if (res.data.modifiedCount > 0) {
             refetch();
             handleCloseModal();

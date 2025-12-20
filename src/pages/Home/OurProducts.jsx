@@ -10,7 +10,7 @@ const OurProducts = () => {
   return (
     <div
       className="
-        py-12 px-16
+        py-12 md:px-16 px-6
         bg-white
         dark:bg-gradient-to-b
         dark:from-[#151826]
@@ -24,7 +24,7 @@ const OurProducts = () => {
         description="Explore our diverse range of garments designed to meet your fashion needs with quality and style."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-6 container mx-auto px-10">
+      <div className="grid grid-cols-1  md:grid-cols-3 gap-10 mt-6 container mx-auto md:px-10">
         {isLoading ? (
           <div className="col-span-3">
             <Loading />

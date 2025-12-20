@@ -6,7 +6,8 @@ const HowItWorks = () => {
   return (
     <div
       className="
-        py-12 px-16
+        py-12 md:px-16
+        px-6
         bg-gray-50
         dark:bg-gradient-to-b
         dark:from-[#151826]
@@ -20,7 +21,7 @@ const HowItWorks = () => {
         description="A step-by-step workflow to manage orders, production stages, and inventory efficiently in small and medium-sized garment factories." 
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3  container mx-auto gap-8 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-3   container mx-auto gap-8 mt-10">
         {/* Step 1 */}
         <div
           className="

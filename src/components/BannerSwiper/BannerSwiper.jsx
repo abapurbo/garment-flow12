@@ -19,18 +19,18 @@ export default function BannerSwiper() {
                     clickable: true,
                 }}
                 modules={[Pagination]}
-                className="mySwiper"
+                className="mySwiper "
             >
                 {/* Slide 1 */}
                 <SwiperSlide>
-                    <div className="relative w-full h-[500px] md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/pj5sGYyD/sewing-machines-garment-factory-922936-22515.avif')]">
+                    <div className="relative w-full h-full md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/pj5sGYyD/sewing-machines-garment-factory-922936-22515.avif')]">
 
                         {/* Dark Overlay */}
                         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
 
                         {/* Left Side Content */}
-                        <div className="absolute inset-0 flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center ">
+                        <div className="absolute inset-0  flex justify-center items-center">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
 
                                 <h1 className="text-3xl md:text-5xl  font-bold">
                                     Biggest Garments Production <br />
@@ -54,12 +54,12 @@ export default function BannerSwiper() {
 
                 {/* Slide 2 */}
                 <SwiperSlide>
-                    <div className="relative w-full h-[500px] md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/nq5cVjcW/industrial-sewing-machine-stitching-purple-fabric-factory-textile-production-garment-making-visible.webp')]">
+                    <div className="relative w-full h-full  md:h-[650px] bg-no-repeat bg-cover md:bg-center  bg-[url('https://i.ibb.co/nq5cVjcW/industrial-sewing-machine-stitching-purple-fabric-factory-textile-production-garment-making-visible.webp')]">
                         {/* Dark Overlay */}
                         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
                         {/* Left Side Content */}
                         <div className="absolute inset-0 flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center ">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
 
                                 <h1 className="text-3xl md:text-5xl font-bold">
                                     Seamlessly Track and Manage <br />
@@ -84,11 +84,11 @@ export default function BannerSwiper() {
 
                 {/* Slide 3 */}
                 <SwiperSlide>
-                    <div className="relative w-full h-[500px] md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/MxVLZsbP/11062b-943ac8a2ed574e4f9d2481ce75d66f65-mv2.avif')]">
+                    <div className="relative w-full h-full  md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/MxVLZsbP/11062b-943ac8a2ed574e4f9d2481ce75d66f65-mv2.avif')]">
                         {/* Dark Overlay */}
-                        <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
-                        <div className="absolute inset-0 flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center ">
+                        <div className="absolute inset-0  bg-black/60 dark:bg-black/70"></div>
+                        <div className="absolute inset-0  flex justify-center items-center">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
 
                                 <h1 className="text-3xl md:text-5xl font-bold">
                                     Modern Garment Production <br />
@@ -99,7 +99,7 @@ export default function BannerSwiper() {
                                     Streamline your garment business with real-time order tracking, production monitoring, inventory management, and on-time delivery using our efficient, all-in-one platform.
                                 </p>
 
-                                <button className="mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition">
+                                <button className="mt-4 px-12 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition">
                                     Get Start
                                 </button>
 

@@ -27,7 +27,7 @@ export default function ProductCard({ card }) {
           className="w-full  h-full object-contain transition-transform duration-500 hover:scale-120"
         />
 
-        {/* New Badge */}
+        {/* New Badge
         {location?.pathname === "/" && (
           <span
             className="
@@ -39,7 +39,7 @@ export default function ProductCard({ card }) {
           >
             New
           </span>
-        )}
+        )} */}
       </div>
 
       {/* Product Details */}

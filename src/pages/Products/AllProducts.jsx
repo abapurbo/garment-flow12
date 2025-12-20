@@ -34,7 +34,7 @@ const AllProducts = () => {
   }, [currentPage, sortOrder, searchQuery]);
 
   return (
-    <div className="pt-34 pb-16 px-4 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen container mx-auto">
+    <div className="pt-34 pb-16 px-6 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen container mx-auto">
 
       {/* Section Title */}
       <div className="text-center max-w-2xl mx-auto mb-12">
@@ -48,12 +48,12 @@ const AllProducts = () => {
       </div>
 
       {/* Search & Sort */}
-      <div className="mb-10 flex flex-col md:flex-row justify-between items-center gap-4 px-10">
+      <div className="mb-10 flex flex-col md:flex-row justify-between items-center gap-4  md:px-10 ">
         <h1 className="text-2xl text-blue-500 dark:text-purple-600 font-bold">
           ({totalProducts}) Products Found
         </h1>
 
-        <div className="flex gap-12">
+        <div className="flex md:flex-row flex-col w-full md:gap-12 gap-4 ">
           {/* Search Input */}
           <div className="relative w-full md:w-80">
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300 text-xl" />
@@ -82,7 +82,7 @@ const AllProducts = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10 px-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10 ">
         {loading ? (
           <div className="col-span-3 text-center py-20">
             <h1 className="text-2xl font-semibold text-blue-500 dark:text-purple-600">
