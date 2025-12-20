@@ -163,7 +163,7 @@ const ManageProducts = () => {
       {/* Update Modal */}
       <dialog ref={updateRef} className="modal">
         <div className="modal-box max-w-3xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-            <button className="btn btn-sm btn-circle absolute right-2 top-2">
+            <button onClick={closeModal} className="btn btn-sm btn-circle absolute right-2 top-2">
               ✕
             </button>
           <UpdateProductForm updateFrom={updateFrom} handleCloseModal={closeModal} refetch={refetch} />

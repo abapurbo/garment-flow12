@@ -6,7 +6,7 @@ export default function ViewDetails({ productId, trackingId }) {
   const axiosSecure = useAxiosSecure();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
- 
+
   useEffect(() => {
     if (!productId || !trackingId) return;
 
@@ -18,7 +18,7 @@ export default function ViewDetails({ productId, trackingId }) {
       })
       .catch(() => setLoading(false));
   }, [productId, trackingId, axiosSecure]);
- console.log(order)
+  console.log(order)
   if (loading) return <Loading />;
 
   if (!order) {
@@ -49,7 +49,7 @@ export default function ViewDetails({ productId, trackingId }) {
       </h2>
 
       {/* Order Info */}
-      <div className="grid md:grid-cols-2 gap-2 mb-10">
+      <div className="flex justify-between gap-2 mb-10">
         <div className="space-y-2 text-gray-700 dark:text-gray-300">
           <p>
             <span className="font-semibold">Product:</span> {productName}
@@ -71,7 +71,7 @@ export default function ViewDetails({ productId, trackingId }) {
             <span className="font-semibold">Order Date:</span>{" "}
             {new Date(createdAt).toLocaleString()}
           </p>
-          <p  className="flex items-center justify-left gap-2">
+          <p className="flex items-center justify-left gap-1 ">
             <span className="font-semibold ">Current Status:</span>
             <span className="px-3  py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
               {currentStatus}
@@ -92,29 +92,41 @@ export default function ViewDetails({ productId, trackingId }) {
           </p>
         ) : (
           <div className="relative border-l-2 border-blue-500 dark:border-purple-500 pl-6 space-y-8">
-            {tracking.map((item, index) => (
-              <div key={index} className="relative">
-                {/* Dot */}
-                <span className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-500 dark:bg-purple-500"></span>
+            {tracking.map((item, index) => {
+              // Convert createdAt to readable date & time
+              const dateObj = new Date(item.createdAt);
+              const formattedDate = dateObj.toLocaleDateString("en-GB"); // DD/MM/YYYY
+              const formattedTime = dateObj.toLocaleTimeString("en-GB", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+              });
 
-                {/* Card */}
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow">
-                  <p className="font-semibold text-blue-600 dark:text-purple-400">
-                    {item.status}
-                  </p>
+              return (
+                <div key={index} className="relative">
+                  {/* Dot */}
+                  <span className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-500 dark:bg-purple-500"></span>
 
-                  {item.message && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      {item.message}
+                  {/* Card */}
+                  <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow">
+                    <p className="font-semibold text-blue-600 dark:text-purple-400">
+                      {item.status}
                     </p>
-                  )}
 
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                    {new Date(item.createdAt).toLocaleString()}
-                  </p>
+                    {item.message && (
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        {item.message}
+                      </p>
+                    )}
+
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                      {formattedDate} at {formattedTime}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+
           </div>
         )}
       </div>

@@ -10,8 +10,8 @@ import Loading from "../../../components/Loading";
 const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   const [selectOrder, setSelectOrder] = useState({});
-  const { user } = useAuth();
-  const { role, status } = useRole();
+  const { user, isLoading: authLoading } = useAuth();
+  const { role, status, roleLoading } = useRole();
 
   const viewModalRef = useRef();
 
@@ -19,8 +19,10 @@ const MyOrders = () => {
 
   const { data: orders = [], isLoading, refetch } = useQuery({
     queryKey: ["my-orders"],
+    enabled: !authLoading && !roleLoading,
     queryFn: async () => {
       const res = await axiosSecure.get("/buyer/my-orders");
+      console.log(res.data)
       return res.data;
     },
   });
@@ -123,7 +125,7 @@ const MyOrders = () => {
                         ${order.status === "Pending"
                           ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
                           : order.status === "Approved"
-                            ? "bg-blue-100 text-blue-700 dark:bg-purple-900 dark:text-purple-300":"bg-red-100 text-red-700 dark:bg-red-300 dark:text-red-600"
+                            ? "bg-blue-100 text-blue-700 dark:bg-purple-900 dark:text-purple-300" : "bg-red-100 text-red-700 dark:bg-red-300 dark:text-red-600"
                         }`}
                     >
                       {order.status}

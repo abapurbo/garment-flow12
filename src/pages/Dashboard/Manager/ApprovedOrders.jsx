@@ -4,6 +4,7 @@ import { useRole } from "../../../hooks/useRole";
 import { useAuth } from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import TrackingView from "./TrackingView";
 
 // Dummy approved orders data
 const dummyOrders = [
@@ -11,6 +12,38 @@ const dummyOrders = [
   { id: "ORD-102", user: "Jane Smith", product: "Denim Jeans", quantity: 5, approvedDate: "2025-12-11" },
   { id: "ORD-103", user: "Mike Johnson", product: "Leather Jacket", quantity: 2, approvedDate: "2025-12-12" },
 ];
+
+const tracking = [
+  {
+    status: "Cutting Completed",
+    date: "2025-01-12",
+    time: "10:30 AM",
+    location: "Cutting Section",
+    note: "Fabric cutting finished"
+  },
+  {
+    status: "Sewing Started",
+    date: "2025-01-14",
+    time: "02:00 PM",
+    location: "Line 3",
+    note: "Stitching started"
+  },
+  {
+    status: "Finishing",
+    date: "2025-01-16",
+    time: "11:15 AM",
+    location: "Finishing Unit",
+    note: "Iron & checking done"
+  }
+];
+const product = {
+  name: "Men Cotton Shirt",
+  price: 1200,
+  category: "Shirt",
+  quantity: 500,
+  description: "High quality cotton shirt",
+  image: "https://via.placeholder.com/300"
+};
 
 const ApprovedOrders = () => {
   const { role, status, roleLoading } = useRole();
@@ -31,39 +64,6 @@ const ApprovedOrders = () => {
   // check if user can perform actions
   const canPerformActions = user?.email && role === "manager" && status === "approved";
 
-  // const handleAddTracking = (tackingProduct) => {
-  //   console.log(tackingProduct);
-  //   if (!canPerformActions) return;
-
-  //   Swal.fire({
-  //     title: `Add Tracking for ${tackingProduct._id}`,
-  //     html: `
-  //       <input type="text" id="location" class="swal2-input" placeholder="Location">
-  //       <input type="text" id="note" class="swal2-input" placeholder="Note">
-  //       <input type="datetime-local" id="datetime" class="swal2-input">
-  //       <select id="status" class="swal2-select">
-  //         <option value="Cutting Completed">Cutting Completed</option>
-  //         <option value="Sewing Started">Sewing Started</option>
-  //         <option value="Finishing">Finishing</option>
-  //         <option value="Packed">Packed</option>
-  //         <option value="Out for Delivery">Out for Delivery</option>
-  //       </select>
-  //     `,
-  //     showCancelButton: true,
-  //     confirmButtonText: "Add Tracking",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-
-
-
-
-
-
-  //       Swal.fire("Added!", `Tracking info for ${tackingProduct._id} added.`, "success");
-  //     }
-  //   });
-  // };
-
 
   const openModal = () => {
     tackModalRef.current.showModal();
@@ -82,9 +82,6 @@ const ApprovedOrders = () => {
     const notes = form.note.value;
 
     const combined = new Date(`${dateValue}T${timeValue}`);
-
-    // const date = combined.toLocaleDateString('en-GB');
-    // const time = combined.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
 
     const trackingInfo = {
       location,
@@ -109,53 +106,8 @@ const ApprovedOrders = () => {
         }
       });
   }
-  // const handleAddTracking = (id) => {
-  //   if (!canPerformActions) return;
 
-  //   Swal.fire({
-  //     title: `Add Tracking for ${id}`,
-  //     html: `
-  //     <input type="text" id="location" class="swal2-input" placeholder="Location">
-  //     <input type="text" id="note" class="swal2-input" placeholder="Note">
-  //     <input type="datetime-local" id="datetime" class="swal2-input">
-  //     <select id="status" class="swal2-select">
-  //       <option value="Cutting Completed">Cutting Completed</option>
-  //       <option value="Sewing Started">Sewing Started</option>
-  //       <option value="Finishing">Finishing</option>
-  //       <option value="Packed">Packed</option>
-  //       <option value="Out for Delivery">Out for Delivery</option>
-  //     </select>
-  //   `,
-  //     showCancelButton: true,
-  //     confirmButtonText: "Add Tracking",
 
-  //     //Dark mode custom class
-  //     customClass: {
-  //       popup: 'swal2-dark-popup',
-  //       title: 'swal2-dark-title',
-  //       input: 'swal2-dark-input',
-  //       select: 'swal2-dark-select',
-  //       confirmButton: 'swal2-dark-btn',
-  //       cancelButton: 'swal2-dark-btn'
-  //     },
-  //     buttonsStyling: false
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire("Added!", `Tracking info for ${id} added.`, "success");
-  //     }
-  //   });
-  // };
-
-  // const handleViewTracking = (id) => {
-  //   console.log(id);
-  //   if (!canPerformActions) return;
-
-  //   Swal.fire(
-  //     `Tracking for ${id}`,
-  //     `Show timeline of product movement here.`,
-  //     "info"
-  //   );
-  // };
 
   return (
     <div className="p-6">
@@ -194,7 +146,7 @@ const ApprovedOrders = () => {
           <tbody>
             {orders.length === 0 && (
               <tr>
-                <td colSpan="7" className="text-center text-2xl dark:text-purple-600  py-4 text-blue-600">
+                <td colSpan="7" className="text-center text-2xl dark:text-purple-600  py-12 font-bold text-blue-600">
                   No approved orders.
                 </td>
               </tr>
@@ -220,9 +172,12 @@ const ApprovedOrders = () => {
                     Add Tracking
                   </button>
                   <button
-                    onClick={() => handleViewTracking(order.id)}
-                    disabled={!canPerformActions}
-                    className={`btn btn-sm rounded-2xl bg-green-100 text-green-600 dark:bg-purple-600 dark:text-white hover:dark:bg-purple-500 hover:bg-green-200 ${!canPerformActions ? "cursor-not-allowed opacity-50" : ""}`}
+                    onClick={() => {
+                      openModal()
+                      setTrackingId(order.trackingId)
+                    }}
+                    // disabled={!canPerformActions}
+                    className={`btn btn-sm rounded-2xl bg-green-100 text-green-600 dark:bg-purple-600 dark:text-white hover:dark:bg-purple-500 hover:bg-green-200 `}
                   >
                     View Tracking
                   </button>
@@ -320,18 +275,16 @@ const ApprovedOrders = () => {
         </div>
       </dialog>
 
+      {/* approved tracking view modal */}
 
-
-
-
-
-
-
-
-
-
-
-
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      <dialog id="my_modal_3" ref={tackModalRef} className="modal">
+        <div className="modal-box">
+          {/* if there is a button in form, it will close the modal */}
+          <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <TrackingView trackingId={trackingId}  closeModal={closeModal} ></TrackingView>
+        </div>
+      </dialog>
 
 
     </div>

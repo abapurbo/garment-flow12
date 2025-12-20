@@ -168,7 +168,7 @@ const PendingOrders = () => {
                   <button
                     onClick={() => handleApprove(order._id)}
                     disabled={!canManageOrders || order.status !== "Pending"}
-                    className={`btn btn-sm rounded-2xl ${!canManageOrders || order.status !== "Pending" ? "cursor-not-allowed opacity-50 bg-green-200 text-green-600" : "bg-green-100 text-green-600 hover:bg-green-200"}`}
+                    className={`btn btn-sm rounded-2xl ${!canManageOrders ? "cursor-not-allowed opacity-50 bg-green-200 text-green-600" : "bg-green-100 text-green-600 hover:bg-green-200"}`}
                   >
                     Approve
                   </button>
@@ -177,7 +177,7 @@ const PendingOrders = () => {
                   <button
                     onClick={() => handleReject(order._id)}
                     disabled={!canManageOrders || order.status !== "Pending"}
-                    className={`btn btn-sm rounded-2xl ${!canManageOrders || order.status !== "Pending" ? "cursor-not-allowed opacity-50 bg-red-200 text-red-600" : "bg-red-200 text-red-600 hover:bg-red-300"}`}
+                    className={`btn btn-sm rounded-2xl ${!canManageOrders ? "cursor-not-allowed opacity-50 bg-red-200 text-red-600" : "bg-red-200 text-red-600 hover:bg-red-300"}`}
                   >
                     Reject
                   </button>
@@ -188,8 +188,8 @@ const PendingOrders = () => {
                       openModal()
                       setSelectedOrderId(order._id)
                     }}
-                    disabled={!canManageOrders}
-                    className={`btn btn-sm rounded-2xl ${!canManageOrders ? "cursor-not-allowed opacity-50 bg-blue-200 text-blue-600" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}`}
+                    // disabled={!canManageOrders}
+                    className={"btn btn-sm rounded-2xl  opacity-50 bg-blue-200  text-blue-600 hover:bg-blue-200"}
                   >
                     View
                   </button>

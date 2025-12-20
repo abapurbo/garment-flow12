@@ -5,27 +5,48 @@ import { useRole } from '../hooks/useRole'
 import useAxiosSecure from '../hooks/useAxiosSecure'
 import axios from "axios";
 import Swal from "sweetalert2";
+import StatCard from "./StateCard";
+
 export default function MyProfile() {
-    const { user, logoutUser, updateUserProfile } = useAuth()
-    const { role, status } = useRole()
+    const { user, logoutUser, updateUserProfile } = useAuth();
+    const [dashboardData, setDashboardData] = useState({});
+    const { role, status, suspendReason, suspendedAt } = useRole()
+    console.log(
+        suspendReason
+        , suspendedAt)
     const axiosSecure = useAxiosSecure()
-    const [order, setOrder] = useState({})
     const updateModal = useRef()
-    console.log(user)
+    console.log(dashboardData)
     useEffect(() => {
-        axiosSecure.get(`/buyer/orders?email=${user?.email}`)
-            .then(res => {
-                console.log(res.data)
-                setOrder(res.data)
-            })
-    }, [user])
+        if (!user?.email) return;
+
+        const fetchData = async () => {
+            try {
+                let url = "";
+
+                if (role === "buyer") {
+                    url = `/buyer/orders?email=${user.email}`;
+                } else if (role === "manager") {
+                    url = `/manager/profile/${user.email}`;
+                } else if (role === "admin") {
+                    url = `/admin/profile/${user.email}`;
+                }
+
+                const res = await axiosSecure.get(url);
+                setDashboardData(res.data)
+            } catch (err) {
+                console.error("Failed to fetch orders/profile:", err);
+            }
+        };
+
+        fetchData();
+    }, [user, role, axiosSecure]);
 
     const openModal = () => {
         updateModal.current.showModal()
     }
     const closeModal = () => {
         updateModal.current.close()
-
     }
 
     const handleUpdateProfile = async (e) => {
@@ -51,24 +72,19 @@ export default function MyProfile() {
                 photoURL: photoURL
             };
 
-            // Update Firebase user
             await updateUserProfile(profile)
-                .then(() => {
-                    Swal.fire({
-                        position: "top-center",
-                        icon: "success",
-                        title: "Profile updated successfully!",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    closeModal()
-                })
-
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Profile updated successfully!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            closeModal()
         } catch (err) {
             console.error("Profile update failed:", err);
         }
     };
-
 
     return (
         <div className="min-h-screen mt-10 bg-gray-100 dark:bg-gray-900 flex justify-center items-start p-6 font-urbanist">
@@ -98,6 +114,7 @@ export default function MyProfile() {
     ${status === "approved" && "bg-gradient-to-r from-green-100 to-green-200 text-green-900 dark:from-green-900 dark:to-green-800 dark:text-green-100"}
     ${status === "pending" && "bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-900 dark:from-yellow-900 dark:to-yellow-800 dark:text-yellow-100"}
     ${status === "blocked" && "bg-gradient-to-r from-red-100 to-red-200 text-red-900 dark:from-red-900 dark:to-red-800 dark:text-red-100"}
+    ${status === "suspended" && "bg-gradient-to-r from-red-100 to-red-200 text-red-900 dark:from-red-900 dark:to-red-800 dark:text-red-100"}
   `}
                     >
                         {/* STATUS DOT */}
@@ -106,15 +123,30 @@ export default function MyProfile() {
       ${status === "approved" && "bg-green-500"}
       ${status === "pending" && "bg-yellow-500"}
       ${status === "blocked" && "bg-red-500"}
-    `}
-                        />
-
-                        {/* TEXT */}
+      ${status === "suspended" && "bg-red-500"}
+    `} />
                         <p className="text-md font-semibold capitalize tracking-wide">
                             Account Status: {status}
                         </p>
                     </div>
 
+                    {/* Suspend Reason */}
+                    {status == "suspended" && (
+                        <div className="w-full mt-6 p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-600 dark:border-red-400 rounded-lg shadow-md flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                                <FaTimesCircle className="text-red-600 dark:text-red-400 text-xl" />
+                                <h3 className="text-red-800 dark:text-red-200 font-semibold text-lg">
+                                    Account Suspended
+                                </h3>
+                            </div>
+                            <p className="text-red-700 dark:text-red-300 text-xl">
+                                Reason: {suspendReason}
+                            </p>
+                            <p className="text-red-600 dark:text-red-400 text-xl my-4 italic">
+                                Please contact support for further assistance.
+                            </p>
+                        </div>
+                    )}
 
                     {/* Buttons */}
                     <div className="flex gap-4 mt-4">
@@ -128,107 +160,118 @@ export default function MyProfile() {
 
                     {/* Orders Stats */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8 w-full">
-                        <div className="bg-blue-50 dark:bg-purple-700 rounded-[4px]   shadow p-5 flex flex-col items-center">
-                            <FaShoppingCart className="text-4xl text-blue-600 dark:text-purple-300" />
-                            <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-gray-100">{order?.totalOrders}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mt-1">Total Orders</p>
-                        </div>
-                        <div className="bg-blue-50 dark:bg-purple-700 rounded-[4px] shadow p-5 flex flex-col items-center">
-                            <FaClock className="text-4xl text-yellow-500 dark:text-amber-300" />
-                            <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-gray-100">{order?.pendingOrders}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mt-1">Pending Orders</p>
-                        </div>
-                        <div className="bg-blue-50 dark:bg-purple-700 rounded-[4px]  shadow p-5 flex flex-col items-center">
-                            <FaCheckCircle className="text-4xl text-green-600 dark:text-emerald-300" />
-                            <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-gray-100">{order?.completedOrders}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mt-1">Completed Orders</p>
-                        </div>
-                        <div className="bg-blue-50 dark:bg-purple-700 rounded-[4px]  shadow p-5 flex flex-col items-center">
-                            <FaTimesCircle className="text-4xl text-red-600 dark:text-rose-300" />
-                            <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-gray-100">{order?.cancelledOrders}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mt-1">Cancelled Orders</p>
-                        </div>
+                        {role === "buyer" && (
+                            <>
+                                <StatCard icon={<FaShoppingCart />} iconColor="text-blue-600 dark:text-purple-300" value={dashboardData.totalOrders} label="Total Orders" />
+                                <StatCard icon={<FaClock />} iconColor="text-yellow-500 dark:text-amber-300" value={dashboardData.pendingOrders} label="Pending Orders" />
+                                <StatCard icon={<FaCheckCircle />} iconColor="text-green-600 dark:text-emerald-300" value={dashboardData.completedOrders} label="Completed Orders" />
+                                <StatCard icon={<FaTimesCircle />} iconColor="text-red-600 dark:text-rose-300" value={dashboardData.cancelledOrders} label="Cancelled Orders" />
+                            </>
+                        )}
+
+                        {role === "manager" && (
+                            <>
+                                <div className="col-span-4 flex justify-center">
+                                    <StatCard icon={<FaShoppingCart />} iconColor="text-purple-600 dark:text-purple-300" value={dashboardData.totalProducts} label="Your Products" />
+                                </div>
+                                <StatCard icon={<FaTimesCircle />} iconColor="text-red-600 dark:text-red-400 " value={dashboardData.rejectedOrders} label="Rejected Orders" />
+                                <StatCard icon={<FaCheckCircle />} iconColor="text-green-600 dark:text-emerald-300" value={dashboardData.approvedOrders} label="Approved Orders" />
+                                <StatCard icon={<FaClock />} iconColor="text-blue-600 dark:text-purple-300" value={dashboardData.totalOrders} label="Total Orders" />
+                                <StatCard icon={<FaClock />} iconColor="text-yellow-500 dark:text-amber-300" value={dashboardData.pendingOrders} label="Pending Orders" />
+                            </>
+                        )}
+
+                        {role === "admin" && (
+                            <>
+                                <StatCard
+                                    icon={<FaShoppingCart />}
+                                    iconColor="text-blue-600 dark:text-purple-300"
+                                    value={dashboardData.totalUsers}
+                                    label="Total Users"
+                                />
+                                <StatCard
+                                    icon={<FaClock />}
+                                    iconColor="text-yellow-500 dark:text-amber-300"
+                                    value={dashboardData.totalPendingUsers}
+                                    label="Pending Users"
+                                />
+                                <StatCard
+                                    icon={<FaTimesCircle />}
+                                    iconColor="text-red-600 dark:text-red-400"
+                                    value={dashboardData.totalSuspendedUsers}
+                                    label="Suspended Users"
+                                />
+                                <StatCard
+                                    icon={<FaCheckCircle />}
+                                    iconColor="text-green-600 dark:text-emerald-300"
+                                    value={dashboardData.totalProducts}
+                                    label="Total Products"
+                                />
+                                <StatCard
+                                    icon={<FaClock />}
+                                    iconColor="text-yellow-500 dark:text-amber-300"
+                                    value={dashboardData.totalOrders}
+                                    label="Total Orders"
+                                />
+                                <StatCard
+                                    icon={<FaCheckCircle />}
+                                    iconColor="text-green-600 dark:text-emerald-300"
+                                    value={dashboardData.approvedOrders}
+                                    label="Approved Orders"
+                                />
+                                <StatCard
+                                    icon={<FaClock />}
+                                    iconColor="text-yellow-500 dark:text-amber-300"
+                                    value={dashboardData.pendingOrders}
+                                    label="Pending Orders"
+                                />
+                                <StatCard
+                                    icon={<FaTimesCircle />}
+                                    iconColor="text-red-600 dark:text-red-400"
+                                    value={dashboardData.rejectedOrders}
+                                    label="Rejected Orders"
+                                />
+                            </>
+                        )}
+
                     </div>
                 </div>
             </div>
-            {/* You can open the modal using document.getElementById('ID').showModal() method */}
+
+            {/* Profile Update Modal */}
             <dialog id="my_modal_3" ref={updateModal} className="modal backdrop-blur-sm">
                 <div className="modal-box max-w-md rounded-2xl shadow-2xl bg-white dark:bg-gray-900">
-
-                    {/* Close Button */}
                     <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-gray-500 hover:text-red-500">
                         ✕
                     </button>
 
-
-                    {/* Header */}
                     <div className="text-center mb-6">
-                        <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                            Update Profile
-                        </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Update your personal information
-                        </p>
+                        <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Update Profile</h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Update your personal information</p>
                     </div>
 
-                    {/* Form */}
-                    <form onSubmit={handleUpdateProfile} className="space-y-5"
-                    >
-                        {/* Name */}
+                    <form onSubmit={handleUpdateProfile} className="space-y-5">
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-medium">Full Name</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="name"
-                                defaultValue={user?.displayName}
-                                placeholder="Enter your name"
-                                className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required
-                            />
+                            <label className="label"><span className="label-text font-medium">Full Name</span></label>
+                            <input type="text" name="name" defaultValue={user?.displayName} placeholder="Enter your name" className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                         </div>
 
-                        {/* Email (Read Only) */}
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-medium">Email Address</span>
-                            </label>
-                            <input
-                                type="email"
-                                value={user?.email || ""}
-                                readOnly
-                                disabled
-                                className="input input-bordered w-full rounded-xl bg-gray-100 dark:bg-gray-800 cursor-not-allowed"
-                            />
+                            <label className="label"><span className="label-text font-medium">Email Address</span></label>
+                            <input type="email" value={user?.email || ""} readOnly disabled className="input input-bordered w-full rounded-xl bg-gray-100 dark:bg-gray-800 cursor-not-allowed" />
                         </div>
 
-                        {/* Photo Upload */}
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-medium">Profile Photo</span>
-                            </label>
-
-                            <input
-                                type="file"
-                                name="photo"
-                                accept="image/*"
-                                className="file-input file-input-bordered w-full rounded-xl"
-                            />
-
+                            <label className="label"><span className="label-text font-medium">Profile Photo</span></label>
+                            <input type="file" name="photo" accept="image/*" className="file-input file-input-bordered w-full rounded-xl" />
                         </div>
 
-                        {/* Action Button */}
-                        <button
-                            type="submit"
-                            className="btn w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none hover:opacity-90 transition-all duration-300"
-                        >
+                        <button type="submit" className="btn w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none hover:opacity-90 transition-all duration-300">
                             Update Profile
                         </button>
                     </form>
                 </div>
             </dialog>
-
         </div>
     );
 }

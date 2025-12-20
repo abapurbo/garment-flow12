@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaBox, FaBoxOpen, FaTruck, FaMotorcycle, FaClock } from "react-icons/fa";
+import Map from "./Map";
 
 const staticTrackingData = [
   {
@@ -50,44 +51,54 @@ const TrackOrderTimeline = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-white  rounded-xs shadow-2xl dark:dark:bg-gray-800 transition-colors duration-300">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-6">
+    <div className="min-h-screen px-6  bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+      <div className="max-w-6xl mx-auto ">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-8">
           Track Your Order
         </h2>
 
         {/* Order ID Input */}
-        <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <input
             type="text"
             placeholder="Enter Order ID"
-            className="input input-bordered w-full sm:w-1/2"
+            className="input input-bordered w-full sm:w-1/2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
           />
-          <button type="submit" className="btn btn-primary w-full sm:w-auto">
+          <button
+            type="submit"
+            className="btn btn-primary w-full sm:w-auto rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white transition-all duration-300"
+          >
             Track
           </button>
         </form>
 
         {/* Timeline */}
-        {staticTrackingData.length > 0 && (
-          <div className="relative flex flex-col md:flex-row md:justify-between items-start md:items-center  p-3 gap-8">
-            {staticTrackingData.map((step, index) => {
-              const isLatest = index === staticTrackingData.length - 1;
+        {trackingData.length > 0 && (
+          <div className="relative flex flex-col md:flex-row md:justify-between items-start md:items-center gap-8 p-4">
+            {trackingData.map((step, index) => {
+              const isLatest = index === trackingData.length - 1;
               return (
-                <div key={index} className="flex flex-col  items-center text-center">
-                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-2 ${step.color}`}>
+                <div key={index} className="flex flex-col items-center text-center relative">
+                  {/* Connector Line */}
+                  {index < trackingData.length - 1 && (
+                    <div className="absolute md:top-12 md:left-12 w-1 md:w-24 h-24 border-l-2 md:border-l-0 md:border-t-2 border-gray-300 dark:border-gray-600"></div>
+                  )}
+
+                  {/* Circle Icon */}
+                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-3 shadow-lg ${step.color} transition-transform hover:scale-110`}>
                     <span className="text-4xl">{step.icon}</span>
                   </div>
-                  <h3 className={`font-semibold ${isLatest ? "text-gray-800 dark:text-gray-100" : "text-gray-600 dark:text-gray-300"}`}>
+
+                  {/* Status */}
+                  <h3 className={`font-semibold text-lg mb-1 ${isLatest ? "text-gray-800 dark:text-gray-100" : "text-gray-600 dark:text-gray-300"}`}>
                     {step.status}
                   </h3>
+
+                  {/* Date & Location */}
                   <p className="text-sm text-gray-500 dark:text-gray-400">{step.dateTime}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{step.location}</p>
-                  {index < trackingData.length - 1 && (
-                    <div className="hidden md:block h-1 bg-gray-300 dark:bg-gray-600 w-full mt-4"></div>
-                  )}
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{step.location}</p>
                 </div>
               );
             })}
@@ -96,8 +107,9 @@ const TrackOrderTimeline = () => {
 
         {/* Map Placeholder */}
         {trackingData.length > 0 && (
-          <div className="mt-12 h-64 rounded-xl bg-gray-200 dark:bg-purple-800 flex items-center justify-center text-gray-500 dark:text-gray-300">
-            Map Section (Skipped)
+          <div className="mt-12   h-[400px] rounded-xl bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-300 shadow-inner">
+            {/* static map */}
+            <Map></Map>
           </div>
         )}
       </div>
