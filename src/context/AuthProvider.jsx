@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
       expires: 1,
       path: "/",
       sameSite: "lax",
-      secure: false, // true in production (https)
+      secure: true, // true in production (https)
     });
   };
 
