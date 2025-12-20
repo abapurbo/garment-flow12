@@ -52,6 +52,7 @@ const ApprovedOrders = () => {
   const [trackingId, setTrackingId] = useState('');
   const axiosSecure = useAxiosSecure();
   const tackModalRef = useRef()
+  const viewModalRef=[useRef()]
 
   const { data: orders = [], isLoading, refetch } = useQuery({
     queryKey: ['approved-orders-manager'],
@@ -70,6 +71,14 @@ const ApprovedOrders = () => {
   }
   const closeModal = () => {
     tackModalRef.current.close();
+  }
+
+
+  const viewModal=()=>{
+     viewModalRef.current.showModal();
+  }
+  const viewColseModal=()=>{
+    viewModalRef.current.close()
   }
 
   const onSubmitTracking = (e) => {
@@ -173,7 +182,7 @@ const ApprovedOrders = () => {
                   </button>
                   <button
                     onClick={() => {
-                      openModal()
+                      viewModal()
                       setTrackingId(order.trackingId)
                     }}
                     // disabled={!canPerformActions}
@@ -278,11 +287,11 @@ const ApprovedOrders = () => {
       {/* approved tracking view modal */}
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <dialog id="my_modal_3" ref={tackModalRef} className="modal">
+      <dialog id="my_modal_3" ref={viewModalRef} className="modal">
         <div className="modal-box">
           {/* if there is a button in form, it will close the modal */}
           <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <TrackingView trackingId={trackingId}  closeModal={closeModal} ></TrackingView>
+          <TrackingView trackingId={trackingId}  viewColseModal={viewColseModal} ></TrackingView>
         </div>
       </dialog>
 

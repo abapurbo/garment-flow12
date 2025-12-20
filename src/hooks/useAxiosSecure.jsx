@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://garment-server-flow12.vercel.app",
 });
 
 const useAxiosSecure = () => {

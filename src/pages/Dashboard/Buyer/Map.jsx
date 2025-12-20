@@ -8,7 +8,7 @@ export default function MyMap() {
                 center={[23.9985, 90.4211]}
                 zoom={7}
                 scrollWheelZoom={false}
-                className="w-full h-[400px] rounded-2xl "
+                className="w-full h-[400px] rounded-xl "
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

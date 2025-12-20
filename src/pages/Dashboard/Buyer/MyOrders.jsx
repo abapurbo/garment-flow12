@@ -22,7 +22,6 @@ const MyOrders = () => {
     enabled: !authLoading && !roleLoading,
     queryFn: async () => {
       const res = await axiosSecure.get("/buyer/my-orders");
-      console.log(res.data)
       return res.data;
     },
   });

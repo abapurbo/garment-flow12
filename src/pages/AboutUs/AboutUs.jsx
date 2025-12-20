@@ -3,9 +3,9 @@ import { Link } from "react-router";
 
 const AboutUs = () => {
     const teamMembers = [
-        { name: "John Doe", role: "CEO & Founder", img: "https://images.unsplash.com/photo-1603415526960-f7e0328a17d1?auto=format&fit=crop&w=400&q=80" },
+        { name: "John Doe", role: "CEO & Founder", img: "https://i.ibb.co.com/nMCR4Rfz/download.jpg" },
         { name: "Jane Smith", role: "Product Manager", img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80" },
-        { name: "Mike Johnson", role: "Lead Developer", img: "https://images.unsplash.com/photo-1595152772835-219674b2a8a7?auto=format&fit=crop&w=400&q=80" },
+        { name: "Mike Johnson", role: "Lead Developer", img: "https://i.ibb.co.com/vCLjY18x/images-9.jpg" },
     ];
 
     const faqs = [
@@ -15,9 +15,9 @@ const AboutUs = () => {
     ];
 
     const blogPosts = [
-        { title: "Top 5 Tips to Manage Garment Production Efficiently", img: "https://images.unsplash.com/photo-1581093588401-9f2d2ff7c7d5?auto=format&fit=crop&w=400&q=80" },
-        { title: "How Technology is Transforming the Textile Industry", img: "https://images.unsplash.com/photo-1611599536221-19d3d0d2e8bb?auto=format&fit=crop&w=400&q=80" },
-        { title: "Best Practices for Inventory Management in Garments", img: "https://images.unsplash.com/photo-1611605690611-80b14c2232f6?auto=format&fit=crop&w=400&q=80" },
+        { title: "Top 5 Tips to Manage Garment Production Efficiently", img: "https://i.ibb.co.com/JFsn48kg/images-10.jpg" },
+        { title: "How Technology is Transforming the Textile Industry", img: "https://i.ibb.co.com/tPmH55x1/Untitled-design-2.jpg" },
+        { title: "Best Practices for Inventory Management in Garments", img: "https://i.ibb.co.com/jk5W0hp0/apparel-inventory-management-movement.webp" },
     ];
 
     return (
@@ -49,12 +49,12 @@ const AboutUs = () => {
             <section className="py-16 px-6 md:px-12">
                 <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-center">
                     {[
-                        { title: "Our Mission", desc: "Simplify production workflow and ensure accurate, timely delivery for garment factories.", img: "https://i.ibb.co/DDLp4nvm/images-2.png" },
-                        { title: "Our Vision", desc: "Become the most trusted platform for garment production management worldwide.", img: "https://images.unsplash.com/photo-1600372800842-5ebf59fa16b3?auto=format&fit=crop&w=400&q=80" },
-                        { title: "Our Values", desc: "Integrity, Innovation, and Customer Satisfaction in every step of our service.", img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80" },
+                        { title: "Our Mission", desc: "Simplify production workflow and ensure accurate, timely delivery for garment factories.", img: "https://i.ibb.co.com/Qz8yQxc/295-2958085-our-mission-our-mission-icon-png-removebg-preview.png" },
+                        { title: "Our Vision", desc: "Become the most trusted platform for garment production management worldwide.", img: "https://i.ibb.co.com/KcLCXDLd/images-3-removebg-preview.png" },
+                        { title: "Our Values", desc: "Integrity, Innovation, and Customer Satisfaction in every step of our service.", img: "https://i.ibb.co.com/SXLbGy7d/372-3729171-core-values-respect-icon-core-values-removebg-preview.png" },
                     ].map((item, index) => (
                         <div key={index} className="bg-white dark:bg-gray-800 shadow-lg rounded-3xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                            <img src={item.img} alt={item.title} className="w-20 h-20 mx-auto mb-4 rounded-full" />
+                            <img src={item.img} alt={item.title} className="w-20 object-center mx-auto mb-4 rounded-full" />
                             <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                             <p className="text-gray-600 dark:text-gray-300">{item.desc}</p>
                         </div>

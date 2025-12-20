@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import ProductViewDetails from "./ProductViewDetails";
 import { useRole } from "../../../hooks/useRole";
+import Loading from "../../../components/Loading";
 
 const AllOrdersAdmin = () => {
   const axiosSecure = useAxiosSecure();
@@ -11,7 +12,7 @@ const AllOrdersAdmin = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectOrder, setSelectOrder] = useState({});
   const viewModalRef = useRef()
-  const {roleloading}=useRole()
+  const { roleloading } = useRole()
   // Fetch all orders for admin
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ["allOrdersAdmin"],
@@ -47,7 +48,7 @@ const AllOrdersAdmin = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg"></span>
+        <Loading></Loading>
       </div>
     );
   }
