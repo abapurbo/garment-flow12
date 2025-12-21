@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const useAxiosPublic = () => {
   const axiosPublic = axios.create({
-    baseURL:'http://localhost:4000'
+    baseURL:'https://garment-server-flow12.vercel.app'
   });
 
   return axiosPublic;
