@@ -38,7 +38,9 @@ export default function Login() {
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2
                       bg-white/40 dark:bg-gray-800 rounded-3xl backdrop-blur-2xl
                       shadow-[0_0px_40px_rgba(0,0,0,0.15)] overflow-hidden transition-colors duration-500">
-
+        <title>
+          GarmentFlow |  Login
+        </title>
         {/* Left Content */}
         <div className="hidden md:flex flex-col justify-center items-center py-10
                         bg-gradient-to-br from-white/70 to-blue-100/40

@@ -62,7 +62,9 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 pt-34 pb-10 bg-blue-50 dark:bg-gray-900 transition-colors duration-500">
-
+      <title>
+        GarmentFlow |  Sign Up
+      </title>
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-white/50 dark:bg-gray-800 rounded-3xl backdrop-blur-2xl shadow-lg overflow-hidden transition-colors duration-500">
 
         {/* LEFT SIDE */}
