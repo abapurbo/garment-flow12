@@ -54,35 +54,37 @@ const AllOrdersAdmin = () => {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 dark:bg-gray-900">
-      <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-600 mb-6">
-        All Orders
-      </h2>
+    <div className="container mx-auto flex flex-col items-center bg-gray-100 dark:bg-gray-900">
+      <div className="mt-12 md:mt-8 w-full px-6">
+        <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-600 mb-6">
+          All Orders
+        </h2>
 
-      {/* Search & Filter */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-        <input
-          type="text"
-          placeholder="Search by Order ID / User Email / Product"
-          className="input input-bordered w-full sm:w-1/2"
-          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
-        />
+        {/* Search & Filter */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <input
+            type="text"
+            placeholder="Search by Order ID / User Email / Product"
+            className="input input-bordered w-full sm:w-1/2"
+            onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
+          />
 
-        <select
-          className="select select-bordered w-full sm:w-1/4"
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-        >
-          <option value="">All Status</option>
-          <option value="Pending">Pending</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
-        </select>
+          <select
+            className="select select-bordered w-full sm:w-1/4"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
       </div>
-
       {/* Orders Table */}
-      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-[340px]   md:w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+        <table className="table min-w-[800px]">
           <thead className="bg-gray-200 dark:bg-gray-700">
             <tr>
               <th>Order ID</th>
@@ -97,7 +99,7 @@ const AllOrdersAdmin = () => {
           <tbody>
             {filteredOrders.map((order) => (
               <tr key={order._id}>
-                <td className="font-semibold">{order.trackingId}</td>
+                <td className="font-semibold">{order.trackingId.split('-').slice(0,2).join('-')}</td>
                 <td>{order.buyerEmail}</td>
                 <td>{order.productName}</td>
                 <td>{order.quantity}</td>

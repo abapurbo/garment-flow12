@@ -9,11 +9,11 @@ import SocialLogin from "../Auth/SocialLogin";
 import toast from "react-hot-toast";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 export default function Login() {
-  const { loading, loginUser,signInWithGoogle } = useAuth();
+  const { loading, loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const location = useLocation();
-  
+
   const {
     register,
     handleSubmit,
@@ -68,13 +68,14 @@ export default function Login() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
             {/* Email */}
-            <div className="relative">
-              <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-700 dark:text-purple-300" size={20} />
-              <input
-                {...register("email", { required: "Email is required" })}
-                type="email"
-                placeholder="Email Address"
-                className="w-full pl-12 px-5 py-3 rounded-xl
+            <div>
+              <div className="relative">
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-700 dark:text-purple-300" size={20} />
+                <input
+                  {...register("email", { required: "Email is required" })}
+                  type="email"
+                  placeholder="Email Address"
+                  className="w-full pl-12 px-5 py-3 rounded-xl
                            bg-white/60 dark:bg-gray-700
                            text-blue-900 dark:text-purple-200
                            placeholder-blue-400 dark:placeholder-purple-300
@@ -82,18 +83,20 @@ export default function Login() {
                            focus:border-blue-500 dark:focus:border-purple-500
                            focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400
                            outline-none transition-colors duration-500"
-              />
-            </div>
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
 
+            </div>
             {/* Password */}
-            <div className="relative">
-              <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-700 dark:text-purple-300" size={20} />
-              <input
-                {...register("password", { required: "Password is required" })}
-                type={show ? "password" : "text"}
-                placeholder="Password"
-                className="w-full pl-12 px-5 py-3 rounded-xl
+            <div>
+              <div className="relative">
+                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-700 dark:text-purple-300" size={20} />
+                <input
+                  {...register("password", { required: "Password is required" })}
+                  type={show ? "password" : "text"}
+                  placeholder="Password"
+                  className="w-full pl-12 px-5 py-3 rounded-xl
                            bg-white/60 dark:bg-gray-700
                            text-blue-900 dark:text-purple-200
                            placeholder-blue-400 dark:placeholder-purple-300
@@ -101,12 +104,13 @@ export default function Login() {
                            focus:border-blue-500 dark:focus:border-purple-500
                            focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400
                            outline-none transition-colors duration-500"
-              />
-              <p onClick={() => setShow(!show)} className="absolute right-3 top-4 cursor-pointer text-gray-700 dark:text-gray-200">
-                {show ? <FaRegEye /> : <FaRegEyeSlash />}
-              </p>
+                />
+                <p onClick={() => setShow(!show)} className="absolute right-3 top-4 cursor-pointer text-gray-700 dark:text-gray-200">
+                  {show ? <FaRegEye /> : <FaRegEyeSlash />}
+                </p>
+              </div>
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
-            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
             <button
               type="submit"

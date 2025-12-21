@@ -53,10 +53,10 @@ export default function Dashboard() {
   }));
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-      <div className="max-w-7xl mx-auto">
+    <div className="py-6  bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <div className="container mx-auto grid grid-cols-1 px-4">
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-6 gap-4">
           <div>
             <h1 className="text-3xl font-extrabold text-blue-500 dark:text-purple-400">
               Admin Dashboard
@@ -74,17 +74,11 @@ export default function Dashboard() {
               />
               <FaSearch className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300" />
             </div>
-            <button className="btn bg-white border px-4 py-2 rounded-lg shadow-sm dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
-              Export
-            </button>
-            <button className="btn bg-blue-600 text-white px-4 py-2 rounded-lg shadow dark:bg-purple-600 dark:hover:bg-purple-500">
-              New
-            </button>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <StatCard title="Total Users" value={stats.totalUsers} icon={<FaUsers />} />
           <StatCard title="Products" value={stats.totalProducts} icon={<FaBoxOpen />} />
           <StatCard title="Orders" value={stats.totalOrders} icon={<FaShoppingCart />} />
@@ -96,8 +90,8 @@ export default function Dashboard() {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="col-span-2 bg-white dark:bg-gray-700 rounded-lg shadow p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:gap-6 space-y-4 mb-6">
+          <div className="col-span-2 md:h-full bg-white dark:bg-gray-700 rounded-lg shadow p-4">
             <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-100">
               Sales (last 7 days)
             </h3>
@@ -116,37 +110,37 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-700 rounded-lg shadow p-4">
-            <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-100">
-              Product Breakdown
-            </h3>
-            <div style={{ height: 220 }}>
-              <ResponsiveContainer width="100%" height={220}>
-                <PieChart>
-                  <Pie
-                    data={productBreakdown}
-                    dataKey="value"
-                    nameKey="name"
-                    innerRadius={40}
-                    outerRadius={80}
-                    label
-                  >
-                    {productBreakdown.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    wrapperStyle={{ backgroundColor: "#1f2937", color: "#fff" }}
-                    contentStyle={{ backgroundColor: "#1f2937", color: "#fff" }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+            <div className="bg-white dark:bg-gray-700  rounded-lg shadow p-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-100">
+                Product Breakdown
+              </h3>
+              <div style={{ height: 220 }}>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie
+                      data={productBreakdown}
+                      dataKey="value"
+                      nameKey="name"
+                      innerRadius={40}
+                      outerRadius={80}
+                      label
+                    >
+                      {productBreakdown.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      wrapperStyle={{ backgroundColor: "#1f2937", color: "#fff" }}
+                      contentStyle={{ backgroundColor: "#1f2937", color: "#fff" }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
         </div>
 
         {/* Recent Orders */}
-        <div className="mt-6 bg-white dark:bg-gray-700 rounded-lg shadow p-4">
+        <div className="mt-6 overflow-x-auto w-[340px]  md:w-full bg-white dark:bg-gray-700 rounded-lg shadow p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Recent Orders
@@ -154,8 +148,8 @@ export default function Dashboard() {
             <div className="text-sm text-gray-500 dark:text-gray-400">{ordersDummy.length} recent</div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="table w-full">
+          <div className="min-w-[800px]">
+            <table className="table ">
               <thead className="bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-gray-100">
                 <tr>
                   <th>#</th>
@@ -177,13 +171,12 @@ export default function Dashboard() {
                     <td>{o.quantity}</td>
                     <td>
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          o.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200"
-                            : o.status === "Approved"
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${o.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200"
+                          : o.status === "Approved"
                             ? "bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200"
                             : "bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200"
-                        }`}
+                          }`}
                       >
                         {o.status}
                       </span>

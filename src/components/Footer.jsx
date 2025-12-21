@@ -28,7 +28,7 @@ export default function Footer() {
         <div>
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} className="h-12" />
-            <span className="text-2xl font-bold text-black dark:text-[#E6E8F0]">
+            <span className="text-2xl -ml-3 font-bold text-black dark:text-[#E6E8F0]">
               Garment<span className="text-blue-500 dark:text-purple-600">Flow</span>
             </span>
           </Link>

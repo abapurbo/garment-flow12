@@ -52,7 +52,7 @@ const ApprovedOrders = () => {
   const [trackingId, setTrackingId] = useState('');
   const axiosSecure = useAxiosSecure();
   const tackModalRef = useRef()
-  const viewModalRef=[useRef()]
+  const viewModalRef = [useRef()]
 
   const { data: orders = [], isLoading, refetch } = useQuery({
     queryKey: ['approved-orders-manager'],
@@ -74,10 +74,10 @@ const ApprovedOrders = () => {
   }
 
 
-  const viewModal=()=>{
-     viewModalRef.current.showModal();
+  const viewModal = () => {
+    viewModalRef.current.showModal();
   }
-  const viewColseModal=()=>{
+  const viewColseModal = () => {
     viewModalRef.current.close()
   }
 
@@ -118,28 +118,30 @@ const ApprovedOrders = () => {
 
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-400 mb-6">
-        Approved Orders
-      </h2>
+    <div className="container  mx-auto flex flex-col items-center">
+      <div className="mt-12 md:8 px-5">
+        <h2 className="text-3xl font-bold text-center text-blue-500 dark:text-purple-400 mb-6">
+          Approved Orders
+        </h2>
 
-      {/* STATUS ALERT */}
-      {!canPerformActions && (
-        <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 text-center">
-          {status === "pending" && (
-            <>⚠️ Your account is <span className="font-semibold">pending approval</span>. You cannot perform any order actions until admin approval.</>
-          )}
-          {status === "suspended" && (
-            <>🚫 Your account has been <span className="font-semibold">suspended</span>. Please check the suspend reason in your profile.</>
-          )}
-          {role !== "manager" && status === "active" && (
-            <>❌ Only managers can perform order actions.</>
-          )}
-        </div>
-      )}
+        {/* STATUS ALERT */}
+        {!canPerformActions && (
+          <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 text-center">
+            {status === "pending" && (
+              <>⚠️ Your account is <span className="font-semibold">pending approval</span>. You cannot perform any order actions until admin approval.</>
+            )}
+            {status === "suspended" && (
+              <>🚫 Your account has been <span className="font-semibold">suspended</span>. Please check the suspend reason in your profile.</>
+            )}
+            {role !== "manager" && status === "active" && (
+              <>❌ Only managers can perform order actions.</>
+            )}
+          </div>
+        )}
+      </div>
 
-      <div className="overflow-x-auto rounded-lg shadow-2xl bg-white dark:bg-gray-800">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-[340px] md:w-full rounded-lg shadow-2xl bg-white dark:bg-gray-800">
+        <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>
               <th>#</th>
@@ -290,7 +292,7 @@ const ApprovedOrders = () => {
         <div className="modal-box">
           {/* if there is a button in form, it will close the modal */}
           <button onClick={closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <TrackingView trackingId={trackingId}  viewColseModal={viewColseModal} ></TrackingView>
+          <TrackingView trackingId={trackingId} viewColseModal={viewColseModal} ></TrackingView>
         </div>
       </dialog>
 

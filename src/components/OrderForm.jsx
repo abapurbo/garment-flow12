@@ -157,8 +157,8 @@ export default function OrderForm() {
 
 
   return (
-    <div className="pt-34 pb-16 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-5xl mx-auto p-8 bg-white dark:bg-gray-800 hover:shadow-2xl rounded-xs border border-gray-200 dark:border-gray-700">
+    <div className="pt-34 pb-16 px-4  bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-5xl mx-auto md:p-8 p-6 bg-white dark:bg-gray-800 hover:shadow-2xl rounded-xs border border-gray-200 dark:border-gray-700">
         <h2 className="text-4xl font-bold text-blue-500 dark:text-purple-400 mb-10 text-center">
           Order Form
         </h2>
@@ -168,7 +168,7 @@ export default function OrderForm() {
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {/* Email */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Email
             </label>
@@ -181,7 +181,7 @@ export default function OrderForm() {
           </div>
 
           {/* Product Title */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Product Title
             </label>
@@ -194,7 +194,7 @@ export default function OrderForm() {
           </div>
 
           {/* Price */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Payment Info
             </label>
@@ -207,7 +207,7 @@ export default function OrderForm() {
           </div>
 
           {/* First Name */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               First Name
             </label>
@@ -222,7 +222,7 @@ export default function OrderForm() {
           </div>
 
           {/* Last Name */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Last Name
             </label>
@@ -237,7 +237,7 @@ export default function OrderForm() {
           </div>
 
           {/* Quantity */}
-          <div >
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">Order Quantity</label>
             <input
               type="number"
@@ -266,7 +266,7 @@ export default function OrderForm() {
             </small>
           </div>
           {/* Order Price */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Order Price
             </label>
@@ -279,7 +279,7 @@ export default function OrderForm() {
           </div>
 
           {/* Contact Number */}
-          <div>
+          <div className="col-span-2">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Contact Number
             </label>
@@ -294,7 +294,7 @@ export default function OrderForm() {
           </div>
 
           {/* Delivery Address */}
-          <div className="col-span-2">
+          <div className="col-span-2 ">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Delivery Address
             </label>
@@ -322,7 +322,7 @@ export default function OrderForm() {
 
           {/* Submit Button */}
           {/* Submit */}
-          <div className="relative md:col-span-2">
+          <div className="relative  col-span-2 ">
             <button
               type="submit"
               disabled={isOutOfStock}
@@ -336,7 +336,7 @@ export default function OrderForm() {
 
             {/* Tooltip */}
             {isOutOfStock && (
-              <span className="absolute top-0 right-0 mt-1 mr-2 bg-red-500 text-white text-sm px-2 py-1 rounded shadow-lg">
+              <span className="absolute text-[8px] top-0 right-0 mt-1 mr-2 bg-red-500 text-white md:text-sm px-2 py-1 rounded shadow-lg">
                 Remaining quantity is below minimum order limit
               </span>
             )}

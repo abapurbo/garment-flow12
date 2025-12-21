@@ -62,22 +62,24 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="container mx-auto mt-6">
+    <div className="container mx-auto flex flex-col items-center ">
       {/* TITLE */}
-      <h2 className="text-3xl font-bold mb-4 text-blue-900 dark:text-purple-400">
-        My Orders
-      </h2>
+      <div className="mt-12 md:mt-8 px-5">
+        <h2 className="text-3xl font-bold mb-4 text-blue-900 dark:text-purple-400">
+          My Orders
+        </h2>
 
-      {/* BUYER PENDING WARNING */}
-      {status === "pending" && (
-        <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-          ⚠️ Your account is <span className="font-semibold">pending approval</span>.
-          You cannot perform any order actions until admin approval.
-        </div>
-      )}
+        {/* BUYER PENDING WARNING */}
+        {status === "pending" && (
+          <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+            ⚠️ Your account is <span className="font-semibold">pending approval</span>.
+            You cannot perform any order actions until admin approval.
+          </div>
+        )}
+      </div>
 
-      <div className="overflow-x-auto rounded shadow-2xl bg-white dark:bg-gray-800">
-        <table className="table">
+      <div className="overflow-x-auto w-[330px]    md:w-full rounded shadow-2xl bg-white dark:bg-gray-800">
+        <table className="table min-w-[900px]">
           <thead className="bg-gray-100 dark:bg-gray-700">
             <tr className="dark:text-gray-200">
               <th>#</th>
@@ -113,7 +115,7 @@ const MyOrders = () => {
                   className="hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
                 >
                   <th>{index + 1}</th>
-                  <td className="font-semibold">{order.trackingId}</td>
+                  <td className="font-semibold">{order.trackingId.split('-').slice(0,2).join('-')}</td>
                   <td>{order.productName}</td>
                   <td>{order.quantity}</td>
 

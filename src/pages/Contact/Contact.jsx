@@ -157,7 +157,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
+              className="w-full py-3 bg-blue-600 dark:bg-purple-600 font-semibold text-white rounded-xl hover:bg-blue-700 transition"
             >
               Send Message
             </button>

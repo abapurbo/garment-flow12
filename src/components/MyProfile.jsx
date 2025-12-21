@@ -84,11 +84,11 @@ export default function MyProfile() {
     };
 
     return (
-        <div className="min-h-screen mt-10 bg-gray-100 dark:bg-gray-900 flex justify-center items-start p-6 font-urbanist">
-            <div className="relative bg-white dark:bg-gray-800 flex flex-col items-center shadow-xl rounded-2xl p-8 w-full max-w-4xl">
+        <div className="min-h-screen  px-6 mt-10 bg-gray-100 dark:bg-gray-900 flex justify-center items-start  font-urbanist">
+            <div className="relative bg-white dark:bg-gray-800 flex flex-col items-center shadow-xl rounded-2xl md:p-8 p-4 mt-14 mt-0 w-full max-w-4xl ">
 
                 {/* Role Badge */}
-                <p className="absolute right-6 top-6 bg-blue-100 dark:bg-purple-700 text-blue-700 dark:text-purple-300 px-4 py-1 rounded-full text-sm font-medium shadow">
+                <p className="absolute  md:right-6 md:top-6 top-32 bg-blue-100 dark:bg-purple-700 text-blue-700 dark:text-purple-300 px-4 py-1 rounded-full text-sm font-medium shadow">
                     {role}
                 </p>
 
@@ -102,7 +102,7 @@ export default function MyProfile() {
                 </div>
 
                 {/* User Details */}
-                <div className="mt-24 flex flex-col items-center gap-3 text-center">
+                <div className="md:mt-24 mt-38 flex flex-col items-center gap-3  text-center">
                     <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{user.displayName}</h2>
                     <p className="text-gray-600 dark:text-gray-300 text-lg">{user.email}</p>
 
@@ -156,7 +156,7 @@ export default function MyProfile() {
                     </div>
 
                     {/* Orders Stats */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8 w-full">
+                    <div className="grid  grid-cols-2 md:grid-cols-4 md:gap-6 gap-4 mt-8 w-full">
                         {role === "buyer" && (
                             <>
                                 <StatCard icon={<FaShoppingCart />} iconColor="text-blue-600 dark:text-purple-300" value={dashboardData.totalOrders} label="Total Orders" />
@@ -168,8 +168,8 @@ export default function MyProfile() {
 
                         {role === "manager" && (
                             <>
-                                <div className="col-span-4 flex justify-center">
-                                    <StatCard icon={<FaShoppingCart />} iconColor="text-purple-600 dark:text-purple-300" value={dashboardData.totalProducts} label="Your Products" />
+                                <div className="md:col-span-4 col-span-2   flex justify-center">
+                                <StatCard icon={<FaShoppingCart />} iconColor="text-purple-600 dark:text-purple-300" value={dashboardData.totalProducts} label="Your Products" />
                                 </div>
                                 <StatCard icon={<FaTimesCircle />} iconColor="text-red-600 dark:text-red-400 " value={dashboardData.rejectedOrders} label="Rejected Orders" />
                                 <StatCard icon={<FaCheckCircle />} iconColor="text-green-600 dark:text-emerald-300" value={dashboardData.approvedOrders} label="Approved Orders" />

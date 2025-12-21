@@ -63,13 +63,13 @@ const AllProductsAdmin = () => {
 
 
   return (
-    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="container mx-auto flex flex-col items-center bg-gray-50 dark:bg-gray-900 ">
       <h2 className="text-3xl font-bold text-blue-600 dark:text-purple-500 mb-6">
         All Products
       </h2>
 
-      <div className="overflow-x-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
-        <table className="table w-full text-gray-900 dark:text-gray-100">
+      <div className="overflow-x-auto w-[340px]   md:w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
+        <table className="table min-w-[800px] text-gray-900 dark:text-gray-100">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold">
             <tr>
               <th>#</th>

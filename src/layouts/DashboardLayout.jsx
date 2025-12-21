@@ -7,13 +7,12 @@ import {
   FaClipboardList,
   FaPlus,
   FaMapMarkedAlt,
-  FaCog,
   FaSignOutAlt,
   FaShoppingCart,
   FaUser,
   FaBars,
-  FaTimes,
 } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
 import { useAuth } from "../hooks/useAuth";
 import { useRole } from "../hooks/useRole";
@@ -42,7 +41,7 @@ const DashboardLayout = () => {
     `flex items-center gap-4 px-4 py-3 rounded-xl transition
      ${location.pathname === path
       ? "bg-blue-600 text-white dark:bg-purple-600"
-      : "text-gray-700 hover:bg-blue-600   hover:text-white dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
+      : "text-gray-700 hover:bg-blue-600 hover:text-white dark:text-gray-200 dark:hover:bg-purple-700 dark:hover:text-white"
     }`;
 
   return (
@@ -50,8 +49,8 @@ const DashboardLayout = () => {
       {/* Overlay (Mobile) */}
       {isSidebarOpen && (
         <div
-          onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+          onClick={() =>setIsSidebarOpen(false)}
+          className="fixed inset-0  bg-black/40 z-30 lg:hidden"
         ></div>
       )}
 
@@ -59,21 +58,16 @@ const DashboardLayout = () => {
       <aside
         className={`fixed lg:static z-40 h-full w-64 bg-blue-50 dark:bg-gray-800 shadow-xl p-4
         transform transition-transform duration-300
-        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+        ${isSidebarOpen ? "translate-x-0":"-translate-x-full"}
         lg:translate-x-0`}
       >
-        {/* Close Button (Mobile) */}
-        <button
-          onClick={() => setIsSidebarOpen(false)}
-          className="lg:hidden absolute top-4 right-4 text-xl text-gray-700 dark:text-white"
-        >
-          <FaTimes />
-        </button>
+
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 mb-8">
+        <Link to="/" className="flex items-center gap-2 mb-8">
+          <IoMdArrowRoundBack  className="text-xl text-blue-500 dark:text-purple-600"/>
           <img src={logo} alt="logo" className="w-12 h-12" />
-          <h1 className="text-2xl font-bold dark:text-white">
+          <h1 className="text-2xl font-bold -ml-3 dark:text-white">
             Garment
             <span className="text-blue-600 dark:text-purple-500">Flow</span>
           </h1>
@@ -165,7 +159,7 @@ const DashboardLayout = () => {
               </Link>
             </>
           )}
-          <hr className="mt-4"/>
+          <hr className="mt-4" />
           <div className="space-y-3 mt-4">
             <Link
               to="/dashboard/profile"
@@ -186,7 +180,7 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col ">
         {/* Navbar */}
         <header className="flex justify-between md:justify-end items-center px-4 py-2 bg-blue-50 dark:bg-gray-800 shadow-md">
           <button
@@ -213,7 +207,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 px-8 py-6 overflow-auto bg-gray-100 dark:bg-gray-900">
+        <main className="flex-1  h-screen md:px-8 py-6 overflow-auto bg-gray-100 dark:bg-gray-900">
           <Outlet />
         </main>
       </div>

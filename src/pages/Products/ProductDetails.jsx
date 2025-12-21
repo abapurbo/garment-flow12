@@ -51,7 +51,7 @@ const ProductDetails = () => {
   });
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 md:px-16 pt-16 md:pt-28 pb-16 bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen  px-4 sm:px-6 md:px-16 pt-16 mt-14 md:pt-28 pb-16 bg-gray-50 dark:bg-gray-900">
 
       {/* PRODUCT CARD */}
       <div className="max-w-6xl mx-auto bg-blue-50/70 dark:bg-gray-800 backdrop-blur-xl border border-blue-100 dark:border-purple-500/30 rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-6 md:gap-12 text-gray-900 dark:text-gray-100">

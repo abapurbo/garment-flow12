@@ -49,7 +49,7 @@ export default function OrderDetails({ selectedOrderId }) {
   } = details;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg dark:shadow-gray-800">
+    <div className="max-w-3xl  mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg dark:shadow-gray-800">
       {/* Header */}
       <h2 className="text-2xl font-bold text-blue-600 dark:text-purple-400 mb-6 text-center">
         Order Details

@@ -33,7 +33,7 @@ const ManageProducts = () => {
         refetch();
       } else {
         axiosSecure
-          .get(`/search-products?searchText=${searchText}`)
+          .get(`/search-products/${user?.email}?searchText=${searchText}`)
           .then((res) => {
             setFilteredProducts(res.data);
           });
@@ -82,27 +82,32 @@ const ManageProducts = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <h2 className="text-3xl font-bold text-blue-900 dark:text-purple-400 mb-6">
-        Manage Products
-      </h2>
+    <div className="container  mx-auto flex flex-col items-center bg-gray-50 dark:bg-gray-900 ">
+      <div className="w-full px-6 mt-14 md:mt-10 flex flex-col justify-center items-center">
+        <h2 className="text-3xl font-bold text-blue-900 dark:text-purple-400 mb-6">
+          Manage Products
+        </h2>
 
-      {/* Search */}
-      <input
-        type="text"
-        placeholder="Search by product name..."
-        className="input input-bordered w-full md:w-1/2 mb-4
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search by product name..."
+          className="input input-bordered w-full md:w-1/2 mb-4
           focus:outline-0 focus:ring-1 
           focus:ring-blue-400 dark:focus:ring-purple-500
           border border-gray-300 dark:border-gray-700 
           bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-      />
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
 
+      </div>
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg shadow bg-white dark:bg-gray-800">
-        <table className="table w-full">
+
+      <div className="overflow-x-auto w-[340px]   md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
+
+
+        <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>
               <th>#</th>
@@ -160,12 +165,13 @@ const ManageProducts = () => {
         </table>
       </div>
 
+
       {/* Update Modal */}
       <dialog ref={updateRef} className="modal">
         <div className="modal-box max-w-3xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-            <button onClick={closeModal} className="btn btn-sm btn-circle absolute right-2 top-2">
-              ✕
-            </button>
+          <button onClick={closeModal} className="btn btn-sm btn-circle absolute right-2 top-2">
+            ✕
+          </button>
           <UpdateProductForm updateFrom={updateFrom} handleCloseModal={closeModal} refetch={refetch} />
         </div>
       </dialog>

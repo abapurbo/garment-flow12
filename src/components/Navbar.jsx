@@ -14,7 +14,7 @@ const Navbar = () => {
     const normalClass = " dark:hover:text-purple-600 duration-200 hover:underline";
 
     const navLinks = (
-        <div className="urbanist-font text-[17px] flex flex-col gap-3 justify-center items-center font-bold  md:space-x-4 text-blue-600 dark:text-gray-100">
+        <div className="urbanist-font text-[17px] flex flex-col md:flex-row gap-3 justify-center items-center font-bold  md:space-x-4 text-blue-600 dark:text-gray-100">
             <NavLink to="/" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
             <NavLink to="/all-products" className={({ isActive }) => isActive ? activeClass : normalClass}>All Products</NavLink>
             <NavLink to="/aboutUs" className={({ isActive }) => isActive ? activeClass : normalClass}>About Us</NavLink>
@@ -63,7 +63,7 @@ const Navbar = () => {
             <div className={` backdrop-blur-3xl ${location.pathname === '/' || location.pathname === '/aboutUs' ? 'bg-white/5 dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'} border border-white/20 dark:border-gray-700 shadow-2xl flex items-center justify-between px-4 md:px-6 py-4 md:rounded-2xl`}>
                 {/* Logo */}
                 <div className="flex items-center">
-                    <div className="drawer lg:drawer-open">
+                    <div className="drawer lg:drawer-open md:hidden">
                         <input id="main-drawer" type="checkbox" className="drawer-toggle" />
 
                         {/* Top / Page Content */}
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 {/* Logo */}
                                 <Link to="/" className="flex items-center gap-3 mb-4">
                                     <img className="w-11 h-11 rounded-full" src={logo} alt="logo" />
-                                    <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                                    <h1 className="text-2xl -ml-3 font-bold text-gray-800 dark:text-gray-100">
                                         Garment
                                         <span className="text-blue-500 dark:text-purple-500">Flow</span>
                                     </h1>
@@ -152,11 +152,13 @@ const Navbar = () => {
                     </div>
 
                     {/* Logo */}
-                    <Link to="/" className="hidden md:block items-center gap-2">
-                        <img className="w-10" src={logo} alt="logo" />
-                        <h1 className="text-2xl font-bold  text-black dark:text-gray-100">
-                            Garment<span className="text-blue-500 dark:text-purple-600">Flow</span>
-                        </h1>
+                    <Link to="/" className="hidden  md:block items-center gap-2">
+                        <div className="flex items-center">
+                            <img className="w-10" src={logo} alt="logo" />
+                            <h1 className="text-2xl font-bold  text-black dark:text-gray-100">
+                                Garment<span className="text-blue-500 dark:text-purple-600">Flow</span>
+                            </h1>
+                        </div>
                     </Link>
 
                 </div>
@@ -214,7 +216,7 @@ const Navbar = () => {
                                 {/* Dashboard */}
                                 <li>
                                     <Link to='/dashboard' className="flex mb-3 items-center dark:text-white text-black hover:bg-blue-500 hover:dark:bg-purple-500 py-2 font-semibold  text-xl gap-3">
-                                        <MdDashboard/>
+                                        <MdDashboard />
                                         Dashboard
                                     </Link>
                                 </li>
@@ -222,7 +224,7 @@ const Navbar = () => {
                                 {/* My Profile */}
                                 <li>
                                     <Link to="/profile" className="flex items-center text-black hover:bg-blue-500 hover:dark:bg-purple-500  font-semibold dark:text-white text-xl py-2 gap-3">
-                                        <FaUserCircle  />
+                                        <FaUserCircle />
                                         My Profile
                                     </Link>
                                 </li>

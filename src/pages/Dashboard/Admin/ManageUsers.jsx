@@ -105,11 +105,11 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <h2 className="text-3xl font-bold text-blue-500 dark:text-purple-400 mb-6">Manage Users</h2>
+    <div className="min-h-screen flex flex-col items-center  bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <h2 className="text-3xl font-bold mt-12 md:mt-8 text-blue-500 dark:text-purple-400 mb-6">Manage Users</h2>
 
-      <div className="overflow-x-auto rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-[340px]  md:w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
               <th>#</th>

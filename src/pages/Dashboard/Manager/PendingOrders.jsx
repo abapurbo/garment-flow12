@@ -113,29 +113,31 @@ const PendingOrders = () => {
 
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl text-center font-bold text-blue-500 dark:text-purple-400 mb-4">
-        Pending Orders
-      </h2>
+    <div className="container  mx-auto flex flex-col items-center ">
+      <div className="mt-12 md:mt-8 px-5">
+        <h2 className="text-3xl text-center font-bold text-blue-500 dark:text-purple-400 mb-4">
+          Pending Orders
+        </h2>
 
-      {/* STATUS ALERTS */}
-      {!canManageOrders && (
-        <>
-          {status === "pending" && (
-            <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-              ⚠️ Your account is <span className="font-semibold">pending approval</span>. You cannot perform any order actions until admin approval.
-            </div>
-          )}
-          {status === "suspended" && (
-            <div className="mb-4 p-4 rounded-xl bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-              🚫 Your account has been <span className="font-semibold">suspended</span>. Please check the suspend reason in your profile.
-            </div>
-          )}
-        </>
-      )}
+        {/* STATUS ALERTS */}
+        {!canManageOrders && (
+          <div className="">
+            {status === "pending" && (
+              <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                ⚠️ Your account is <span className="font-semibold">pending approval</span>. You cannot perform any order actions until admin approval.
+              </div>
+            )}
+            {status === "suspended" && (
+              <div className="mb-4 p-4 rounded-xl bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 text-center">
+                🚫 Your account has been <span className="font-semibold">suspended</span>. Please check the suspend reason in your profile.
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
-      <div className="overflow-x-auto rounded-lg shadow bg-white dark:bg-gray-800">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-[340px] md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
+        <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>
               <th>#</th>
