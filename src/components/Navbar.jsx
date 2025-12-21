@@ -224,7 +224,7 @@ const Navbar = () => {
 
                                     {/* My Profile */}
                                     <li>
-                                        <Link to="profile" className="flex items-center text-black hover:bg-blue-500 hover:dark:bg-purple-500  font-semibold dark:text-white text-[18px] py-2 gap-3">
+                                        <Link to="/dashboard/profile" className="flex items-center text-black hover:bg-blue-500 hover:dark:bg-purple-500  font-semibold dark:text-white text-[18px] py-2 gap-3">
                                             <FaUserCircle />
                                             My Profile
                                         </Link>
