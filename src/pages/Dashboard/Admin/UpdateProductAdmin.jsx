@@ -188,28 +188,32 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
                 onSubmit={handleSubmit(onSubmit)}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-h-[80vh] overflow-auto"
             >
-                {/* Name */}
-                <input
-                    {...register("name", { required: "Product name is required" })}
-                    placeholder="Product Name"
-                    className="input input-bordered"
-                />
-                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                <div className="col-span-2 md:col-span-1">
+                    {/* Name */}
+                    <input
+                        {...register("name", { required: "Product name is required" })}
+                        placeholder="Product Name"
+                        className="input input-bordered"
+                    />
+                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-                {/* Category */}
-                <select
-                    {...register("category", { required: "Category is required" })}
-                    className="select select-bordered"
-                >
-                    <option value="">Select Category</option>
-                    <option value="Shirt">Shirt</option>
-                    <option value="Pant">Pant</option>
-                    <option value="Jacket">Jacket</option>
-                    <option value="Accessories">Accessories</option>
-                </select>
+                </div>
+                <div className="col-span-2 md:col-span-1">
+                    {/* Category */}
+                    <select
+                        {...register("category", { required: "Category is required" })}
+                        className="select select-bordered"
+                    >
+                        <option value="">Select Category</option>
+                        <option value="Shirt">Shirt</option>
+                        <option value="Pant">Pant</option>
+                        <option value="Jacket">Jacket</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
 
                 {/* Description */}
-                <div className="col-span-2">
+                <div className="col-span-2 ">
                     <textarea
                         {...register("description", { required: "Description is required" })}
                         placeholder="Description"
@@ -219,31 +223,38 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
                 </div>
 
                 {/* Price */}
-                <input
-                    type="number"
-                    {...register("price", { required: "Price required" })}
-                    placeholder="Price"
-                    className="input input-bordered"
-                />
+                <div className="col-span-2 md:col-span-1">
+                    <input
+                        type="number"
+                        {...register("price", { required: "Price required" })}
+                        placeholder="Price"
+                        className="input input-bordered"
+                    />
 
+                </div>
                 {/* Available Qty */}
-                <input
-                    type="number"
-                    {...register("availableQty", { required: true })}
-                    placeholder="Available Quantity"
-                    className="input input-bordered"
-                />
+                <div className="col-span-2 md:col-span-1">
+                    <input
+                        type="number"
+                        {...register("availableQty", { required: true })}
+                        placeholder="Available Quantity"
+                        className="input input-bordered"
+                    />
+                </div>
 
                 {/* MOQ */}
-                <input
+              <div className="col-span-2 md:col-span-1">
+                  <input
                     type="number"
                     {...register("minOrderQty", { required: true })}
                     placeholder="Minimum Order Quantity"
                     className="input input-bordered"
                 />
+              </div>
 
                 {/* Payment */}
-                <select
+               <div className="col-span-2 md:col-span-1">
+                 <select
                     {...register("paymentOption", { required: true })}
                     className="select select-bordered"
                 >
@@ -252,6 +263,7 @@ export const UpdateProductAdmin = ({ updateFrom, handleCloseModal, refetch }) =>
                     <option value="Stripe">Stripe</option>
                 </select>
 
+               </div>
                 {/* Images */}
                 <div className="col-span-2">
                     <input

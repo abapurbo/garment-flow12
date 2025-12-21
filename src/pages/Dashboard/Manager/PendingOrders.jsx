@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { set } from "react-hook-form";
 import OrderDetails from "./OrderDetails";
-
+import '../../Dashboard/tableresponsive.css'
 
 const PendingOrders = () => {
   const axiosSecure = useAxiosSecure()
@@ -136,7 +136,7 @@ const PendingOrders = () => {
         )}
       </div>
 
-      <div className="overflow-x-auto w-[340px] md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
+      <div className="overflow-x-auto w-[340px] pending-container md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
         <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>

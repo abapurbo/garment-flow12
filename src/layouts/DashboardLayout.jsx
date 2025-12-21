@@ -50,23 +50,22 @@ const DashboardLayout = () => {
       {isSidebarOpen && (
         <div
           onClick={() =>setIsSidebarOpen(false)}
-          className="fixed inset-0  bg-black/40 z-30 lg:hidden"
+          className="fixed inset-0 border-4 bg-black/40 z-30 lg:hidden"
         ></div>
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static z-40 h-full w-64 bg-blue-50 dark:bg-gray-800 shadow-xl p-4
+        className={`fixed lg:static content-sidebar z-40 h-full w-64 bg-blue-50 dark:bg-gray-800 shadow-xl p-4
         transform transition-transform duration-300
-        ${isSidebarOpen ? "translate-x-0":"-translate-x-full"}
+        ${isSidebarOpen ? "translate-x-0":"-translate-x-full "}
         lg:translate-x-0`}
       >
 
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mb-8">
+        <Link to="/" className="flex items-center gap-4 mb-8">
           <IoMdArrowRoundBack  className="text-xl text-blue-500 dark:text-purple-600"/>
-          <img src={logo} alt="logo" className="w-12 h-12" />
           <h1 className="text-2xl font-bold -ml-3 dark:text-white">
             Garment
             <span className="text-blue-600 dark:text-purple-500">Flow</span>
@@ -182,10 +181,10 @@ const DashboardLayout = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col ">
         {/* Navbar */}
-        <header className="flex justify-between md:justify-end items-center px-4 py-2 bg-blue-50 dark:bg-gray-800 shadow-md">
+        <header className="flex dash-container  justify-between md:justify-end items-center px-4 py-2 bg-blue-50 dark:bg-gray-800 shadow-md">
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="lg:hidden text-2xl text-gray-700 dark:text-white"
+            className="lg:hidden dash-menu text-2xl text-gray-700 dark:text-white"
           >
             <FaBars />
           </button>

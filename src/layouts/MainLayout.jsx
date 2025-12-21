@@ -7,9 +7,11 @@ import { Toaster } from 'react-hot-toast';
 
 const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-          <Navbar />
-        
+    <div className="flex  flex-col ">
+      <div>
+        <Navbar />
+      </div>
+
 
       {/* Page Content */}
       <main className="flex-grow dark:bg-gray-900">

@@ -22,12 +22,12 @@ export default function Footer() {
       "
     >
       {/* Main Footer Container */}
-      <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="container mx-auto px-6 lg:px-12 md:px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
         
         {/* Company Info */}
         <div>
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo} className="h-12" />
+            {/* <img src={logo} className="h-12" /> */}
             <span className="text-2xl -ml-3 font-bold text-black dark:text-[#E6E8F0]">
               Garment<span className="text-blue-500 dark:text-purple-600">Flow</span>
             </span>

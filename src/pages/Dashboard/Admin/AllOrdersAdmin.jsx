@@ -83,7 +83,7 @@ const AllOrdersAdmin = () => {
 
       </div>
       {/* Orders Table */}
-      <div className="overflow-x-auto w-[340px]   md:w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="overflow-x-auto w-[340px] order-container   md:w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg">
         <table className="table min-w-[800px]">
           <thead className="bg-gray-200 dark:bg-gray-700">
             <tr>

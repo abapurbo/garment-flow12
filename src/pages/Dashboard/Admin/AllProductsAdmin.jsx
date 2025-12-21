@@ -68,7 +68,7 @@ const AllProductsAdmin = () => {
         All Products
       </h2>
 
-      <div className="overflow-x-auto w-[340px]   md:w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
+      <div className="overflow-x-auto w-[340px] all-container  md:w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
         <table className="table min-w-[800px] text-gray-900 dark:text-gray-100">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold">
             <tr>

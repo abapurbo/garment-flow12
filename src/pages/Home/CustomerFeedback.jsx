@@ -48,7 +48,7 @@ export default function CustomerFeedback() {
   return (
     <section
       className="
-        md:px-16 px-6 py-16
+        lg:px-16 md:px-10 px-6 py-16
         bg-gray-50
         dark:bg-gradient-to-b
         dark:from-[#151826]

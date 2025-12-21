@@ -6,7 +6,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useAuth } from "../../../hooks/useAuth";
 import ViewDetails from "./ViewDetails";
 import Loading from "../../../components/Loading";
-
+// import '../Dashboard/tableresponsive.css'
+import '../../Dashboard/tableresponsive.css'
 const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   const [selectOrder, setSelectOrder] = useState({});
@@ -62,10 +63,10 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center ">
+    <div className="container  mx-auto flex flex-col items-center ">
       {/* TITLE */}
       <div className="mt-12 md:mt-8 px-5">
-        <h2 className="text-3xl font-bold mb-4 text-blue-900 dark:text-purple-400">
+        <h2 className="text-3xl text-center font-bold mb-4 text-blue-900 dark:text-purple-400">
           My Orders
         </h2>
 
@@ -78,7 +79,7 @@ const MyOrders = () => {
         )}
       </div>
 
-      <div className="overflow-x-auto w-[330px]    md:w-full rounded shadow-2xl bg-white dark:bg-gray-800">
+      <div className="overflow-x-auto table-container  w-[330px]    lg:w-full rounded shadow-2xl bg-white dark:bg-gray-800">
         <table className="table min-w-[900px]">
           <thead className="bg-gray-100 dark:bg-gray-700">
             <tr className="dark:text-gray-200">

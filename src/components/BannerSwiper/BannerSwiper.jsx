@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './styles.css';
-
+import '../../components/NavbarStyles.css'
 // import required modules
 import { Pagination } from 'swiper/modules';
 import { Link } from 'react-router';
@@ -19,7 +19,7 @@ export default function BannerSwiper() {
                     clickable: true,
                 }}
                 modules={[Pagination]}
-                className="mySwiper "
+                className="mySwiper"
             >
                 {/* Slide 1 */}
                 <SwiperSlide>
@@ -30,7 +30,7 @@ export default function BannerSwiper() {
 
                         {/* Left Side Content */}
                         <div className="absolute inset-0  flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-16 md:mt-14">
 
                                 <h1 className="text-3xl md:text-5xl  font-bold">
                                     Biggest Garments Production <br />
@@ -59,7 +59,7 @@ export default function BannerSwiper() {
                         <div className="absolute inset-0 bg-black/60 dark:bg-black/70"></div>
                         {/* Left Side Content */}
                         <div className="absolute inset-0 flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-18">
 
                                 <h1 className="text-3xl md:text-5xl font-bold">
                                     Seamlessly Track and Manage <br />
@@ -84,11 +84,11 @@ export default function BannerSwiper() {
 
                 {/* Slide 3 */}
                 <SwiperSlide>
-                    <div className="relative w-full h-full  md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/MxVLZsbP/11062b-943ac8a2ed574e4f9d2481ce75d66f65-mv2.avif')]">
+                    <div className="relative w-full h-full   md:h-[650px] bg-no-repeat bg-cover bg-center bg-[url('https://i.ibb.co/MxVLZsbP/11062b-943ac8a2ed574e4f9d2481ce75d66f65-mv2.avif')]">
                         {/* Dark Overlay */}
                         <div className="absolute inset-0  bg-black/60 dark:bg-black/70"></div>
                         <div className="absolute inset-0  flex justify-center items-center">
-                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-14 md:mt-0">
+                            <div className="text-white max-w-3xl px-6 space-y-4 text-center mt-16 md:mt-14">
 
                                 <h1 className="text-3xl md:text-5xl font-bold">
                                     Modern Garment Production <br />

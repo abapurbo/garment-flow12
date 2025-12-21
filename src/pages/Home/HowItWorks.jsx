@@ -6,7 +6,7 @@ const HowItWorks = () => {
   return (
     <div
       className="
-        py-12 md:px-16
+        py-12 lg:px-16 md:px-10
         px-6
         bg-gray-50
         dark:bg-gradient-to-b

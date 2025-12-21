@@ -61,10 +61,10 @@ const AddProduct = () => {
         <h2 className="text-3xl text-blue-500 dark:text-purple-400 text-center font-bold mb-6">
           Add Product
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 grid-cols-1 gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid add-container md:grid-cols-2 grid-cols-1 gap-4">
 
           {/* Product Name */}
-          <div className="col-span-2" >
+          <div className="col-span-2 md:col-span-1" >
             <input
               disabled={!canAddProduct}
               type="text"
@@ -76,7 +76,7 @@ const AddProduct = () => {
           </div>
 
           {/* Category */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1" >
             <select
               disabled={!canAddProduct}
               {...register("category", { required: "Category is required" })}
@@ -92,7 +92,7 @@ const AddProduct = () => {
           </div>
 
           {/* Description */}
-          <div className="col-span-2">
+          <div className="col-span-2 " >
             <textarea
               disabled={!canAddProduct}
               placeholder="Product Description"
@@ -103,7 +103,7 @@ const AddProduct = () => {
           </div>
 
           {/* Price */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1" >
             <input
               disabled={!canAddProduct}
               type="number"
@@ -115,7 +115,7 @@ const AddProduct = () => {
           </div>
 
           {/* Available Quantity */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1" >
             <input
               disabled={!canAddProduct}
               type="number"
@@ -127,7 +127,7 @@ const AddProduct = () => {
           </div>
 
           {/* Minimum Order Quantity */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1" >
             <input
               disabled={!canAddProduct}
               type="number"
@@ -139,7 +139,7 @@ const AddProduct = () => {
           </div>
 
           {/* Payment Options */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1" >
             <select
               disabled={!canAddProduct}
               {...register("paymentOption", { required: "Payment option is required" })}

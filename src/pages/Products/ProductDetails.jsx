@@ -53,12 +53,12 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen  px-4 sm:px-6 md:px-16 pt-16 mt-14 md:pt-28 pb-16 bg-gray-50 dark:bg-gray-900">
 
-      {/* PRODUCT CARD */}
-      <div className="max-w-6xl mx-auto bg-blue-50/70 dark:bg-gray-800 backdrop-blur-xl border border-blue-100 dark:border-purple-500/30 rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-6 md:gap-12 text-gray-900 dark:text-gray-100">
+      
+      <div className="max-w-6xl  mx-auto bg-blue-50/70 dark:bg-gray-800 backdrop-blur-xl border border-blue-100 dark:border-purple-500/30 rounded-xl p-6 md:p-10 flex flex-col lg:flex-row gap-6 md:gap-12 text-gray-900 dark:text-gray-100">
 
         {/* IMAGE */}
         <div className="md:flex-shrink-0">
-          <div className="rounded-2xl w-full md:w-[400px] overflow-hidden shadow-xl bg-white dark:bg-gray-700">
+          <div className="rounded-2xl w-full lg:w-[400px] overflow-hidden shadow-xl bg-white dark:bg-gray-700">
             <img
               src={image}
               alt={name}
@@ -72,7 +72,7 @@ const ProductDetails = () => {
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold">{name}</h1>
 
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-4">
+            <div className="flex order-details flex-col md:flex-row gap-4 md:gap-6 mt-4">
               <div>
                 <p className="text-lg">
                   <span className="font-bold">Category:</span>{" "} {category}
@@ -101,18 +101,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          {/* ORDER BUTTON */}
-          {/* <button
-            disabled={!canOrder}
-            onClick={() => handleOrder()}
-            className={`w-full py-3 mt-6 text-lg font-semibold rounded-xl transition-all
-          ${canOrder
-                ? "bg-blue-600 hover:bg-blue-700 dark:bg-purple-600 dark:hover:bg-purple-700 text-white"
-                : "bg-gray-300 dark:bg-gray-600 text-gray-500 cursor-not-allowed"
-              }`}
-          >
-            {user?.email ? canOrder ? "Order Now" : "Order Not Allowed" : "Login to Order"}
-          </button> */}
+       
 
 
           {/* ORDER BUTTON */}

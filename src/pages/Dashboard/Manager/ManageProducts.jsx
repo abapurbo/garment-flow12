@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/Loading";
-
+import '../../Dashboard/tableresponsive.css'
 const ManageProducts = () => {
   const { user } = useAuth();
   const updateRef = useRef();
@@ -104,7 +104,7 @@ const ManageProducts = () => {
       </div>
       {/* Table */}
 
-      <div className="overflow-x-auto w-[340px]   md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
+      <div className="overflow-x-auto w-[340px] manage-container  md:w-full rounded-lg shadow bg-white dark:bg-gray-800">
 
 
         <table className="table min-w-[800px]">

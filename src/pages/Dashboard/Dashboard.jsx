@@ -110,7 +110,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-            <div className="bg-white dark:bg-gray-700  rounded-lg shadow p-4">
+            <div className="bg-white pie-chart dark:bg-gray-700  rounded-lg shadow p-4">
               <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-100">
                 Product Breakdown
               </h3>

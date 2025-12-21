@@ -140,7 +140,7 @@ const ApprovedOrders = () => {
         )}
       </div>
 
-      <div className="overflow-x-auto w-[340px] md:w-full rounded-lg shadow-2xl bg-white dark:bg-gray-800">
+      <div className="overflow-x-auto w-[340px] approve-container md:w-full rounded-lg shadow-2xl bg-white dark:bg-gray-800">
         <table className="table min-w-[800px]">
           <thead className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <tr>

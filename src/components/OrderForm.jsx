@@ -168,7 +168,7 @@ export default function OrderForm() {
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {/* Email */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Email
             </label>
@@ -181,7 +181,7 @@ export default function OrderForm() {
           </div>
 
           {/* Product Title */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Product Title
             </label>
@@ -194,7 +194,7 @@ export default function OrderForm() {
           </div>
 
           {/* Price */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Payment Info
             </label>
@@ -207,7 +207,7 @@ export default function OrderForm() {
           </div>
 
           {/* First Name */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               First Name
             </label>
@@ -222,7 +222,7 @@ export default function OrderForm() {
           </div>
 
           {/* Last Name */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Last Name
             </label>
@@ -237,7 +237,7 @@ export default function OrderForm() {
           </div>
 
           {/* Quantity */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">Order Quantity</label>
             <input
               type="number"
@@ -266,7 +266,7 @@ export default function OrderForm() {
             </small>
           </div>
           {/* Order Price */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Order Price
             </label>
@@ -279,7 +279,7 @@ export default function OrderForm() {
           </div>
 
           {/* Contact Number */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Contact Number
             </label>
@@ -309,7 +309,7 @@ export default function OrderForm() {
           </div>
 
           {/* Notes */}
-          <div className="col-span-2">
+          <div className="col-span-2 ">
             <label className="block text-blue-400 dark:text-purple-300 font-semibold mb-2">
               Additional Notes / Instructions
             </label>
