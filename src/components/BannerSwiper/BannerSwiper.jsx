@@ -7,18 +7,28 @@ import 'swiper/css/pagination';
 import './styles.css';
 import '../../components/NavbarStyles.css'
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Link } from 'react-router';
 
 export default function BannerSwiper() {
     return (
         <div >
             <Swiper
-                spaceBetween={30}
+
+
                 pagination={{
+                    dynamicBullets: true,
                     clickable: true,
                 }}
-                modules={[Pagination]}
+                autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                }}
+                spaceBetween={30}
+                // pagination={{
+                //     clickable: true,
+                // }}
+                modules={[Pagination, Autoplay, Navigation]}
                 className="mySwiper"
             >
                 {/* Slide 1 */}

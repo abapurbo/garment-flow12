@@ -67,7 +67,6 @@ export default function Footer() {
             <li><Link to="/products" className="hover:text-blue-500 dark:hover:text-[#6FA3FF]">All Products</Link></li>
             <li><Link to="/about" className="hover:text-blue-500 dark:hover:text-[#6FA3FF]">About Us</Link></li>
             <li><Link to="/contact" className="hover:text-blue-500 dark:hover:text-[#6FA3FF]">Contact</Link></li>
-            <li><Link to="/dashboard" className="hover:text-blue-500 dark:hover:text-[#6FA3FF]">Dashboard</Link></li>
           </ul>
         </div>
 
