@@ -73,6 +73,9 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen pt-34 flex flex-col justify-center items-center py-16 px-6 bg-blue-50 dark:bg-gray-900">
+      <title>
+          GarmentFlow | Contact Us
+      </title>
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl w-full shadow-xl rounded-xl overflow-hidden">
         {/* Contact Info */}
         <div className="bg-gradient-to-br from-white to-blue-100 dark:from-gray-800 dark:to-purple-900 p-8">

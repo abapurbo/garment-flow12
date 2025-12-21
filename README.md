@@ -107,7 +107,6 @@ The main goal of GarmentFlow is to simplify the garments production workflow by:
 - Express.js
 - MongoDB
 - Firebase Admin SDK
-- JWT Authentication
 - Cookie Parser
 - CORS
 

@@ -9,6 +9,9 @@ import ProductsSection from './ProductsBrandsSection';
 const Home = () => {
   return (
     <div>
+      <title>
+        GarmentFlow | Home
+      </title>
       <Hero></Hero>
       <OurProducts />
       <HowItWorks />

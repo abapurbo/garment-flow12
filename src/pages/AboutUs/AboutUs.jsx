@@ -22,7 +22,9 @@ const AboutUs = () => {
 
     return (
         <div className="font-urbanist bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-
+            <title>
+                GarmentFlow | About Us
+            </title>
             {/* Hero Section */}
             <section
                 className="relative pt-32 md:pt-36 pb-20 px-6 md:px-12 bg-cover bg-center"

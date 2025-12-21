@@ -35,7 +35,9 @@ const AllProducts = () => {
 
   return (
     <div className="pt-34 pb-16 px-6 md:px-16 bg-gray-50 dark:bg-gray-900 min-h-screen ">
-
+      <title>
+          GarmentFlow | All Products
+      </title>
       <div className='container mx-auto'>
         {/* Section Title */}
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -119,8 +121,8 @@ const AllProducts = () => {
                 key={i}
                 onClick={() => setCurrentPage(i)}
                 className={`px-4 py-2 rounded-lg font-semibold transition ${i === currentPage
-                    ? 'bg-blue-600 text-white dark:bg-purple-600'
-                    : 'bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white dark:bg-purple-50 dark:text-purple-700 dark:hover:bg-purple-600 dark:hover:text-white'
+                  ? 'bg-blue-600 text-white dark:bg-purple-600'
+                  : 'bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white dark:bg-purple-50 dark:text-purple-700 dark:hover:bg-purple-600 dark:hover:text-white'
                   }`}
               >
                 {i + 1}
